@@ -5,13 +5,13 @@ import header from "./AppHeader.module.css"
 
 const BurgerMenuIcon = () => {
     return (
-        <BurgerIcon type={'primary'} className={''}/>
+        <BurgerIcon type={'primary'}/>
     )
 }
 
 const ListMenuIcon = () => {
     return (
-        <ListIcon type={'primary'} className={''}/>
+        <ListIcon type={'primary'}/>
     )
 }
 

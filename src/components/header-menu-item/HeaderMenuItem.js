@@ -7,7 +7,7 @@ const HeaderMenuItem = ({Icon, children, className}) => {
             className={`${className} ${'m-4'}`}
         >
             <Icon/>
-            <p className={header.headerMenuItemText}>
+            <p className={`${header.headerMenuItemText} ${'text text_type_main-default'}`}>
                 {children}
             </p>
         </div>
