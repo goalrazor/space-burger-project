@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    min-height: 88px;
+}
+
+.headerMenu {
+    composes: header;
+    min-height: 0;
+}
+
+.headerMenuItem {
+    composes: header;
+    min-height: 0;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.headerMenuItemText {
+    margin: 0 0 0 8px;
+}
+
+.headerIcon {
+    margin: auto auto auto 20px;
+}
