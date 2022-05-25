@@ -2,20 +2,21 @@ import React from "react";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 
 import style from './BurgerIngredients.module.css'
-import Ingredients from "../inredients/Ingredients";
+import scrollerStyle from '../app/App.module.css'
+import Ingredients, {BUN, MAIN, SAUCE} from "../inredients/Ingredients";
 
 const Tabs = () => {
-    const [current, setCurrent] = React.useState('one')
+    const [current, setCurrent] = React.useState(BUN)
     return (
         <div style={{display: 'flex'}} className={'mb-10'}>
-            <Tab value="one" active={current === 'one'} onClick={setCurrent}>
-                One
+            <Tab value={BUN} active={current === BUN} onClick={setCurrent}>
+                {BUN}
             </Tab>
-            <Tab value="two" active={current === 'two'} onClick={setCurrent}>
-                Two
+            <Tab value={SAUCE} active={current === SAUCE} onClick={setCurrent}>
+                {SAUCE}
             </Tab>
-            <Tab value="three" active={current === 'three'} onClick={setCurrent}>
-                Three
+            <Tab value={MAIN} active={current === MAIN} onClick={setCurrent}>
+                {MAIN}
             </Tab>
         </div>
     )
@@ -28,20 +29,15 @@ const BurgerIngredients = () => {
                 Соберите бургер
             </h1>
             <Tabs/>
-            <div style={{
-                overflowY: 'auto',
-                maxHeight: '716px',
-                scrollbarWidth: '8px',
-                scrollbarColor: '#8585AD',
-            }}>
+            <div className={scrollerStyle.scroller}>
                 <Ingredients>
-                    Булки
+                    {BUN}
                 </Ingredients>
                 <Ingredients>
-                    Соусы
+                    {SAUCE}
                 </Ingredients>
                 <Ingredients>
-                    Начинки
+                    {MAIN}
                 </Ingredients>
             </div>
         </section>

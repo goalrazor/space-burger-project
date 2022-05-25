@@ -2,9 +2,9 @@ import style from "../burger-ingredients/BurgerIngredients.module.css";
 import Card from "../card/Card";
 import data from "../../utils/data";
 
-const BUN = 'Булки'
-const SAUCE = 'Соусы'
-const MAIN = 'Начинки'
+export const BUN = 'Булки'
+export const SAUCE = 'Соусы'
+export const MAIN = 'Начинки'
 
 const getPartOfBurgerData = (children) => {
     let dataString;

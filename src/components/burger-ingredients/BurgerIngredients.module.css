@@ -1,6 +1,6 @@
 .constructorContainer {
     width: 600px;
-    margin: auto;
+    margin: auto auto 40px;
 }
 
 .cardsContainer {

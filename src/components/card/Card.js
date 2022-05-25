@@ -7,9 +7,9 @@ const Card = ({image, price, name}) => {
             <img src={image} alt={name}/>
             <p style={{
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
             }}
-               className={'text text_type_digits-default'}>
+               className={'text text_type_digits-default mt-1 mb-1'}>
                 {price}
                 <CurrencyIcon type="primary"/>
             </p>

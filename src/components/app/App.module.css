@@ -1,0 +1,16 @@
+.scroller {
+    max-height: 716px;
+    overflow-y: auto;
+}
+
+.scroller::-webkit-scrollbar-track {
+    background: #2f2f37;
+}
+
+.scroller::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
