@@ -24,7 +24,7 @@ const Tabs = () => {
 
 const BurgerIngredients = () => {
     return (
-        <section className={style.constructorContainer}>
+        <section className={style.container}>
             <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
                 Соберите бургер
             </h1>

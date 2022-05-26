@@ -1,0 +1,17 @@
+.cardsContainer {
+    margin: 100px 16px 40px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+}
+
+.dragIco {
+    display: block;
+    width: 32px;
+    /*gap: 20px;*/
+    /*height: 80px;*/
+    /*width: 536px;*/
+    /*background: #1C1C21;*/
+    /*border-radius: 88px 88px 40px 40px;*/
+}

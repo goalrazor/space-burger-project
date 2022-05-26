@@ -28,7 +28,6 @@ const AppHeader = () => {
                 <HeaderMenuItem
                     className={header.headerMenuItem}
                     Icon={BurgerMenuIcon}
-                    iconClassName={header.headerIcon}
                 >
                     Конструктор
                 </HeaderMenuItem>
