@@ -1,21 +1,33 @@
 .header {
+    min-height: 88px;
+    background: #1C1C21;
+    margin: auto;
+}
+
+.headerContainer {
     display: flex;
     justify-content: space-between;
     align-content: center;
-    min-height: 88px;
-    background: #1C1C21;
+    justify-items: flex-start;
+    margin: auto;
+    max-width: 1240px;
 }
 
 .headerMenu {
-    composes: header;
+    composes: headerContainer;
     min-height: 0;
+    width: auto;
+    margin: 0;
 }
 
 .headerMenuItem {
-    composes: header;
+    composes: headerContainer;
     min-height: 0;
     justify-content: flex-start;
     align-items: center;
+    margin-right: 48px;
+    justify-self: flex-start;
+    width: auto;
 }
 
 .headerMenuItemText {

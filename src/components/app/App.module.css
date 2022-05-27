@@ -14,3 +14,8 @@
 .scroller::-webkit-scrollbar-thumb {
     background: #8585AD;
 }
+
+.scrollerConstructor {
+    composes: scroller;
+    max-height: 514px;
+}

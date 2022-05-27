@@ -1,9 +1,10 @@
 import style from './Card.module.css'
-import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 
 const Card = ({image, price, name}: { image: string, price: any, name: string }) => {
     return (
         <div className={`${style.dragIco} ${'mt-6 mb-10'}`}>
+            <Counter count={233} size="small"/>
             <img src={image} alt={name}/>
             <p style={{
                 display: 'flex',

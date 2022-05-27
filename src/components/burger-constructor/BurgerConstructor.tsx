@@ -3,6 +3,8 @@ import container from '../burger-ingredients/BurgerIngredients.module.css'
 import style from './BurgerConstructor.module.css'
 import scroller from '../app/App.module.css'
 import {getPartOfBurgerData} from "../inredients/Ingredients";
+import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
+import Total from "../total/Total";
 
 const BurgerConstructor = () => {
     return (
@@ -18,7 +20,7 @@ const BurgerConstructor = () => {
                         image={'https://code.s3.yandex.net/react/code/bun-02.png'}
                     />
                     <div style={{display: 'flex', flexDirection: 'column', gap: '16px', alignContent: 'center'}}
-                         className={scroller.scroller}>
+                         className={scroller.scrollerConstructor}>
                         {getPartOfBurgerData('inner').map(item => {
                             return (<ConstructorListElement
                                     key={item._id}
@@ -38,6 +40,14 @@ const BurgerConstructor = () => {
                     />
                 </div>
             </ul>
+            <div className={style.totalContainer}>
+                {/*Тотал будет собираться из стейта*/}
+                <Total
+                    price={"123456"}/>
+                <Button type="primary" size="large">
+                    Оформить заказ
+                </Button>
+            </div>
         </section>
     )
 }

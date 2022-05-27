@@ -11,42 +11,45 @@ const BurgerMenuIcon = () => {
 
 const ListMenuIcon = () => {
     return (
-        <ListIcon type={'primary'}/>
+        <ListIcon type={'secondary'}/>
     )
 }
 
 const ProfileMenuIcon = () => {
     return (
-        <ProfileIcon type={'primary'}/>
+        <ProfileIcon type={'secondary'}/>
     )
 }
 
 const AppHeader = () => {
     return (
         <header className={header.header}>
-            <nav className={header.headerMenu}>
+            <div
+                className={header.headerContainer}>
+                <nav className={header.headerMenu}>
+                    <HeaderMenuItem
+                        className={`${header.headerMenuItem} `}
+                        Icon={BurgerMenuIcon}
+                    >
+                        Конструктор
+                    </HeaderMenuItem>
+                    <HeaderMenuItem
+                        className={`${header.headerMenuItem} text text_type_main-default text_color_inactive`}
+                        Icon={ListMenuIcon}
+                    >
+                        Лента заказов
+                    </HeaderMenuItem>
+                </nav>
+                <div style={{margin: 'auto'}} className={'m-6'}>
+                    <Logo/>
+                </div>
                 <HeaderMenuItem
-                    className={header.headerMenuItem}
-                    Icon={BurgerMenuIcon}
-                >
-                    Конструктор
-                </HeaderMenuItem>
-                <HeaderMenuItem
-                    className={header.headerMenuItem}
-                    Icon={ListMenuIcon}
+                    className={`${header.headerMenuItem} text text_type_main-default text_color_inactive`}
+                    Icon={ProfileMenuIcon}
                 >
                     Лента заказов
                 </HeaderMenuItem>
-            </nav>
-            <div className={'m-6'}>
-                <Logo/>
             </div>
-            <HeaderMenuItem
-                className={header.headerMenuItem}
-                Icon={ProfileMenuIcon}
-            >
-                Лента заказов
-            </HeaderMenuItem>
         </header>
     );
 }

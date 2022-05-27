@@ -11,7 +11,7 @@ function App() {
             <div style={{
                 display: "flex",
                 gap: '40px',
-                minWidth: '1240px',
+                width: '1240px',
                 margin: 'auto',
 
             }}>
