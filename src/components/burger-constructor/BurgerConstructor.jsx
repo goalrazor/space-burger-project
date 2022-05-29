@@ -2,27 +2,29 @@ import ConstructorListElement from "../constructor-list-element/constructorListE
 import container from '../burger-ingredients/BurgerIngredients.module.css'
 import style from './BurgerConstructor.module.css'
 import scroller from '../app/App.module.css'
-import {getPartOfBurgerData} from "../inredients/Ingredients";
+import {BUN, getPartOfBurgerData} from "../inredients/Ingredients";
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
 
 const BurgerConstructor = ({data}) => {
+
+    const bun = getPartOfBurgerData(BUN, data);
+
     return (
         <section className={container.container}>
             <ul className={style.cardsContainer}>
                 <div className={style.cardsScrollerContainer}>
                     {/*Нет смысла сейчас доставать это из data, т.к. потом будем доставть это из state BurgerIngredients. Захардкодил*/}
                     <ConstructorListElement
-                        key={'"60666c42cc7b410027a1a9b1"'}
+                        key={0}
+                        {...bun[0]}
                         type={'top'}
-                        name={'Краторная булка N-200i'}
-                        price={'1255'}
-                        image={'https://code.s3.yandex.net/react/code/bun-02.png'}
+                        name={`${bun[0].name} (верх)`}
                     />
                     <div className={`${scroller.scrollerConstructor} ${style.cardsScroller}`}>
-                        {getPartOfBurgerData('inner', data).map(item => {
+                        {getPartOfBurgerData('inner', data).map((item, index) => {
                             return (<ConstructorListElement
-                                    key={item._id}
+                                    key={index}
                                     {...item}
                                     type={''}
                                 />
@@ -31,11 +33,10 @@ const BurgerConstructor = ({data}) => {
                     </div>
                     {/*Нет смысла сейчас доставать это из data, т.к. потом будем доставть это из state BurgerIngredients*/}
                     <ConstructorListElement
-                        key={'60666c42cc7b410027a1a9b2'}
+                        key={data.length}
+                        {...bun[0]}
                         type={'bottom'}
-                        name={'Флюоресцентная булка R2-D3'}
-                        price={'988'}
-                        image={'https://code.s3.yandex.net/react/code/bun-01.png'}
+                        name={`${bun[0].name} (низ)`}
                     />
                 </div>
             </ul>
