@@ -1,5 +1,6 @@
 import style from './Card.module.css'
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import {cartPropTypes} from "../../utils/propTypesTemplates";
 
 const Card = ({image, price, name}) => {
     return (
@@ -15,6 +16,10 @@ const Card = ({image, price, name}) => {
             </p>
         </div>
     )
+}
+
+Card.propTypes = {
+    cartPropTypes
 }
 
 export default Card

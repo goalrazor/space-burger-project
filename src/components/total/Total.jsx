@@ -1,5 +1,6 @@
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../card/Card.module.css'
+import PropTypes from "prop-types";
 
 const Total = ({price}) => {
     return (
@@ -10,6 +11,10 @@ const Total = ({price}) => {
             </p>
         </>
     )
+}
+
+Total.propTypes = {
+    price: PropTypes.number
 }
 
 export default Total;

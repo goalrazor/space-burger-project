@@ -5,6 +5,8 @@ import scroller from '../app/App.module.css'
 import {BUN, getPartOfBurgerData} from "../inredients/Ingredients";
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
+import PropTypes from "prop-types";
+import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
 
 const BurgerConstructor = ({data}) => {
 
@@ -43,13 +45,17 @@ const BurgerConstructor = ({data}) => {
             <div className={style.totalContainer}>
                 {/*Тотал будет собираться из стейта*/}
                 <Total
-                    price={"123456"}/>
+                    price={123456}/>
                 <Button type="primary" size="large">
                     Оформить заказ
                 </Button>
             </div>
         </section>
     )
+}
+
+BurgerConstructor.propTypes = {
+    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
 }
 
 export default BurgerConstructor;

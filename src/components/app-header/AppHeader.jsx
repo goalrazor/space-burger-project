@@ -29,13 +29,13 @@ const AppHeader = () => {
                 <nav className={header.headerMenu}>
                     <HeaderMenuItem
                         className={`${header.headerMenuItem} `}
-                        Icon={BurgerMenuIcon}
+                        icon={BurgerMenuIcon}
                     >
                         Конструктор
                     </HeaderMenuItem>
                     <HeaderMenuItem
                         className={`${header.headerMenuItem} text text_type_main-default text_color_inactive`}
-                        Icon={ListMenuIcon}
+                        icon={ListMenuIcon}
                     >
                         Лента заказов
                     </HeaderMenuItem>
@@ -45,7 +45,7 @@ const AppHeader = () => {
                 </div>
                 <HeaderMenuItem
                     className={`${header.headerMenuItem} text text_type_main-default text_color_inactive`}
-                    Icon={ProfileMenuIcon}
+                    icon={ProfileMenuIcon}
                 >
                     Лента заказов
                 </HeaderMenuItem>

@@ -4,6 +4,8 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './BurgerIngredients.module.css'
 import scrollerStyle from '../app/App.module.css'
 import Ingredients, {BUN, MAIN, SAUCE} from "../inredients/Ingredients";
+import PropTypes from "prop-types";
+import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
 
 const Tabs = () => {
     const [current, setCurrent] = React.useState(BUN)
@@ -43,6 +45,10 @@ const BurgerIngredients = ({data}) => {
             </div>
         </section>
     )
+}
+
+BurgerIngredients.propTypes = {
+    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
 }
 
 export default BurgerIngredients

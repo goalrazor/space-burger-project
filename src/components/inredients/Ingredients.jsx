@@ -1,5 +1,7 @@
 import style from "../burger-ingredients/BurgerIngredients.module.css";
 import Card from "../card/Card";
+import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
+import PropTypes from "prop-types";
 
 export const BUN = 'Булки'
 export const SAUCE = 'Соусы'
@@ -61,6 +63,11 @@ const Ingredients = ({children, data}) => {
             </div>
         </>
     )
+}
+
+Ingredients.propTypes = {
+    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
+    children: PropTypes.string
 }
 
 export default Ingredients;
