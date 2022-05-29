@@ -10,7 +10,7 @@ const BurgerConstructor = () => {
     return (
         <section className={container.container}>
             <ul className={style.cardsContainer}>
-                <div style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
+                <div className={style.cardsScrollerContainer}>
                     {/*Нет смысла сейчас доставать это из data, т.к. потом будем доставть это из state BurgerIngredients. Захардкодил*/}
                     <ConstructorListElement
                         key={'"60666c42cc7b410027a1a9b1"'}
@@ -19,8 +19,7 @@ const BurgerConstructor = () => {
                         price={'1255'}
                         image={'https://code.s3.yandex.net/react/code/bun-02.png'}
                     />
-                    <div style={{display: 'flex', flexDirection: 'column', gap: '16px', alignContent: 'center'}}
-                         className={scroller.scrollerConstructor}>
+                    <div className={`${scroller.scrollerConstructor} ${style.cardsScroller}`}>
                         {getPartOfBurgerData('inner').map(item => {
                             return (<ConstructorListElement
                                     key={item._id}

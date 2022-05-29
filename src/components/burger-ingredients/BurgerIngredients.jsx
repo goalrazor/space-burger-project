@@ -7,8 +7,9 @@ import Ingredients, {BUN, MAIN, SAUCE} from "../inredients/Ingredients";
 
 const Tabs = () => {
     const [current, setCurrent] = React.useState(BUN)
+
     return (
-        <div style={{display: 'flex'}} className={'mb-10'}>
+        <div className={`${style.tab} ${'mb-10'}`}>
             <Tab value={BUN} active={current === BUN} onClick={setCurrent}>
                 {BUN}
             </Tab>

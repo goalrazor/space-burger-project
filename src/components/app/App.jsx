@@ -3,18 +3,13 @@ import './App.module.css';
 import AppHeader from "../app-header/AppHeader";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
+import style from './App.module.css'
 
 function App() {
     return (
         <div className="App">
             <AppHeader/>
-            <div style={{
-                display: "flex",
-                gap: '40px',
-                width: '1240px',
-                margin: 'auto',
-
-            }}>
+            <div className={style.content}>
                 <BurgerIngredients/>
                 <BurgerConstructor/>
             </div>

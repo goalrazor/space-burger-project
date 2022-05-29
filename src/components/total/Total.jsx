@@ -1,13 +1,10 @@
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import style from '../card/Card.module.css'
 
-const Total = ({price}: { price: string }) => {
+const Total = ({price}) => {
     return (
         <>
-            <p style={{
-                display: 'flex',
-                justifyContent: 'center',
-            }}
-               className={'text text_type_digits-default mt-1 mb-1'}>
+            <p className={`${style.price} ${'text text_type_digits-default mt-1 mb-1'}`}>
                 {price}
                 <CurrencyIcon type="primary"/>
             </p>

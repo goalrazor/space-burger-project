@@ -19,3 +19,22 @@
     margin-top: 40px;
     margin-bottom: 52px;
 }
+
+.cardsScrollerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cardsScroller {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-content: center
+}
+
+.constructorListContainer {
+    display: flex;
+    align-items: center;
+    height: 80px;
+}

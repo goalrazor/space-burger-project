@@ -1,3 +1,10 @@
+.content {
+    display: flex;
+    gap: 40px;
+    width: 1240px;
+    margin: auto;
+}
+
 .scroller {
     max-height: 716px;
     overflow-y: auto;

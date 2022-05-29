@@ -40,7 +40,7 @@ const AppHeader = () => {
                         Лента заказов
                     </HeaderMenuItem>
                 </nav>
-                <div style={{margin: 'auto'}} className={'m-6'}>
+                <div className={`${header.logo} ${'m-6'}`}>
                     <Logo/>
                 </div>
                 <HeaderMenuItem

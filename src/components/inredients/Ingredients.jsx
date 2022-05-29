@@ -6,8 +6,8 @@ export const BUN = 'Булки'
 export const SAUCE = 'Соусы'
 export const MAIN = 'Начинки'
 
-const switchDataString = (key: string) => {
-    let dataString: string;
+const switchDataString = (key) => {
+    let dataString;
     switch (key) {
         case BUN:
             dataString = 'bun';
@@ -25,14 +25,14 @@ const switchDataString = (key: string) => {
     return dataString;
 }
 
-const filterBurgerData = (dataString: string) => {
+const filterBurgerData = (dataString) => {
     return data.filter(item => {
         return item.type === dataString
     });
 
 }
 
-export const getPartOfBurgerData = (children: any) => {
+export const getPartOfBurgerData = (children) => {
     const dataString = switchDataString(children);
     let partOfBurger;
     if (dataString !== 'inner') {
@@ -44,7 +44,7 @@ export const getPartOfBurgerData = (children: any) => {
     }
 }
 
-const Ingredients = ({children}: { children: any }) => {
+const Ingredients = ({children}) => {
     return (
         <>
             <h2 className={'text text_type_main-medium'}>

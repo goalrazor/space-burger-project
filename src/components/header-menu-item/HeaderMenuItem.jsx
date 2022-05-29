@@ -1,7 +1,7 @@
 import React from "react";
 import header from './../app-header/AppHeader.module.css'
 
-const HeaderMenuItem = ({Icon, className, children}: { Icon: any, className: string, children: string }) => {
+const HeaderMenuItem = ({Icon, className, children}) => {
     return (
         <div
             className={`${className} ${'m-4'}`}
