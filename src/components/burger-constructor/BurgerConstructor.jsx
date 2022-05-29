@@ -6,7 +6,7 @@ import {getPartOfBurgerData} from "../inredients/Ingredients";
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
 
-const BurgerConstructor = () => {
+const BurgerConstructor = ({data}) => {
     return (
         <section className={container.container}>
             <ul className={style.cardsContainer}>
@@ -20,7 +20,7 @@ const BurgerConstructor = () => {
                         image={'https://code.s3.yandex.net/react/code/bun-02.png'}
                     />
                     <div className={`${scroller.scrollerConstructor} ${style.cardsScroller}`}>
-                        {getPartOfBurgerData('inner').map(item => {
+                        {getPartOfBurgerData('inner', data).map(item => {
                             return (<ConstructorListElement
                                     key={item._id}
                                     {...item}

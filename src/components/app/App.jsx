@@ -4,14 +4,15 @@ import AppHeader from "../app-header/AppHeader";
 import BurgerIngredients from "../burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../burger-constructor/BurgerConstructor";
 import style from './App.module.css'
+import data from '../../utils/data'
 
 function App() {
     return (
         <div className="App">
             <AppHeader/>
             <div className={style.content}>
-                <BurgerIngredients/>
-                <BurgerConstructor/>
+                <BurgerIngredients data={data}/>
+                <BurgerConstructor data={data}/>
             </div>
         </div>
     );

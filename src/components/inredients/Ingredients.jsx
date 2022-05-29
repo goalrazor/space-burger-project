@@ -1,6 +1,5 @@
 import style from "../burger-ingredients/BurgerIngredients.module.css";
 import Card from "../card/Card";
-import data from "../../utils/data";
 
 export const BUN = 'Булки'
 export const SAUCE = 'Соусы'
@@ -25,33 +24,34 @@ const switchDataString = (key) => {
     return dataString;
 }
 
-const filterBurgerData = (dataString) => {
+const filterBurgerData = (dataString, data) => {
     return data.filter(item => {
         return item.type === dataString
     });
 
 }
 
-export const getPartOfBurgerData = (children) => {
+export const getPartOfBurgerData = (children, data) => {
     const dataString = switchDataString(children);
     let partOfBurger;
     if (dataString !== 'inner') {
-        partOfBurger = (filterBurgerData(dataString));
+        partOfBurger = (filterBurgerData(dataString, data));
         return partOfBurger;
     } else {
-        partOfBurger = filterBurgerData(switchDataString(MAIN)).concat(filterBurgerData(switchDataString(SAUCE)));
+        partOfBurger = filterBurgerData(switchDataString(MAIN), data)
+            .concat(filterBurgerData(switchDataString(SAUCE), data));
         return partOfBurger;
     }
 }
 
-const Ingredients = ({children}) => {
+const Ingredients = ({children, data}) => {
     return (
         <>
             <h2 className={'text text_type_main-medium'}>
                 {children}
             </h2>
             <div className={style.cardsContainer}>
-                {getPartOfBurgerData(children).map(item => {
+                {getPartOfBurgerData(children, data).map(item => {
                     return (<Card
                             key={item._id}
                             {...item}

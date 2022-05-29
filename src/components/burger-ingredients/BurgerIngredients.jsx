@@ -23,7 +23,7 @@ const Tabs = () => {
     )
 }
 
-const BurgerIngredients = () => {
+const BurgerIngredients = ({data}) => {
     return (
         <section className={style.container}>
             <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
@@ -31,13 +31,13 @@ const BurgerIngredients = () => {
             </h1>
             <Tabs/>
             <div className={scrollerStyle.scroller}>
-                <Ingredients>
+                <Ingredients data={data}>
                     {BUN}
                 </Ingredients>
-                <Ingredients>
+                <Ingredients data={data}>
                     {SAUCE}
                 </Ingredients>
-                <Ingredients>
+                <Ingredients data={data}>
                     {MAIN}
                 </Ingredients>
             </div>
