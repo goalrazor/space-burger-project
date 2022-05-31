@@ -25,7 +25,7 @@ const Tabs = () => {
     )
 }
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = ({data, setModalShow}) => {
     return (
         <section className={style.container}>
             <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
@@ -33,13 +33,13 @@ const BurgerIngredients = ({data}) => {
             </h1>
             <Tabs/>
             <div className={scrollerStyle.scroller}>
-                <Ingredients data={data}>
+                <Ingredients data={data} setModalShow={setModalShow}>
                     {BUN}
                 </Ingredients>
-                <Ingredients data={data}>
+                <Ingredients data={data} setModalShow={setModalShow}>
                     {SAUCE}
                 </Ingredients>
-                <Ingredients data={data}>
+                <Ingredients data={data} setModalShow={setModalShow}>
                     {MAIN}
                 </Ingredients>
             </div>

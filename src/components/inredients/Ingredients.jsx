@@ -46,7 +46,7 @@ export const getPartOfBurgerData = (children, data) => {
     }
 }
 
-const Ingredients = ({children, data}) => {
+const Ingredients = ({children, data, setModalShow}) => {
     return (
         <>
             <h2 className={'text text_type_main-medium'}>
@@ -56,6 +56,7 @@ const Ingredients = ({children, data}) => {
                 {getPartOfBurgerData(children, data).map(item => {
                     return (<Card
                             key={item._id}
+                            setModalShow={setModalShow}
                             {...item}
                         />
                     )

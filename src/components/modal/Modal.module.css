@@ -1,0 +1,29 @@
+.modalsContainer {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: #1C1C21;
+    width: 720px;
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    box-shadow: 0 24px 32px rgba(0, 0, 0, 0.04), 0 16px 24px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+    z-index: 2;
+}
+
+.closeButton {
+    position: absolute;
+    top: 50px;
+    right: 40px;
+    transition: opacity .5s;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+
+.closeButton:hover {
+    opacity: .6;
+}
