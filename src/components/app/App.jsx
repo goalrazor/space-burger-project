@@ -7,23 +7,28 @@ import style from './App.module.css'
 import api from "../../api/Api";
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
+import OrderDetails from "../order-details/OrderDetails";
 
 function App() {
 
 
     const [ingredients, setIngredients] = useState(null)
-    const [modalShow, setModalShow] = useState({show: false})
+    const [ingredientsDetailsModalShow, setIngredientsDetailsModalShow] = useState({show: false})
+    const [orderDetailsModalShow, setOrderDetailsModalShow] = useState({show: false})
 
     useEffect(() => {
         handleRequest();
     }, [])
 
     const closeAllModals = () => {
-        setModalShow({
-            ...modalShow,
+        setIngredientsDetailsModalShow({
+            ...ingredientsDetailsModalShow,
             show: false
         });
-        console.log(modalShow)
+        setOrderDetailsModalShow({
+            ...orderDetailsModalShow,
+            show: false
+        });
         // тут же закрываем и другие модалки
     };
 
@@ -42,20 +47,29 @@ function App() {
     console.log(ingredients)
     return (
         <div className="App">
-            {modalShow.show &&
+            {ingredientsDetailsModalShow.show &&
                 <Modal
                     title="Детали ингредиента"
                     onOverlayClick={closeAllModals}
                     onEscKeydown={handleEscKeydown}
                 >
-                    <IngredientDetails props={modalShow}/>
+                    <IngredientDetails props={ingredientsDetailsModalShow}/>
+                </Modal>
+            }
+            {orderDetailsModalShow.show &&
+                <Modal
+                    title=""
+                    onOverlayClick={closeAllModals}
+                    onEscKeydown={handleEscKeydown}
+                >
+                    <OrderDetails props={orderDetailsModalShow}/>
                 </Modal>
             }
             <AppHeader/>
             <div
                 className={style.content}>
-                {ingredients && <BurgerIngredients data={ingredients} setModalShow={setModalShow}/>}
-                {ingredients && <BurgerConstructor data={ingredients}/>}
+                {ingredients && <BurgerIngredients data={ingredients} setModalShow={setIngredientsDetailsModalShow}/>}
+                {ingredients && <BurgerConstructor data={ingredients} setModalShow={setOrderDetailsModalShow}/>}
             </div>
         </div>
     );
