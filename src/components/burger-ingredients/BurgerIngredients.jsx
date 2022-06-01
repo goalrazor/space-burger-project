@@ -8,17 +8,31 @@ import PropTypes from "prop-types";
 import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
 
 const Tabs = () => {
-    const [current, setCurrent] = React.useState(BUN)
+    const [current, setCurrent] = React.useState(BUN);
+
+    const goToViolation = (id) => {
+        const violation = document.querySelector(`#` + id);
+        console.log(violation)
+        violation.scrollIntoView({
+            behavior: "smooth"
+        });
+    };
 
     return (
         <div className={`${style.tab} ${'mb-10'}`}>
-            <Tab value={BUN} active={current === BUN} onClick={setCurrent}>
+            <Tab value={BUN} active={current === BUN} onClick={() => {
+                goToViolation(BUN)
+            }}>
                 {BUN}
             </Tab>
-            <Tab value={SAUCE} active={current === SAUCE} onClick={setCurrent}>
+            <Tab value={SAUCE} active={current === SAUCE} onClick={() => {
+                goToViolation(SAUCE)
+            }}>
                 {SAUCE}
             </Tab>
-            <Tab value={MAIN} active={current === MAIN} onClick={setCurrent}>
+            <Tab value={MAIN} active={current === MAIN} onClick={() => {
+                goToViolation(MAIN)
+            }}>
                 {MAIN}
             </Tab>
         </div>

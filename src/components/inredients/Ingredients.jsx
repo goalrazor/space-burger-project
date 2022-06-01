@@ -2,6 +2,7 @@ import style from "../burger-ingredients/BurgerIngredients.module.css";
 import Card from "../card/Card";
 import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
 import PropTypes from "prop-types";
+import React from "react";
 
 export const BUN = 'Булки'
 export const SAUCE = 'Соусы'
@@ -49,7 +50,7 @@ export const getPartOfBurgerData = (children, data) => {
 const Ingredients = ({children, data, setModalShow}) => {
     return (
         <>
-            <h2 className={'text text_type_main-medium'}>
+            <h2 id={children} className={'text text_type_main-medium'}>
                 {children}
             </h2>
             <div className={style.cardsContainer}>
