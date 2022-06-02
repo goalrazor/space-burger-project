@@ -1,0 +1,14 @@
+.container {
+    width: 600px;
+    margin: 0 auto 40px;
+}
+
+.cardsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.tab {
+    display: flex;
+}

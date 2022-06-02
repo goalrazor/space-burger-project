@@ -1,0 +1,40 @@
+.cardsContainer {
+    margin: 100px 16px 40px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+}
+
+.dragIco {
+    display: block;
+    width: 32px;
+}
+
+.totalContainer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 40px;
+    margin-top: 40px;
+    margin-bottom: 52px;
+}
+
+.cardsScrollerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cardsScroller {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-content: center
+}
+
+.constructorListContainer {
+    display: flex;
+    align-items: center;
+    height: 80px;
+}

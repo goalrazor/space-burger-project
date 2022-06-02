@@ -1,0 +1,17 @@
+.dragIco {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    width: 272px;
+    position: relative;
+}
+
+.price {
+    display: flex;
+    justify-content: center;
+}
+
+.name {
+    margin: auto;
+    text-align: center;
+}
