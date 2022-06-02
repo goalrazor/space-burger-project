@@ -3,12 +3,11 @@ import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/ModalOverlay";
 import modalStyles from './Modal.module.css'
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from "prop-types";
 
 const modalsContainer = document.querySelector('#modals');
 
 const Modal = ({title, onOverlayClick, onEscKeydown, children}) => {
-    // При монтировании компонента (открытии модалки) навешиваем на document обработчик Esc
-    // При демонтаже компонента (закрытии модалки) удаляем обработчик
     useEffect(() => {
         document.addEventListener('keydown', onEscKeydown);
 
@@ -17,7 +16,6 @@ const Modal = ({title, onOverlayClick, onEscKeydown, children}) => {
         };
     }, []);
 
-    // Рендерим модалку в соответствующий DOM-элемент
     return ReactDOM.createPortal(
         (
             <>
@@ -34,5 +32,12 @@ const Modal = ({title, onOverlayClick, onEscKeydown, children}) => {
         modalsContainer
     );
 };
+
+Modal.propTypes = {
+    title: PropTypes.string,
+    onOverlayClick: PropTypes.func.isRequired,
+    onEskKeydown: PropTypes.func.isRequired,
+    children: PropTypes.element.isRequired
+}
 
 export default Modal;

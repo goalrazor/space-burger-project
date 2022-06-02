@@ -53,7 +53,8 @@ const BurgerConstructor = ({data, setModalShow}) => {
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
+    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
+    setModalShow: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

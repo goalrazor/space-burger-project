@@ -1,6 +1,7 @@
 import style from './Card.module.css'
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import {cartPropTypes} from "../../utils/propTypesTemplates";
+import PropTypes from "prop-types";
 
 const Card = (props) => {
 
@@ -28,7 +29,8 @@ const Card = (props) => {
 }
 
 Card.propTypes = {
-    cartPropTypes
+    props: cartPropTypes,
+    setModalShow: PropTypes.func.isRequired
 }
 
 export default Card

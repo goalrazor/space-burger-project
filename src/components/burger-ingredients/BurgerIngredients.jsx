@@ -12,10 +12,10 @@ const Tabs = () => {
 
     const goToViolation = (id) => {
         const violation = document.querySelector(`#` + id);
-        console.log(violation)
         violation.scrollIntoView({
             behavior: "smooth"
         });
+        setCurrent(id);
     };
 
     return (
@@ -62,7 +62,8 @@ const BurgerIngredients = ({data, setModalShow}) => {
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
+    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
+    setModalShow: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients

@@ -1,4 +1,6 @@
 import ingredientDetailsStyle from './IngredientDetails.module.css'
+import Ingredients from "../inredients/Ingredients";
+import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
 
 const IngredientDetails = (props) => {
     const statsTextStyle = 'text text_type_main-default text_color_inactive';
@@ -49,6 +51,10 @@ const IngredientDetails = (props) => {
             </ul>
         </div>
     )
+}
+
+Ingredients.PropTypes = {
+    props: ingredientsPropTypes.isRequired
 }
 
 export default IngredientDetails;

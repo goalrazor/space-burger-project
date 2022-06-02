@@ -44,7 +44,6 @@ function App() {
             })
     }
 
-    console.log(ingredients)
     return (
         <div className="App">
             {ingredientsDetailsModalShow.show &&

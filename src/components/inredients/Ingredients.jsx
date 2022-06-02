@@ -69,7 +69,8 @@ const Ingredients = ({children, data, setModalShow}) => {
 
 Ingredients.propTypes = {
     data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
-    children: PropTypes.string
+    children: PropTypes.string,
+    setModalShow: PropTypes.func
 }
 
 export default Ingredients;
