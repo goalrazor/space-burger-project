@@ -21,4 +21,5 @@ class API {
 
 const api = new API(ingredientsUrl);
 
+
 export default api;
