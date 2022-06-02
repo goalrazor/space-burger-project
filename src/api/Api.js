@@ -7,7 +7,15 @@ class API {
 
     getIngredients() {
         return fetch(`${this._url}`)
+            .then(this._checkResponse)
             .then(response => response.json())
+    };
+
+    _checkResponse(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
     }
 }
 

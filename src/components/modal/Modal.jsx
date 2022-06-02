@@ -36,7 +36,7 @@ const Modal = ({title, onOverlayClick, onEscKeydown, children}) => {
 Modal.propTypes = {
     title: PropTypes.string,
     onOverlayClick: PropTypes.func.isRequired,
-    onEskKeydown: PropTypes.func.isRequired,
+    onEskKeydown: PropTypes.func,
     children: PropTypes.element.isRequired
 }
 

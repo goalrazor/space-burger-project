@@ -29,7 +29,6 @@ function App() {
             ...orderDetailsModalShow,
             show: false
         });
-        // тут же закрываем и другие модалки
     };
 
     const handleEscKeydown = (e) => {
@@ -42,6 +41,7 @@ function App() {
             .then(response => {
                 setIngredients(response.data)
             })
+            .catch(error => console.error('Ошибка при получении ингредиентов с сервера', error))
     }
 
     return (
