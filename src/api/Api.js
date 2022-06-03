@@ -8,7 +8,6 @@ class API {
     getIngredients() {
         return fetch(`${this._url}`)
             .then(this._checkResponse)
-            .then(response => response.json())
     };
 
     _checkResponse(res) {
