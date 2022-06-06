@@ -8,7 +8,7 @@ import Total from "../total/Total";
 import PropTypes from "prop-types";
 import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
 
-const BurgerConstructor = ({data}) => {
+const BurgerConstructor = ({data, setModalShow}) => {
 
     const bun = getPartOfBurgerData(BUN, data);
 
@@ -16,7 +16,6 @@ const BurgerConstructor = ({data}) => {
         <section className={container.container}>
             <ul className={style.cardsContainer}>
                 <div className={style.cardsScrollerContainer}>
-                    {/*Нет смысла сейчас доставать это из data, т.к. потом будем доставть это из state BurgerIngredients. Захардкодил*/}
                     <ConstructorListElement
                         key={0}
                         {...bun[0]}
@@ -33,7 +32,6 @@ const BurgerConstructor = ({data}) => {
                             )
                         })}
                     </div>
-                    {/*Нет смысла сейчас доставать это из data, т.к. потом будем доставть это из state BurgerIngredients*/}
                     <ConstructorListElement
                         key={data.length}
                         {...bun[0]}
@@ -43,19 +41,20 @@ const BurgerConstructor = ({data}) => {
                 </div>
             </ul>
             <div className={style.totalContainer}>
-                {/*Тотал будет собираться из стейта*/}
-                <Total
-                    price={123456}/>
-                <Button type="primary" size="large">
-                    Оформить заказ
-                </Button>
+                <Total price={123456}/>
+                <div onClick={() => setModalShow({show: true})}>
+                    <Button type="primary" size="large">
+                        Оформить заказ
+                    </Button>
+                </div>
             </div>
         </section>
     )
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
+    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
+    setModalShow: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;

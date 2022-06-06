@@ -8,24 +8,38 @@ import PropTypes from "prop-types";
 import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
 
 const Tabs = () => {
-    const [current, setCurrent] = React.useState(BUN)
+    const [current, setCurrent] = React.useState(BUN);
+
+    const goToViolation = (id) => {
+        const violation = document.querySelector(`#` + id);
+        violation.scrollIntoView({
+            behavior: "smooth"
+        });
+        setCurrent(id);
+    };
 
     return (
         <div className={`${style.tab} ${'mb-10'}`}>
-            <Tab value={BUN} active={current === BUN} onClick={setCurrent}>
+            <Tab value={BUN} active={current === BUN} onClick={() => {
+                goToViolation(BUN)
+            }}>
                 {BUN}
             </Tab>
-            <Tab value={SAUCE} active={current === SAUCE} onClick={setCurrent}>
+            <Tab value={SAUCE} active={current === SAUCE} onClick={() => {
+                goToViolation(SAUCE)
+            }}>
                 {SAUCE}
             </Tab>
-            <Tab value={MAIN} active={current === MAIN} onClick={setCurrent}>
+            <Tab value={MAIN} active={current === MAIN} onClick={() => {
+                goToViolation(MAIN)
+            }}>
                 {MAIN}
             </Tab>
         </div>
     )
 }
 
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = ({data, setModalShow}) => {
     return (
         <section className={style.container}>
             <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
@@ -33,13 +47,13 @@ const BurgerIngredients = ({data}) => {
             </h1>
             <Tabs/>
             <div className={scrollerStyle.scroller}>
-                <Ingredients data={data}>
+                <Ingredients data={data} setModalShow={setModalShow}>
                     {BUN}
                 </Ingredients>
-                <Ingredients data={data}>
+                <Ingredients data={data} setModalShow={setModalShow}>
                     {SAUCE}
                 </Ingredients>
-                <Ingredients data={data}>
+                <Ingredients data={data} setModalShow={setModalShow}>
                     {MAIN}
                 </Ingredients>
             </div>
@@ -48,7 +62,8 @@ const BurgerIngredients = ({data}) => {
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
+    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
+    setModalShow: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients

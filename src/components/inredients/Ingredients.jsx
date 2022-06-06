@@ -2,6 +2,7 @@ import style from "../burger-ingredients/BurgerIngredients.module.css";
 import Card from "../card/Card";
 import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
 import PropTypes from "prop-types";
+import React from "react";
 
 export const BUN = 'Булки'
 export const SAUCE = 'Соусы'
@@ -46,16 +47,17 @@ export const getPartOfBurgerData = (children, data) => {
     }
 }
 
-const Ingredients = ({children, data}) => {
+const Ingredients = ({children, data, setModalShow}) => {
     return (
         <>
-            <h2 className={'text text_type_main-medium'}>
+            <h2 id={children} className={'text text_type_main-medium'}>
                 {children}
             </h2>
             <div className={style.cardsContainer}>
                 {getPartOfBurgerData(children, data).map(item => {
                     return (<Card
                             key={item._id}
+                            setModalShow={setModalShow}
                             {...item}
                         />
                     )
@@ -67,7 +69,8 @@ const Ingredients = ({children, data}) => {
 
 Ingredients.propTypes = {
     data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
-    children: PropTypes.string
+    children: PropTypes.string,
+    setModalShow: PropTypes.func
 }
 
 export default Ingredients;
