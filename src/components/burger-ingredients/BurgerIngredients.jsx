@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 
 import style from './BurgerIngredients.module.css'
 import scrollerStyle from '../app/App.module.css'
 import Ingredients, {BUN, MAIN, SAUCE} from "../inredients/Ingredients";
 import PropTypes from "prop-types";
-import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
+import BurgerIngredientsContext from "../../context/burger-ingredients-context";
 
 const Tabs = () => {
     const [current, setCurrent] = React.useState(BUN);
@@ -39,7 +39,8 @@ const Tabs = () => {
     )
 }
 
-const BurgerIngredients = ({data, setModalShow}) => {
+const BurgerIngredients = ({setModalShow}) => {
+    const data = useContext(BurgerIngredientsContext);
     return (
         <section className={style.container}>
             <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
@@ -62,7 +63,6 @@ const BurgerIngredients = ({data, setModalShow}) => {
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
     setModalShow: PropTypes.func.isRequired
 }
 

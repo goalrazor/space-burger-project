@@ -6,11 +6,13 @@ import {BUN, getPartOfBurgerData} from "../inredients/Ingredients";
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
 import PropTypes from "prop-types";
-import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
+import {useContext, useState} from "react";
+import BurgerIngredientsContext from "../../context/burger-ingredients-context";
 
-const BurgerConstructor = ({data, setModalShow}) => {
-
+const BurgerConstructor = ({setModalShow}) => {
+    const data = useContext(BurgerIngredientsContext);
     const bun = getPartOfBurgerData(BUN, data);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     return (
         <section className={container.container}>
@@ -41,7 +43,7 @@ const BurgerConstructor = ({data, setModalShow}) => {
                 </div>
             </ul>
             <div className={style.totalContainer}>
-                <Total price={123456}/>
+                <Total price={totalPrice}/>
                 <div onClick={() => setModalShow({show: true})}>
                     <Button type="primary" size="large">
                         Оформить заказ
@@ -53,7 +55,6 @@ const BurgerConstructor = ({data, setModalShow}) => {
 }
 
 BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
     setModalShow: PropTypes.func.isRequired
 }
 
