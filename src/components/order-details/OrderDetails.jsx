@@ -1,5 +1,6 @@
 import orderDetailsStyle from './OrderDetails.module.css'
 import doneImage from '../../images/done.svg'
+import {orderDetailsPropTypes} from "../../utils/propTypesTemplates";
 
 const OrderDetails = (props) => {
     return (
@@ -12,6 +13,10 @@ const OrderDetails = (props) => {
                 орбитальной станции</p>
         </div>
     )
+}
+
+OrderDetails.propTypes = {
+    orderDetailsPropTypes
 }
 
 export default OrderDetails;

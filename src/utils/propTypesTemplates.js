@@ -20,3 +20,9 @@ export const cartPropTypes = PropTypes.shape({
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired
 });
+
+export const orderDetailsPropTypes = PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    order: PropTypes.object.isRequired,
+    success: PropTypes.bool.isRequired
+});
