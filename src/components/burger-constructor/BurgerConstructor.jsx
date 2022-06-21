@@ -8,11 +8,29 @@ import Total from "../total/Total";
 import PropTypes from "prop-types";
 import {useContext, useState} from "react";
 import BurgerIngredientsContext from "../../context/burger-ingredients-context";
+import api from "../../api/Api";
 
 const BurgerConstructor = ({setModalShow}) => {
     const data = useContext(BurgerIngredientsContext);
     const bun = getPartOfBurgerData(BUN, data);
     const [totalPrice, setTotalPrice] = useState(0);
+
+    const submitOrderOnClickHandler = () => {
+        api
+            .saveOrder({
+                ingredients: data.map((item) => {
+                    return item._id
+                })
+            })
+            .then(response => {
+                setModalShow({
+                        ...response,
+                        show: true
+                    }
+                );
+            })
+            .catch(error => console.error('Ошибка при отправки заказа на сервер', error))
+    }
 
     return (
         <section className={container.container}>
@@ -44,7 +62,7 @@ const BurgerConstructor = ({setModalShow}) => {
             </ul>
             <div className={style.totalContainer}>
                 <Total price={totalPrice}/>
-                <div onClick={() => setModalShow({show: true})}>
+                <div onClick={submitOrderOnClickHandler}>
                     <Button type="primary" size="large">
                         Оформить заказ
                     </Button>
