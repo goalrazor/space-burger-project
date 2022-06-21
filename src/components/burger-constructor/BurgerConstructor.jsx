@@ -6,14 +6,29 @@ import {BUN, getPartOfBurgerData} from "../inredients/Ingredients";
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
 import PropTypes from "prop-types";
-import {useContext, useState} from "react";
+import {useContext, useReducer} from "react";
 import BurgerIngredientsContext from "../../context/burger-ingredients-context";
 import api from "../../api/Api";
+import PriceContext from "../../context/price-context";
+
+const initialPriceState = {price: 0};
 
 const BurgerConstructor = ({setModalShow}) => {
     const data = useContext(BurgerIngredientsContext);
     const bun = getPartOfBurgerData(BUN, data);
-    const [totalPrice, setTotalPrice] = useState(0);
+
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'set':
+                return {price: action.payload};
+            case 'reset':
+                return initialPriceState;
+            default:
+                throw new Error();
+        }
+    }
+
+    const [totalPriceState, totalPriceDispatch] = useReducer(reducer, initialPriceState, undefined);
 
     const submitOrderOnClickHandler = () => {
         api
@@ -33,42 +48,45 @@ const BurgerConstructor = ({setModalShow}) => {
     }
 
     return (
-        <section className={container.container}>
-            <ul className={style.cardsContainer}>
-                <div className={style.cardsScrollerContainer}>
-                    <ConstructorListElement
-                        key={0}
-                        {...bun[0]}
-                        type={'top'}
-                        name={`${bun[0].name} (верх)`}
-                    />
-                    <div className={`${scroller.scrollerConstructor} ${style.cardsScroller}`}>
-                        {getPartOfBurgerData('inner', data).map((item, index) => {
-                            return (<ConstructorListElement
-                                    key={index}
-                                    {...item}
-                                    type={''}
-                                />
-                            )
-                        })}
+        <PriceContext.Provider value={{totalPriceState, totalPriceDispatch}}>
+            <section className={container.container}>
+                <ul className={style.cardsContainer}>
+                    <div className={style.cardsScrollerContainer}>
+                        <ConstructorListElement
+                            key={0}
+                            {...bun[0]}
+                            type={'top'}
+                            name={`${bun[0].name} (верх)`}
+                        />
+                        <div className={`${scroller.scrollerConstructor} ${style.cardsScroller}`}>
+                            {getPartOfBurgerData('inner', data).map((item, index) => {
+                                return (<ConstructorListElement
+                                        key={index}
+                                        {...item}
+                                        type={''}
+                                    />
+                                )
+                            })}
+                        </div>
+                        <ConstructorListElement
+                            key={data.length}
+                            {...bun[0]}
+                            type={'bottom'}
+                            name={`${bun[0].name} (низ)`}
+                        />
                     </div>
-                    <ConstructorListElement
-                        key={data.length}
-                        {...bun[0]}
-                        type={'bottom'}
-                        name={`${bun[0].name} (низ)`}
-                    />
+                </ul>
+
+                <div className={style.totalContainer}>
+                    <Total price={totalPriceState.price}/>
+                    <div onClick={submitOrderOnClickHandler}>
+                        <Button type="primary" size="large">
+                            Оформить заказ
+                        </Button>
+                    </div>
                 </div>
-            </ul>
-            <div className={style.totalContainer}>
-                <Total price={totalPrice}/>
-                <div onClick={submitOrderOnClickHandler}>
-                    <Button type="primary" size="large">
-                        Оформить заказ
-                    </Button>
-                </div>
-            </div>
-        </section>
+            </section>
+        </PriceContext.Provider>
     )
 }
 
