@@ -5,7 +5,7 @@ import style from './BurgerIngredients.module.css'
 import scrollerStyle from '../app/App.module.css'
 import Ingredients, {BUN, MAIN, SAUCE} from "../inredients/Ingredients";
 import PropTypes from "prop-types";
-import BurgerIngredientsContext from "../../context/burger-ingredients-context";
+import BurgerIngredientsContext from "../../services/context/burger-ingredients-context";
 
 const Tabs = () => {
     const [current, setCurrent] = React.useState(BUN);
@@ -42,12 +42,13 @@ const Tabs = () => {
 const BurgerIngredients = ({setModalShow}) => {
     const data = useContext(BurgerIngredientsContext);
     return (
+
         <section className={style.container}>
             <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
                 Соберите бургер
             </h1>
             <Tabs/>
-            <div className={scrollerStyle.scroller}>
+            {data && <div className={scrollerStyle.scroller}>
                 <Ingredients data={data} setModalShow={setModalShow}>
                     {BUN}
                 </Ingredients>
@@ -57,7 +58,7 @@ const BurgerIngredients = ({setModalShow}) => {
                 <Ingredients data={data} setModalShow={setModalShow}>
                     {MAIN}
                 </Ingredients>
-            </div>
+            </div>}
         </section>
     )
 }

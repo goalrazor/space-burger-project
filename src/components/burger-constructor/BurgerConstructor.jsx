@@ -7,27 +7,26 @@ import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
 import PropTypes from "prop-types";
 import {useContext, useReducer} from "react";
-import BurgerIngredientsContext from "../../context/burger-ingredients-context";
+import BurgerIngredientsContext from "../../services/context/burger-ingredients-context";
 import api from "../../api/Api";
-import PriceContext from "../../context/price-context";
+import PriceContext from "../../services/context/price-context";
 
 const initialPriceState = {price: 0};
 
+function reducer(state, action) {
+    switch (action.type) {
+        case 'set':
+            return {price: action.payload};
+        case 'reset':
+            return initialPriceState;
+        default:
+            throw new Error();
+    }
+}
+
 const BurgerConstructor = ({setModalShow}) => {
     const data = useContext(BurgerIngredientsContext);
-    const bun = getPartOfBurgerData(BUN, data);
-
-    function reducer(state, action) {
-        switch (action.type) {
-            case 'set':
-                return {price: action.payload};
-            case 'reset':
-                return initialPriceState;
-            default:
-                throw new Error();
-        }
-    }
-
+    const bun = data ? getPartOfBurgerData(BUN, data) : null;
     const [totalPriceState, totalPriceDispatch] = useReducer(reducer, initialPriceState, undefined);
 
     const submitOrderOnClickHandler = () => {
@@ -48,10 +47,10 @@ const BurgerConstructor = ({setModalShow}) => {
     }
 
     return (
-        <PriceContext.Provider value={{totalPriceState, totalPriceDispatch}}>
-            <section className={container.container}>
+        <section className={container.container}>
+            <PriceContext.Provider value={{totalPriceState, totalPriceDispatch}}>
                 <ul className={style.cardsContainer}>
-                    <div className={style.cardsScrollerContainer}>
+                    {data && <div className={style.cardsScrollerContainer}>
                         <ConstructorListElement
                             key={0}
                             {...bun[0]}
@@ -74,19 +73,18 @@ const BurgerConstructor = ({setModalShow}) => {
                             type={'bottom'}
                             name={`${bun[0].name} (низ)`}
                         />
-                    </div>
+                    </div>}
                 </ul>
-
-                <div className={style.totalContainer}>
-                    <Total price={totalPriceState.price}/>
-                    <div onClick={submitOrderOnClickHandler}>
-                        <Button type="primary" size="large">
-                            Оформить заказ
-                        </Button>
-                    </div>
+            </PriceContext.Provider>
+            <div className={style.totalContainer}>
+                <Total price={totalPriceState.price}/>
+                <div onClick={submitOrderOnClickHandler}>
+                    <Button type="primary" size="large">
+                        Оформить заказ
+                    </Button>
                 </div>
-            </section>
-        </PriceContext.Provider>
+            </div>
+        </section>
     )
 }
 

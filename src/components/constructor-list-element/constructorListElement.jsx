@@ -3,7 +3,7 @@ import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger
 import {cartPropTypes} from "../../utils/propTypesTemplates";
 import PropTypes from "prop-types";
 import {useContext, useEffect} from "react";
-import PriceContext from "../../context/price-context";
+import PriceContext from "../../services/context/price-context";
 
 let total = 0;
 
