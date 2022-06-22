@@ -8,10 +8,9 @@ import api from "../../api/Api";
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import OrderDetails from "../order-details/OrderDetails";
+import BurgerIngredientsContext from "../../services/context/burger-ingredients-context";
 
 function App() {
-
-
     const [ingredients, setIngredients] = useState(null)
     const [ingredientsDetailsModalShow, setIngredientsDetailsModalShow] = useState({show: false})
     const [orderDetailsModalShow, setOrderDetailsModalShow] = useState({show: false})
@@ -61,15 +60,17 @@ function App() {
                     onOverlayClick={closeAllModals}
                     onEscKeydown={handleEscKeydown}
                 >
-                    <OrderDetails props={orderDetailsModalShow}/>
+                    <OrderDetails {...orderDetailsModalShow}/>
                 </Modal>
             }
             <AppHeader/>
-            <div
-                className={style.content}>
-                {ingredients && <BurgerIngredients data={ingredients} setModalShow={setIngredientsDetailsModalShow}/>}
-                {ingredients && <BurgerConstructor data={ingredients} setModalShow={setOrderDetailsModalShow}/>}
-            </div>
+            <BurgerIngredientsContext.Provider value={ingredients}>
+                <div
+                    className={style.content}>
+                    <BurgerIngredients setModalShow={setIngredientsDetailsModalShow}/>
+                    <BurgerConstructor setModalShow={setOrderDetailsModalShow}/>
+                </div>
+            </BurgerIngredientsContext.Provider>
         </div>
     );
 }
