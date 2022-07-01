@@ -47,7 +47,7 @@ export const getPartOfBurgerData = (children, data) => {
     }
 }
 
-const Ingredients = ({children, data, setModalShow}) => {
+const Ingredients = ({children, data}) => {
     return (
         <>
             <h2 id={children} className={'text text_type_main-medium'}>
@@ -57,7 +57,6 @@ const Ingredients = ({children, data, setModalShow}) => {
                 {getPartOfBurgerData(children, data).map(item => {
                     return (<Card
                             key={item._id}
-                            setModalShow={setModalShow}
                             {...item}
                         />
                     )
@@ -70,7 +69,6 @@ const Ingredients = ({children, data, setModalShow}) => {
 Ingredients.propTypes = {
     data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
     children: PropTypes.string,
-    setModalShow: PropTypes.func
 }
 
 export default Ingredients;

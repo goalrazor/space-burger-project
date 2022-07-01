@@ -1,19 +1,29 @@
 import ingredientDetailsStyle from './IngredientDetails.module.css'
 import Ingredients from "../inredients/Ingredients";
 import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
+import {useSelector} from "react-redux";
 
-const IngredientDetails = (props) => {
+const IngredientDetails = () => {
     const statsTextStyle = 'text text_type_main-default text_color_inactive';
     const statsDigitsStyle = 'text text_type_digits-default text_color_inactive';
+
+    const {
+        image_large,
+        name,
+        calories,
+        proteins,
+        fat,
+        carbohydrates
+    } = useSelector(store => store.ingredientReducer.currentIngredient)
     return (
         <div className={ingredientDetailsStyle.ingredientDetailsContainer}>
             <img
                 className={ingredientDetailsStyle.image}
-                src={props.props.image_large}
-                alt={props.props.name}/>
+                src={image_large}
+                alt={name}/>
             <p
                 className={'text text_type_main-medium mt-4 mb-8'}>
-                {props.props.name}
+                {name}
             </p>
             <ul className={ingredientDetailsStyle.stats}>
                 <li className={ingredientDetailsStyle.stat}>
@@ -21,7 +31,7 @@ const IngredientDetails = (props) => {
                         Калории,ккал
                     </p>
                     <p className={statsDigitsStyle}>
-                        {props.props.calories}
+                        {calories}
                     </p>
                 </li>
                 <li className={ingredientDetailsStyle.stat}>
@@ -29,7 +39,7 @@ const IngredientDetails = (props) => {
                         Белки, г
                     </p>
                     <p className={statsDigitsStyle}>
-                        {props.props.proteins}
+                        {proteins}
                     </p>
                 </li>
                 <li className={ingredientDetailsStyle.stat}>
@@ -37,7 +47,7 @@ const IngredientDetails = (props) => {
                         Жиры, г
                     </p>
                     <p className={statsDigitsStyle}>
-                        {props.props.fat}
+                        {fat}
                     </p>
                 </li>
                 <li className={ingredientDetailsStyle.stat}>
@@ -45,7 +55,7 @@ const IngredientDetails = (props) => {
                         Углеводы, г
                     </p>
                     <p className={statsDigitsStyle}>
-                        {props.props.carbohydrates}
+                        {carbohydrates}
                     </p>
                 </li>
             </ul>

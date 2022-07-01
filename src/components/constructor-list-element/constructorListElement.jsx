@@ -2,18 +2,20 @@ import style from "../burger-constructor/BurgerConstructor.module.css";
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import {cartPropTypes} from "../../utils/propTypesTemplates";
 import PropTypes from "prop-types";
-import {useContext, useEffect} from "react";
-import PriceContext from "../../services/context/price-context";
-
-let total = 0;
+import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {TOTAL_PRICE} from "../../services/actions/burger-constructor-ingredients";
 
 const ConstructorListElement = ({type, name, price, image}) => {
-    const {totalPriceDispatch} = useContext(PriceContext);
+    const totalPrice = useSelector(store => store.priceReducer.totalPrice)
+    const dispatch = useDispatch();
 
     useEffect(() => {
-            total += price;
-            totalPriceDispatch({type: 'set', payload: total})
-        }, []
+            dispatch({
+                type: TOTAL_PRICE,
+                price: price ? price : totalPrice
+            })
+        }, [dispatch]
     )
 
     return (

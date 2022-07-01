@@ -4,15 +4,29 @@ import ModalOverlay from "../modal-overlay/ModalOverlay";
 import modalStyles from './Modal.module.css'
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from "prop-types";
+import {useDispatch} from "react-redux";
+import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/burger-ingredients";
+import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
 
 const modalsContainer = document.querySelector('#modals');
 
-const Modal = ({title, onOverlayClick, onEscKeydown, children}) => {
+const Modal = ({title, children}) => {
+    const dispatch = useDispatch();
+
+    const closeModals = () => {
+        dispatch({
+            type: CLOSE_INGREDIENT_MODAL
+        });
+        dispatch({
+            type: CLOSE_ORDER_MODAL
+        });
+    }
+
     useEffect(() => {
-        document.addEventListener('keydown', onEscKeydown);
+        document.addEventListener('keydown', closeModals);
 
         return () => {
-            document.removeEventListener('keydown', onEscKeydown);
+            document.removeEventListener('keydown', closeModals);
         };
     }, []);
 
@@ -21,12 +35,12 @@ const Modal = ({title, onOverlayClick, onEscKeydown, children}) => {
             <>
                 <div className={`${modalStyles.modalsContainer}`}>
                     <h3 className={'text text_type_main-large ml-10 mt-10'}>{title}</h3>
-                    <div className={modalStyles.closeButton} onClick={onOverlayClick}>
+                    <div className={modalStyles.closeButton} onClick={closeModals}>
                         <CloseIcon type="primary"/>
                     </div>
                     {children}
                 </div>
-                <ModalOverlay onClick={onOverlayClick}/>
+                <ModalOverlay/>
             </>
         ),
         modalsContainer
@@ -35,8 +49,6 @@ const Modal = ({title, onOverlayClick, onEscKeydown, children}) => {
 
 Modal.propTypes = {
     title: PropTypes.string,
-    onOverlayClick: PropTypes.func.isRequired,
-    onEskKeydown: PropTypes.func,
     children: PropTypes.element.isRequired
 }
 

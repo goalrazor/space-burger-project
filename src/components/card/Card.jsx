@@ -1,15 +1,18 @@
 import style from './Card.module.css'
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import {cartPropTypes} from "../../utils/propTypesTemplates";
-import PropTypes from "prop-types";
+import {useDispatch} from "react-redux";
+import {SET_CURRENT_INGREDIENT} from "../../services/actions/burger-ingredients";
 
 const Card = (props) => {
 
+    const dispatch = useDispatch();
+
     const setCardState = () => {
-        props.setModalShow({
-            ...props,
-            show: true
-        });
+        dispatch({
+            type: SET_CURRENT_INGREDIENT,
+            item: props
+        })
     }
 
     return (
@@ -30,7 +33,6 @@ const Card = (props) => {
 
 Card.propTypes = {
     props: cartPropTypes,
-    setModalShow: PropTypes.func.isRequired
 }
 
 export default Card
