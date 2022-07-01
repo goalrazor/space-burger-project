@@ -7,6 +7,8 @@ export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 export const SET_CURRENT_INGREDIENT = 'CURRENT_INGREDIENT';
 export const CLOSE_INGREDIENT_MODAL = 'CLOSE_INGREDIENT_MODAL';
 
+export const SET_CURRENT_TAB = 'SET_CURRENT_TAB';
+
 export function getIngredients() {
     return function (dispatch) {
         dispatch({
@@ -26,4 +28,13 @@ export function getIngredients() {
                 }
             });
     };
+}
+
+export function setCurrentTab(currentTab) {
+    return function (dispatch) {
+        dispatch({
+            type: SET_CURRENT_TAB,
+            currentTab: currentTab
+        })
+    }
 }

@@ -3,8 +3,10 @@ import {
     GET_INGREDIENTS_FAILED,
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
-    SET_CURRENT_INGREDIENT
+    SET_CURRENT_INGREDIENT,
+    SET_CURRENT_TAB
 } from "../actions/burger-ingredients";
+import {BUN} from "../../components/inredients/Ingredients";
 
 const initialState = {
     ingredients: [],
@@ -12,7 +14,9 @@ const initialState = {
     ingredientsFailed: false,
 
     ingredientModalShow: false,
-    currentIngredient: {}
+    currentIngredient: {},
+
+    currentTab: BUN
 };
 
 export const ingredientReducer = (state = initialState, action) => {
@@ -40,7 +44,15 @@ export const ingredientReducer = (state = initialState, action) => {
         case CLOSE_INGREDIENT_MODAL: {
             return {
                 ...state,
-                ingredientModalShow: false
+                ingredientModalShow: false,
+                currentIngredient: {}
+            }
+        }
+
+        case SET_CURRENT_TAB: {
+            return {
+                ...state,
+                currentTab: action.currentTab
             }
         }
         default: {
