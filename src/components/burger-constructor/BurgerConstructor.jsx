@@ -5,9 +5,8 @@ import scroller from '../app/App.module.css'
 import {BUN, getPartOfBurgerData} from "../inredients/Ingredients";
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
-import api from "../../api/Api";
 import {useDispatch, useSelector} from "react-redux";
-import {SET_ORDER_DETAILS} from "../../services/actions/burger-constructor-ingredients";
+import {setOrder} from "../../services/actions/burger-constructor-ingredients";
 import {useDrop} from "react-dnd";
 import {v4 as uuidv4} from 'uuid';
 import {ADD_INGREDIENT, INCREASE_INGREDIENT_COUNT} from "../../services/actions/burger-ingredients";
@@ -18,19 +17,11 @@ const BurgerConstructor = () => {
     const dispatch = useDispatch();
 
     const submitOrderOnClickHandler = () => {
-        api
-            .saveOrder({
-                ingredients: data.map((item) => {
-                    return item._id
-                })
+        dispatch(setOrder({
+            ingredients: data.map((item) => {
+                return item._id
             })
-            .then(response => {
-                dispatch({
-                    type: SET_ORDER_DETAILS,
-                    details: response
-                })
-            })
-            .catch(error => console.error('Ошибка при отправки заказа на сервер', error))
+        }))
     }
 
     const [, dropTarget] = useDrop({
@@ -52,12 +43,12 @@ const BurgerConstructor = () => {
             <ul className={style.cardsContainer}>
                 {data.length !== 0 ?
                     <div className={style.cardsScrollerContainer}>
-                        <ConstructorListElement
+                        {bun.length !== 0 ? <ConstructorListElement
                             key={0}
                             {...bun[0]}
                             type={'top'}
                             name={`${bun[0]?.name} (верх)`}
-                        />
+                        /> : ''}
                         <div className={`${scroller.scrollerConstructor} ${style.cardsScroller}`}>
                             {getPartOfBurgerData('inner', data).map((item, index) => {
                                 return (<ConstructorListElement
@@ -69,12 +60,12 @@ const BurgerConstructor = () => {
                                 )
                             })}
                         </div>
-                        <ConstructorListElement
+                        {bun.length !== 0 ? <ConstructorListElement
                             key={data.length + 1}
                             {...bun[0]}
                             type={'bottom'}
                             name={`${bun[0]?.name} (низ)`}
-                        />
+                        /> : ''}
                     </div> :
                     ''}
             </ul>

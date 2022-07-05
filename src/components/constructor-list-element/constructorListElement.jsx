@@ -9,6 +9,7 @@ import {DECREASE_INGREDIENT_COUNT, DELETE_INGREDIENT} from "../../services/actio
 
 const ConstructorListElement = ({type, name, price, image, index}) => {
     const totalPrice = useSelector(store => store.priceReducer.totalPrice)
+    const burgerConstructorIngredientsLength = useSelector(store => store.ingredientReducer.constructorIngredients.filter(item => item.type !== 'bun').length)
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -32,7 +33,7 @@ const ConstructorListElement = ({type, name, price, image, index}) => {
     return (
         <div className={style.constructorListContainer}>
             <div className={style.dragIco}>
-                {!type && <DragIcon type="primary"/>}
+                {type === '' && burgerConstructorIngredientsLength > 1 ? <DragIcon type="primary"/> : ''}
             </div>
             <ConstructorElement
                 type={type}

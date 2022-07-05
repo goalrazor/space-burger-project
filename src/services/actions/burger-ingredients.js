@@ -24,7 +24,6 @@ export function getIngredients() {
                         item['ingredientCount'] = 0
                         return item;
                     })
-                    console.log(data)
                     dispatch({
                         type: GET_INGREDIENTS_SUCCESS,
                         ingredients: data
