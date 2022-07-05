@@ -3,6 +3,7 @@ import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-com
 import {cartPropTypes} from "../../utils/propTypesTemplates";
 import {useDispatch} from "react-redux";
 import {SET_CURRENT_INGREDIENT} from "../../services/actions/burger-ingredients";
+import {useDrag} from "react-dnd";
 
 const Card = (props) => {
 
@@ -15,9 +16,14 @@ const Card = (props) => {
         })
     }
 
+    const [, dragRef] = useDrag({
+        type: 'ingredient',
+        item: {props}
+    })
+
     return (
         <div className={`${style.dragIco} ${'mt-6 mb-10'}`}
-             onClick={setCardState}>
+             onClick={setCardState} ref={dragRef}>
             <Counter count={233} size="small"/>
             <img src={props.image} alt={props.name}/>
             <p className={`${style.price} ${'text text_type_digits-default mt-1 mb-1'}`}>

@@ -1,5 +1,7 @@
 import {
+    ADD_INGREDIENT,
     CLOSE_INGREDIENT_MODAL,
+    DELETE_INGREDIENT,
     GET_INGREDIENTS_FAILED,
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
@@ -10,6 +12,7 @@ import {BUN} from "../../components/inredients/Ingredients";
 
 const initialState = {
     ingredients: [],
+    constructorIngredients: [],
     ingredientsRequest: false,
     ingredientsFailed: false,
 
@@ -41,6 +44,31 @@ export const ingredientReducer = (state = initialState, action) => {
                 currentIngredient: action.item
             }
         }
+
+        case ADD_INGREDIENT: {
+            const isBunInArray = state.constructorIngredients.filter(item => item.type === 'bun').length !== 0
+            if (action.payload.type === 'bun' && isBunInArray) {
+                return {
+                    ...state,
+                    constructorIngredients: state.constructorIngredients.map((item) => {
+                        return item.type === 'bun' ? action.payload : item
+                    })
+                }
+            } else {
+                return {
+                    ...state,
+                    constructorIngredients: [...state.constructorIngredients, action.payload]
+                }
+            }
+        }
+        case DELETE_INGREDIENT: {
+            return {
+                ...state,
+                constructorIngredients: [...state.constructorIngredients.slice(0, action.index), ...state.constructorIngredients.slice(action.index + 1)]
+            }
+        }
+
+
         case CLOSE_INGREDIENT_MODAL: {
             return {
                 ...state,

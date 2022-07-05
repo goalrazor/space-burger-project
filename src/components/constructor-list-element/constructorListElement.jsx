@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TOTAL_PRICE} from "../../services/actions/burger-constructor-ingredients";
+import {DELETE_INGREDIENT} from "../../services/actions/burger-ingredients";
 
-const ConstructorListElement = ({type, name, price, image}) => {
+const ConstructorListElement = ({type, name, price, image, index}) => {
     const totalPrice = useSelector(store => store.priceReducer.totalPrice)
     const dispatch = useDispatch();
 
@@ -17,6 +18,13 @@ const ConstructorListElement = ({type, name, price, image}) => {
             })
         }, [dispatch]
     )
+
+    const deleteIngredient = (index) => {
+        dispatch({
+            type: DELETE_INGREDIENT,
+            index: index
+        })
+    }
 
     return (
         <div className={style.constructorListContainer}>
@@ -29,6 +37,7 @@ const ConstructorListElement = ({type, name, price, image}) => {
                 text={name}
                 price={price}
                 thumbnail={image}
+                handleClose={() => deleteIngredient(index + 1)}
             />
         </div>
     )

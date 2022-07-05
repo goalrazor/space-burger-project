@@ -9,6 +9,8 @@ import IngredientDetails from "../ingredient-details/IngredientDetails";
 import OrderDetails from "../order-details/OrderDetails";
 import {getIngredients} from "../../services/actions/burger-ingredients";
 import {useDispatch, useSelector} from "react-redux";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 function App() {
     const dispatch = useDispatch();
@@ -34,11 +36,13 @@ function App() {
                 </Modal>
             }
             <AppHeader/>
-            <div
-                className={style.content}>
-                <BurgerIngredients/>
-                <BurgerConstructor/>
-            </div>
+            <DndProvider backend={HTML5Backend}>
+                <div
+                    className={style.content}>
+                    <BurgerIngredients/>
+                    <BurgerConstructor/>
+                </div>
+            </DndProvider>
         </div>
     );
 }
