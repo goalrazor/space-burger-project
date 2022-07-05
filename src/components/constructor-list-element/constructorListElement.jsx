@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {TOTAL_PRICE} from "../../services/actions/burger-constructor-ingredients";
-import {DELETE_INGREDIENT} from "../../services/actions/burger-ingredients";
+import {DECREASE_INGREDIENT_COUNT, DELETE_INGREDIENT} from "../../services/actions/burger-ingredients";
 
 const ConstructorListElement = ({type, name, price, image, index}) => {
     const totalPrice = useSelector(store => store.priceReducer.totalPrice)
@@ -23,6 +23,9 @@ const ConstructorListElement = ({type, name, price, image, index}) => {
         dispatch({
             type: DELETE_INGREDIENT,
             index: index
+        })
+        dispatch({
+            type: DECREASE_INGREDIENT_COUNT,
         })
     }
 

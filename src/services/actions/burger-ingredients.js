@@ -5,6 +5,8 @@ export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTS_FAILED';
 export const ADD_INGREDIENT = 'ADD_INGREDIENT'
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT'
+export const INCREASE_INGREDIENT_COUNT = 'INCREASE_INGREDIENT_COUNT'
+export const DECREASE_INGREDIENT_COUNT = 'DECREASE_INGREDIENT_COUNT'
 export const SET_CURRENT_INGREDIENT = 'CURRENT_INGREDIENT';
 export const CLOSE_INGREDIENT_MODAL = 'CLOSE_INGREDIENT_MODAL';
 
@@ -18,9 +20,14 @@ export function getIngredients() {
         api.getIngredients()
             .then(res => {
                 if (res && res.success) {
+                    const data = res.data.map((item) => {
+                        item['ingredientCount'] = 0
+                        return item;
+                    })
+                    console.log(data)
                     dispatch({
                         type: GET_INGREDIENTS_SUCCESS,
-                        ingredients: res.data
+                        ingredients: data
                     });
                 } else {
                     dispatch({

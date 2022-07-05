@@ -1,10 +1,12 @@
 import {
     ADD_INGREDIENT,
     CLOSE_INGREDIENT_MODAL,
+    DECREASE_INGREDIENT_COUNT,
     DELETE_INGREDIENT,
     GET_INGREDIENTS_FAILED,
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
+    INCREASE_INGREDIENT_COUNT,
     SET_CURRENT_INGREDIENT,
     SET_CURRENT_TAB
 } from "../actions/burger-ingredients";
@@ -19,7 +21,7 @@ const initialState = {
     ingredientModalShow: false,
     currentIngredient: {},
 
-    currentTab: BUN
+    currentTab: BUN,
 };
 
 export const ingredientReducer = (state = initialState, action) => {
@@ -68,6 +70,47 @@ export const ingredientReducer = (state = initialState, action) => {
             }
         }
 
+        case INCREASE_INGREDIENT_COUNT: {
+            const bunsInConstructor = state.constructorIngredients.filter(item => item.type === 'bun')
+            let emptyCountBuns;
+            if (action.ingredient.type === 'bun' &&
+                bunsInConstructor.filter(item => item._id !== action.ingredient._id).length === 0) {
+                emptyCountBuns = {
+                    ...state,
+                    ingredients: [...state.ingredients].map(item => {
+                        return item.type === 'bun' ? {
+                            ...item,
+                            ingredientCount: 0
+                        } : item
+                    })
+                }
+                return {
+                    ...state,
+                    ingredients: emptyCountBuns.ingredients.map(item =>
+                        item._id === action.ingredient._id ? {
+                            ...item,
+                            ingredientCount: 2
+                        } : item)
+                }
+            } else {
+                return {
+                    ...state,
+                    ingredients: [...state.ingredients].map(item => {
+                        return item._id === action.ingredient._id ? {
+                            ...item,
+                            ingredientCount: ++item.ingredientCount
+                        } : item
+                    })
+                }
+            }
+        }
+
+        case DECREASE_INGREDIENT_COUNT: {
+            return {
+                ...state,
+                ingredientCount: state.ingredientCount - 1
+            }
+        }
 
         case CLOSE_INGREDIENT_MODAL: {
             return {
