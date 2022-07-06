@@ -7,6 +7,7 @@ import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
     INCREASE_INGREDIENT_COUNT,
+    MOVE_INGREDIENT,
     SET_CURRENT_INGREDIENT,
     SET_CURRENT_TAB,
     TOTAL_PRICE
@@ -69,6 +70,18 @@ export const ingredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 constructorIngredients: [...state.constructorIngredients].filter(item => item.uuid !== action.uuid)
+            }
+        }
+        case MOVE_INGREDIENT: {
+            const copiedStateArr = state.constructorIngredients.filter(item => item.type !== 'bun');
+            const dragCard = copiedStateArr[action.dragIndex];
+            const prevItem = copiedStateArr.splice(action.hoverIndex, 1, dragCard)
+            copiedStateArr.splice(action.dragIndex, 1, prevItem[0]);
+            const bunsStateArr = state.constructorIngredients.filter(item => item.type === 'bun');
+            return {
+                ...state,
+                constructorIngredients: [...bunsStateArr, ...copiedStateArr]
+
             }
         }
 
@@ -136,10 +149,12 @@ export const ingredientReducer = (state = initialState, action) => {
             const totalPrice = [...state.constructorIngredients].map(item => item.price)
                 .reduce(function (prev, curr) {
                     return prev + curr
-                }) + [...state.constructorIngredients].filter(item => item.type === 'bun')[0].price
+                });
+            const secondBunPrice = [...state.constructorIngredients].filter(item => item.type === 'bun')[0]?.price
+                ? [...state.constructorIngredients].filter(item => item.type === 'bun')[0].price : 0
             return {
                 ...state,
-                totalPrice: totalPrice
+                totalPrice: totalPrice + secondBunPrice
             };
         }
         default: {
