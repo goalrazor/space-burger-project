@@ -1,6 +1,5 @@
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import style from '../card/Card.module.css'
-import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 
 const Total = () => {
@@ -13,10 +12,6 @@ const Total = () => {
             </p>
         </>
     )
-}
-
-Total.propTypes = {
-    price: PropTypes.number
 }
 
 export default Total;

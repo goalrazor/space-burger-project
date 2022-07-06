@@ -47,7 +47,7 @@ const AppHeader = () => {
                     className={`${header.headerMenuItem} text text_type_main-default text_color_inactive`}
                     icon={ProfileMenuIcon}
                 >
-                    Лента заказов
+                    Личный кабинет
                 </HeaderMenuItem>
             </div>
         </header>

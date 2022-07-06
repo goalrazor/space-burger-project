@@ -90,6 +90,10 @@ const ConstructorListElement = ({type, name, price, image, uuid, _id, index, mov
 
 ConstructorListElement.propTypes = {
     type: PropTypes.string.isRequired,
+    uuid: PropTypes.string.isRequired,
+    index: PropTypes.number,
+    _id: PropTypes.string.isRequired,
+    moveCardHandler: PropTypes.func,
     cartPropTypes
 }
 
