@@ -2,12 +2,14 @@ import {
     ADD_INGREDIENT,
     CLOSE_INGREDIENT_MODAL,
     DECREASE_INGREDIENT_COUNT,
+    DELETE_ALL_INGREDIENTS,
     DELETE_INGREDIENT,
     GET_INGREDIENTS_FAILED,
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
     INCREASE_INGREDIENT_COUNT,
     MOVE_INGREDIENT,
+    RESET_TOTAL_PRICE,
     SET_CURRENT_INGREDIENT,
     SET_CURRENT_TAB,
     TOTAL_PRICE
@@ -72,6 +74,12 @@ export const ingredientReducer = (state = initialState, action) => {
                 constructorIngredients: [...state.constructorIngredients].filter(item => item.uuid !== action.uuid)
             }
         }
+        case DELETE_ALL_INGREDIENTS: {
+            return {
+                ...state,
+                constructorIngredients: []
+            }
+        }
         case MOVE_INGREDIENT: {
             const copiedStateArr = state.constructorIngredients.filter(item => item.type !== 'bun');
             const dragCard = copiedStateArr[action.dragIndex];
@@ -84,7 +92,6 @@ export const ingredientReducer = (state = initialState, action) => {
 
             }
         }
-
         case INCREASE_INGREDIENT_COUNT: {
             const bunsInConstructor = state.constructorIngredients.filter(item => item.type === 'bun')
             let emptyCountBuns;
@@ -118,7 +125,6 @@ export const ingredientReducer = (state = initialState, action) => {
                 }
             }
         }
-
         case DECREASE_INGREDIENT_COUNT: {
             return {
                 ...state,
@@ -156,6 +162,12 @@ export const ingredientReducer = (state = initialState, action) => {
                 ...state,
                 totalPrice: totalPrice + secondBunPrice
             };
+        }
+        case RESET_TOTAL_PRICE: {
+            return {
+                ...state,
+                totalPrice: 0
+            }
         }
         default: {
             return state;

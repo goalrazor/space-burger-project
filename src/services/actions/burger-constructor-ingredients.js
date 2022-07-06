@@ -1,4 +1,5 @@
 import api from "../../api/Api";
+import {DELETE_ALL_INGREDIENTS, RESET_TOTAL_PRICE} from "./burger-ingredients";
 
 export const SET_ORDER_DETAILS = 'SET_ORDER_DETAILS';
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
@@ -11,6 +12,25 @@ function setOrderRequestFailed() {
     }
 }
 
+function makeOrder(res) {
+    return function (dispatch) {
+        if (res && res.success) {
+            dispatch({
+                type: SET_ORDER_DETAILS,
+                details: res
+            })
+            dispatch({
+                type: DELETE_ALL_INGREDIENTS
+            })
+            dispatch({
+                type: RESET_TOTAL_PRICE
+            })
+        } else {
+            dispatch(setOrderRequestFailed());
+        }
+    }
+}
+
 export function setOrder(body) {
     return function (dispatch) {
         dispatch({
@@ -18,14 +38,7 @@ export function setOrder(body) {
         });
         api.saveOrder(body)
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: SET_ORDER_DETAILS,
-                        details: res
-                    })
-                } else {
-                    dispatch(setOrderRequestFailed());
-                }
+                dispatch(makeOrder(res))
             }).catch(err => {
             console.log(err);
             dispatch(setOrderRequestFailed())
