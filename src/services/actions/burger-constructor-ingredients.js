@@ -12,22 +12,14 @@ function setOrderRequestFailed() {
     }
 }
 
-function makeOrder(res) {
+function resetConstructor() {
     return function (dispatch) {
-        if (res && res.success) {
-            dispatch({
-                type: SET_ORDER_DETAILS,
-                details: res
-            })
-            dispatch({
-                type: DELETE_ALL_INGREDIENTS
-            })
-            dispatch({
-                type: RESET_TOTAL_PRICE
-            })
-        } else {
-            dispatch(setOrderRequestFailed());
-        }
+        dispatch({
+            type: DELETE_ALL_INGREDIENTS
+        })
+        dispatch({
+            type: RESET_TOTAL_PRICE
+        })
     }
 }
 
@@ -38,11 +30,20 @@ export function setOrder(body) {
         });
         api.saveOrder(body)
             .then(res => {
-                dispatch(makeOrder(res))
-            }).catch(err => {
-            console.log(err);
-            dispatch(setOrderRequestFailed())
-        });
+                if (res && res.success) {
+                    dispatch({
+                        type: SET_ORDER_DETAILS,
+                        details: res
+                    })
+                } else {
+                    dispatch(setOrderRequestFailed());
+                }
+            })
+            .then(() => dispatch(resetConstructor()))
+            .catch(err => {
+                console.error(err);
+                dispatch(setOrderRequestFailed())
+            });
     };
 }
 
