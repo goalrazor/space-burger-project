@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 
 const Total = () => {
-    const totalPrice = useSelector(store => store.priceReducer.totalPrice)
+    const totalPrice = useSelector(store => store.ingredientReducer.totalPrice)
     return (
         <>
             <p className={`${style.price} ${'text text_type_digits-default mt-1 mb-1'}`}>

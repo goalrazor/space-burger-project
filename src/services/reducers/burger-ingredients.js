@@ -8,7 +8,8 @@ import {
     GET_INGREDIENTS_SUCCESS,
     INCREASE_INGREDIENT_COUNT,
     SET_CURRENT_INGREDIENT,
-    SET_CURRENT_TAB
+    SET_CURRENT_TAB,
+    TOTAL_PRICE
 } from "../actions/burger-ingredients";
 import {BUN} from "../../components/inredients/Ingredients";
 
@@ -22,6 +23,7 @@ const initialState = {
     currentIngredient: {},
 
     currentTab: BUN,
+    totalPrice: 0
 };
 
 export const ingredientReducer = (state = initialState, action) => {
@@ -128,6 +130,17 @@ export const ingredientReducer = (state = initialState, action) => {
                 ...state,
                 currentTab: action.currentTab
             }
+        }
+
+        case TOTAL_PRICE: {
+            const totalPrice = [...state.constructorIngredients].map(item => item.price)
+                .reduce(function (prev, curr) {
+                    return prev + curr
+                }) + [...state.constructorIngredients].filter(item => item.type === 'bun')[0].price
+            return {
+                ...state,
+                totalPrice: totalPrice
+            };
         }
         default: {
             return state;

@@ -3,30 +3,14 @@ import {
     SET_ORDER_DETAILS,
     SET_ORDER_REQUEST,
     SET_ORDER_REQUEST_FAILED,
-    TOTAL_PRICE
 } from "../actions/burger-constructor-ingredients";
 
 const initialState = {
-    totalPrice: 0,
     orderDetails: {},
     orderModalShown: false,
     orderRequest: false,
     orderRequestFailed: false
 };
-
-export const priceReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case TOTAL_PRICE: {
-            return {
-                ...state,
-                totalPrice: action.price + state.totalPrice
-            };
-        }
-        default: {
-            return state;
-        }
-    }
-}
 
 export const orderDetailsReducer = (state = initialState, action) => {
     switch (action.type) {
