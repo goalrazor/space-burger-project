@@ -5,6 +5,12 @@ export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
 export const SET_ORDER_REQUEST = 'SET_ORDER_REQUEST';
 export const SET_ORDER_REQUEST_FAILED = 'SET_ORDER_REQUEST_FAILED';
 
+function setOrderRequestFailed() {
+    return {
+        type: SET_ORDER_REQUEST_FAILED
+    }
+}
+
 export function setOrder(body) {
     return function (dispatch) {
         dispatch({
@@ -18,15 +24,11 @@ export function setOrder(body) {
                         details: res
                     })
                 } else {
-                    dispatch({
-                        type: SET_ORDER_REQUEST_FAILED
-                    });
+                    dispatch(setOrderRequestFailed());
                 }
             }).catch(err => {
             console.log(err);
-            dispatch({
-                type: SET_ORDER_REQUEST_FAILED
-            })
+            dispatch(setOrderRequestFailed())
         });
     };
 }

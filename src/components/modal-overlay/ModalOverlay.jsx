@@ -1,23 +1,14 @@
 import modalsStyles from './ModalOverlay.module.css'
-import {useDispatch} from "react-redux";
-import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/burger-ingredients";
-import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
+import PropTypes from "prop-types";
 
-const ModalOverlay = () => {
-    const dispatch = useDispatch();
-
-    const handleClose = () => {
-        dispatch({
-            type: CLOSE_INGREDIENT_MODAL
-        });
-        dispatch({
-            type: CLOSE_ORDER_MODAL
-        });
-    }
-
+const ModalOverlay = ({handleClose}) => {
     return (
         <div className={modalsStyles.modalOverlay} onClick={handleClose}/>
     );
 };
+
+ModalOverlay.propTypes = {
+    handleClose: PropTypes.func.isRequired
+}
 
 export default ModalOverlay;

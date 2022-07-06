@@ -14,6 +14,12 @@ export const CLOSE_INGREDIENT_MODAL = 'CLOSE_INGREDIENT_MODAL';
 
 export const SET_CURRENT_TAB = 'SET_CURRENT_TAB';
 
+function setIngredientsRequestFailed() {
+    return {
+        type: GET_INGREDIENTS_FAILED
+    }
+}
+
 export function getIngredients() {
     return function (dispatch) {
         dispatch({
@@ -31,15 +37,11 @@ export function getIngredients() {
                         ingredients: data
                     });
                 } else {
-                    dispatch({
-                        type: GET_INGREDIENTS_FAILED
-                    });
+                    dispatch(setIngredientsRequestFailed());
                 }
             }).catch(err => {
-            console.log(err);
-            dispatch({
-                type: GET_INGREDIENTS_FAILED
-            })
+            console.error(err);
+            dispatch(setIngredientsRequestFailed())
         });
     };
 }

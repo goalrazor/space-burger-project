@@ -7,10 +7,11 @@ import style from './App.module.css'
 import Modal from "../modal/Modal";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 import OrderDetails from "../order-details/OrderDetails";
-import {getIngredients} from "../../services/actions/burger-ingredients";
+import {CLOSE_INGREDIENT_MODAL, getIngredients} from "../../services/actions/burger-ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
+import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
 
 function App() {
     const dispatch = useDispatch();
@@ -22,16 +23,32 @@ function App() {
             getIngredients())
     }, [dispatch]);
 
+    const handleClose = () => {
+        dispatch({
+            type: CLOSE_INGREDIENT_MODAL
+        });
+        dispatch({
+            type: CLOSE_ORDER_MODAL
+        });
+    }
+
+    const handleEscKeydown = (e) => {
+        e.key === "Escape" && handleClose();
+    };
 
     return (
         <div className="App">
             {isIngredientModalShown &&
-                <Modal title="Детали ингредиента">
+                <Modal title="Детали ингредиента"
+                       handleClose={handleClose}
+                       handleEscKeydown={handleEscKeydown}>
                     <IngredientDetails/>
                 </Modal>
             }
             {isOrderDetailsModalShown &&
-                <Modal title="">
+                <Modal title=""
+                       handleClose={handleClose}
+                       handleEscKeydown={handleEscKeydown}>
                     <OrderDetails/>
                 </Modal>
             }
