@@ -16,11 +16,16 @@ const BurgerConstructor = () => {
     const dispatch = useDispatch();
 
     const submitOrderOnClickHandler = () => {
-        dispatch(setOrder({
-            ingredients: data.map((item) => {
-                return item._id
-            })
-        }))
+        if (bun.length > 0 && data.filter(item => item.type !== 'bun').length > 0) {
+            dispatch(setOrder({
+                ingredients: data.map((item) => {
+                    return item._id
+                })
+            }))
+        } else {
+            console.log("Неверный состав заказа")
+            alert("Неверный состав заказа. Пожалуйста, выберите булку и хотя бы один ингредиент")
+        }
     }
 
     const [, dropTarget] = useDrop({

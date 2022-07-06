@@ -22,7 +22,12 @@ export function setOrder(body) {
                         type: SET_ORDER_REQUEST_FAILED
                     });
                 }
-            });
+            }).catch(err => {
+            console.log(err);
+            dispatch({
+                type: SET_ORDER_REQUEST_FAILED
+            })
+        });
     };
 }
 

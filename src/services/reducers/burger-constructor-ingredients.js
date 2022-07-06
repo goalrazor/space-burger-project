@@ -33,7 +33,8 @@ export const orderDetailsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 orderRequest: false,
-                orderRequestFailed: true
+                orderRequestFailed: true,
+                orderDetails: {}
             }
         }
 
