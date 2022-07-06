@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {TOTAL_PRICE} from "../../services/actions/burger-constructor-ingredients";
 import {DECREASE_INGREDIENT_COUNT, DELETE_INGREDIENT} from "../../services/actions/burger-ingredients";
 
-const ConstructorListElement = ({type, name, price, image, index}) => {
+const ConstructorListElement = ({type, name, price, image, uuid, _id}) => {
     const totalPrice = useSelector(store => store.priceReducer.totalPrice)
     const burgerConstructorIngredientsLength = useSelector(store => store.ingredientReducer.constructorIngredients.filter(item => item.type !== 'bun').length)
     const dispatch = useDispatch();
@@ -20,13 +20,14 @@ const ConstructorListElement = ({type, name, price, image, index}) => {
         }, [dispatch]
     )
 
-    const deleteIngredient = (index) => {
+    const deleteIngredient = () => {
         dispatch({
             type: DELETE_INGREDIENT,
-            index: index
+            uuid: uuid
         })
         dispatch({
             type: DECREASE_INGREDIENT_COUNT,
+            _id: _id
         })
     }
 
@@ -41,7 +42,7 @@ const ConstructorListElement = ({type, name, price, image, index}) => {
                 text={name}
                 price={price}
                 thumbnail={image}
-                handleClose={() => deleteIngredient(index + 1)}
+                handleClose={() => deleteIngredient(uuid)}
             />
         </div>
     )

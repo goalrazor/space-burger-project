@@ -44,24 +44,21 @@ const BurgerConstructor = () => {
                 {data.length !== 0 ?
                     <div className={style.cardsScrollerContainer}>
                         {bun.length !== 0 ? <ConstructorListElement
-                            key={0}
                             {...bun[0]}
                             type={'top'}
                             name={`${bun[0]?.name} (верх)`}
                         /> : ''}
                         <div className={`${scroller.scrollerConstructor} ${style.cardsScroller}`}>
-                            {getPartOfBurgerData('inner', data).map((item, index) => {
+                            {getPartOfBurgerData('inner', data).map((item) => {
                                 return (<ConstructorListElement
-                                        key={index}
+                                        key={item.uuid}
                                         {...item}
                                         type={''}
-                                        index={index}
                                     />
                                 )
                             })}
                         </div>
                         {bun.length !== 0 ? <ConstructorListElement
-                            key={data.length + 1}
                             {...bun[0]}
                             type={'bottom'}
                             name={`${bun[0]?.name} (низ)`}

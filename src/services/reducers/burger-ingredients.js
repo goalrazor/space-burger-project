@@ -66,7 +66,7 @@ export const ingredientReducer = (state = initialState, action) => {
         case DELETE_INGREDIENT: {
             return {
                 ...state,
-                constructorIngredients: [...state.constructorIngredients.slice(0, action.index), ...state.constructorIngredients.slice(action.index + 1)]
+                constructorIngredients: [...state.constructorIngredients].filter(item => item.uuid !== action.uuid)
             }
         }
 
@@ -95,12 +95,11 @@ export const ingredientReducer = (state = initialState, action) => {
             } else {
                 return {
                     ...state,
-                    ingredients: [...state.ingredients].map(item => {
-                        return item._id === action.ingredient._id ? {
+                    ingredients: [...state.ingredients].map(item => item._id === action.ingredient._id ? {
                             ...item,
                             ingredientCount: ++item.ingredientCount
                         } : item
-                    })
+                    )
                 }
             }
         }
@@ -108,7 +107,11 @@ export const ingredientReducer = (state = initialState, action) => {
         case DECREASE_INGREDIENT_COUNT: {
             return {
                 ...state,
-                ingredientCount: state.ingredientCount - 1
+                ingredients: [...state.ingredients].map(item => item._id === action._id ? {
+                        ...item,
+                        ingredientCount: --item.ingredientCount
+                    } : item
+                )
             }
         }
 
