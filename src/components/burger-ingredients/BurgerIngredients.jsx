@@ -1,36 +1,38 @@
-import React, {useContext} from "react";
+import React, {useEffect} from "react";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 
 import style from './BurgerIngredients.module.css'
 import scrollerStyle from '../app/App.module.css'
 import Ingredients, {BUN, MAIN, SAUCE} from "../inredients/Ingredients";
-import PropTypes from "prop-types";
-import BurgerIngredientsContext from "../../services/context/burger-ingredients-context";
+import {useDispatch, useSelector} from "react-redux";
+import {useInView} from "react-intersection-observer";
+import {setCurrentTab} from "../../services/actions/burger-ingredients";
 
 const Tabs = () => {
-    const [current, setCurrent] = React.useState(BUN);
+    const currentTab = useSelector(store => store.ingredientReducer.currentTab)
+    const dispatch = useDispatch();
 
     const goToViolation = (id) => {
         const violation = document.querySelector(`#` + id);
         violation.scrollIntoView({
             behavior: "smooth"
         });
-        setCurrent(id);
+        dispatch(setCurrentTab(id))
     };
 
     return (
         <div className={`${style.tab} ${'mb-10'}`}>
-            <Tab value={BUN} active={current === BUN} onClick={() => {
+            <Tab value={BUN} active={currentTab === BUN} onClick={() => {
                 goToViolation(BUN)
             }}>
                 {BUN}
             </Tab>
-            <Tab value={SAUCE} active={current === SAUCE} onClick={() => {
+            <Tab value={SAUCE} active={currentTab === SAUCE} onClick={() => {
                 goToViolation(SAUCE)
             }}>
                 {SAUCE}
             </Tab>
-            <Tab value={MAIN} active={current === MAIN} onClick={() => {
+            <Tab value={MAIN} active={currentTab === MAIN} onClick={() => {
                 goToViolation(MAIN)
             }}>
                 {MAIN}
@@ -39,32 +41,48 @@ const Tabs = () => {
     )
 }
 
-const BurgerIngredients = ({setModalShow}) => {
-    const data = useContext(BurgerIngredientsContext);
-    return (
+const BurgerIngredients = () => {
+    const data = useSelector(store => store.ingredientReducer.ingredients);
+    const [bunsRef, toBunsView] = useInView({threshold: 0});
+    const [sauceRef, toSauceView] = useInView({threshold: 0});
+    const [mainRef, toMainView] = useInView({threshold: 0});
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (toBunsView) {
+            dispatch(setCurrentTab(BUN))
+        } else if (toSauceView) {
+            dispatch(setCurrentTab(SAUCE))
+        } else if (toMainView) {
+            dispatch(setCurrentTab(MAIN))
+        }
+    }, [dispatch, toBunsView, toMainView, toSauceView]);
+
+    return (
         <section className={style.container}>
             <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
                 Соберите бургер
             </h1>
             <Tabs/>
             {data && <div className={scrollerStyle.scroller}>
-                <Ingredients data={data} setModalShow={setModalShow}>
-                    {BUN}
-                </Ingredients>
-                <Ingredients data={data} setModalShow={setModalShow}>
-                    {SAUCE}
-                </Ingredients>
-                <Ingredients data={data} setModalShow={setModalShow}>
-                    {MAIN}
-                </Ingredients>
+                <div ref={bunsRef}>
+                    <Ingredients data={data}>
+                        {BUN}
+                    </Ingredients>
+                </div>
+                <div ref={sauceRef}>
+                    <Ingredients data={data}>
+                        {SAUCE}
+                    </Ingredients>
+                </div>
+                <div ref={mainRef}>
+                    <Ingredients data={data}>
+                        {MAIN}
+                    </Ingredients>
+                </div>
             </div>}
         </section>
     )
-}
-
-BurgerIngredients.propTypes = {
-    setModalShow: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients

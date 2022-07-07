@@ -2,82 +2,91 @@ import ConstructorListElement from "../constructor-list-element/constructorListE
 import container from '../burger-ingredients/BurgerIngredients.module.css'
 import style from './BurgerConstructor.module.css'
 import scroller from '../app/App.module.css'
-import {BUN, getPartOfBurgerData} from "../inredients/Ingredients";
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
-import PropTypes from "prop-types";
-import {useContext, useReducer} from "react";
-import BurgerIngredientsContext from "../../services/context/burger-ingredients-context";
-import api from "../../api/Api";
-import PriceContext from "../../services/context/price-context";
+import {useDispatch, useSelector} from "react-redux";
+import {setOrder} from "../../services/actions/burger-constructor-ingredients";
+import {useDrop} from "react-dnd";
+import {v4 as uuidv4} from 'uuid';
+import {ADD_INGREDIENT, INCREASE_INGREDIENT_COUNT, MOVE_INGREDIENT} from "../../services/actions/burger-ingredients";
 
-const initialPriceState = {price: 0};
-
-function reducer(state, action) {
-    switch (action.type) {
-        case 'set':
-            return {price: action.payload};
-        case 'reset':
-            return initialPriceState;
-        default:
-            throw new Error();
-    }
-}
-
-const BurgerConstructor = ({setModalShow}) => {
-    const data = useContext(BurgerIngredientsContext);
-    const bun = data ? getPartOfBurgerData(BUN, data) : null;
-    const [totalPriceState, totalPriceDispatch] = useReducer(reducer, initialPriceState, undefined);
+const BurgerConstructor = () => {
+    const data = useSelector(store => store.ingredientReducer.constructorIngredients);
+    const bun = data.filter(item => item.type === 'bun')
+    const dispatch = useDispatch();
 
     const submitOrderOnClickHandler = () => {
-        api
-            .saveOrder({
+        if (bun.length > 0 && data.filter(item => item.type !== 'bun').length > 0) {
+            dispatch(setOrder({
                 ingredients: data.map((item) => {
                     return item._id
                 })
+            }))
+        } else {
+            console.log("Неверный состав заказа")
+            alert("Неверный состав заказа. Пожалуйста, выберите булку и хотя бы один ингредиент")
+        }
+    }
+
+    const [, dropTarget] = useDrop({
+        accept: "ingredient",
+        drop({props}) {
+            dispatch({
+                type: ADD_INGREDIENT,
+                payload: {...props, uuid: uuidv4()}
             })
-            .then(response => {
-                setModalShow({
-                        ...response,
-                        show: true
-                    }
-                );
+            dispatch({
+                type: INCREASE_INGREDIENT_COUNT,
+                ingredient: props
             })
-            .catch(error => console.error('Ошибка при отправки заказа на сервер', error))
+        },
+    });
+
+    const moveCardHandler = (dragIndex, hoverIndex) => {
+        const dragItem = data[dragIndex]
+
+        if (dragItem) {
+            dispatch({
+                type: MOVE_INGREDIENT,
+                hoverIndex: hoverIndex,
+                dragIndex: dragIndex
+            })
+        }
     }
 
     return (
-        <section className={container.container}>
-            <PriceContext.Provider value={{totalPriceState, totalPriceDispatch}}>
-                <ul className={style.cardsContainer}>
-                    {data && <div className={style.cardsScrollerContainer}>
-                        <ConstructorListElement
-                            key={0}
+        <section className={container.container} ref={dropTarget}>
+            <ul className={style.cardsContainer}>
+                {data.length !== 0 ?
+                    <div className={style.cardsScrollerContainer}>
+                        {bun.length !== 0 ? <ConstructorListElement
                             {...bun[0]}
                             type={'top'}
-                            name={`${bun[0].name} (верх)`}
-                        />
+                            name={`${bun[0]?.name} (верх)`}
+                        /> : ''}
                         <div className={`${scroller.scrollerConstructor} ${style.cardsScroller}`}>
-                            {getPartOfBurgerData('inner', data).map((item, index) => {
+                            {data.filter(item => item.type !== 'bun').map((item, index) => {
                                 return (<ConstructorListElement
-                                        key={index}
+                                        key={item.uuid}
                                         {...item}
                                         type={''}
+                                        index={index}
+                                        moveCardHandler={moveCardHandler}
                                     />
                                 )
                             })}
                         </div>
-                        <ConstructorListElement
-                            key={data.length}
+                        {bun.length !== 0 ? <ConstructorListElement
                             {...bun[0]}
                             type={'bottom'}
-                            name={`${bun[0].name} (низ)`}
-                        />
-                    </div>}
-                </ul>
-            </PriceContext.Provider>
+                            name={`${bun[0]?.name} (низ)`}
+                        /> : ''}
+                    </div> :
+                    ''}
+            </ul>
+
             <div className={style.totalContainer}>
-                <Total price={totalPriceState.price}/>
+                <Total/>
                 <div onClick={submitOrderOnClickHandler}>
                     <Button type="primary" size="large">
                         Оформить заказ
@@ -86,10 +95,6 @@ const BurgerConstructor = ({setModalShow}) => {
             </div>
         </section>
     )
-}
-
-BurgerConstructor.propTypes = {
-    setModalShow: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor;
