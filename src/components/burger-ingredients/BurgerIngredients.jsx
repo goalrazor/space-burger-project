@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 
 import style from './BurgerIngredients.module.css'
-import scrollerStyle from '../../pages/constructorPage.module.css'
+import scrollerStyle from '../../pages/constructor-page/constructorPage.module.css'
 import Ingredients, {BUN, MAIN, SAUCE} from "../inredients/Ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import {useInView} from "react-intersection-observer";

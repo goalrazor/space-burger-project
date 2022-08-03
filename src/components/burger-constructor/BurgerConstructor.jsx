@@ -2,7 +2,7 @@ import React from 'react'
 import ConstructorListElement from "../constructor-list-element/constructorListElement";
 import container from '../burger-ingredients/BurgerIngredients.module.css'
 import style from './BurgerConstructor.module.css'
-import scroller from '../../pages/constructorPage.module.css'
+import scroller from '../../pages/constructor-page/constructorPage.module.css'
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
 import {useDispatch, useSelector} from "react-redux";
