@@ -1,3 +1,4 @@
+import React from 'react'
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import HeaderMenuItem from "../header-menu-item/HeaderMenuItem";
 import header from "./AppHeader.module.css"

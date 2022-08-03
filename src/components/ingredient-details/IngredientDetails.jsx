@@ -1,3 +1,4 @@
+import React from 'react'
 import ingredientDetailsStyle from './IngredientDetails.module.css'
 import {useSelector} from "react-redux";
 
