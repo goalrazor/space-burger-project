@@ -1,0 +1,25 @@
+.list {
+    padding: 0;
+    list-style: none;
+}
+
+.listElement {
+    display: flex;
+    height: 64px;
+}
+
+.link {
+    align-self: center;
+    text-decoration: none;
+    transition: opacity 0.5ms;
+}
+
+.link:hover {
+    opacity: 0.7;
+}
+
+.navigation {
+    width: 320px;
+    position: absolute;
+    left: -380px;
+}
