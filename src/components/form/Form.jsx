@@ -2,7 +2,7 @@ import React from "react";
 import style from "./form.module.css";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
-export function Form({header, buttonText, children}) {
+export function Form({header, buttonText, handleClick, children}) {
     return (
         <form className={style.form}>
             <h1 className={`text text_type_main-default ${style.text}`}>{header}</h1>
@@ -10,7 +10,7 @@ export function Form({header, buttonText, children}) {
                 {children}
             </div>
             <div className={style.button}>
-                <Button size={"medium"} onClick={() => console.log("click")}> {/*todo onclick*/}
+                <Button size={"medium"} onClick={handleClick}>
                     {buttonText}
                 </Button>
             </div>

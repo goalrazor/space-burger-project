@@ -11,19 +11,10 @@ export function LoginPage() {
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
     };
+
     return (
         <div className={style.formContainer}>
             <Form header={"Вход"} buttonText={"Войти"}>
-                {/*<Input*/}
-                {/*    type={"email"}*/}
-                {/*    placeholder={"Email"}*/}
-                {/*    value={form.email}*/}
-                {/*    name={"email"}*/}
-                {/*    onChange={onChange}*/}
-                {/*    errorText={"Ой, произошла ошибка!"}*/}
-                {/*    icon={"EditIcon"}>*/}
-                {/*    error={true}*/}
-                {/*</Input>*/}
                 <EmailInput
                     value={form.email}
                     name={"email"}

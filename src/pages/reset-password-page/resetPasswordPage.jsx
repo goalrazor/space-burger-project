@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
+import api from "../../api/Api";
 
 export function ResetPasswordPage() {
     const [form, setValue] = useState({password: "", keyword: ""});
@@ -12,16 +13,35 @@ export function ResetPasswordPage() {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZWJjYjQ4NDJkMzRhMDAxYzI3ZjAwMiIsImlhdCI6MTY1OTYyMDE2OCwiZXhwIjoxNjU5NjIxMzY4fQ.wfyECJMiJh7XdTRAh6E_0j99WxlLVywKct7GltbN8KI"
+
+    const handleClick = useCallback(
+        e => {
+            e.preventDefault()
+            api.setNewPassword(form.password, token)
+                .then(response => console.log(response))
+                .then((response) => {
+                    if (response.success) {
+                        return response
+                    }
+                })
+                .then(() => history.replace("/login"))
+                .then(() => alert(`Пароль успешно изменен. Пожалуйста, войдите заново`))
+                .catch(error => console.error(error))
+        },
+        [form]
+    );
+
     return (
         <div className={style.formContainer}>
-            <Form header={"Восстановление пароля"} buttonText={"Сохранить"}>
+            <Form header={"Восстановление пароля"} buttonText={"Сохранить"} handleClick={handleClick}>
                 <Input
                     type={"text"}
                     placeholder={"Введите новый пароль"}
                     value={form.password}
-                    name={"text"}
+                    name={"password"}
                     onChange={onChange}
-                    onIconClick={() => {
+                    onIconClick={(e) => {
                         setIcon({
                             icon: icon.icon === "ShowIcon" ? "HideIcon" : "ShowIcon"
                         })
@@ -32,7 +52,7 @@ export function ResetPasswordPage() {
                     type={"text"}
                     placeholder={"Введите код из письма"}
                     value={form.keyword}
-                    name={"text"}
+                    name={"keyword"}
                     onChange={onChange}
                 />
             </Form>

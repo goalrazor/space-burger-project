@@ -1,6 +1,7 @@
 const config = {
     baseUrl: 'https://norma.nomoreparties.space/api',
     headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
 }
@@ -21,6 +22,24 @@ class API {
             method: "POST",
             headers: this._headers,
             body: JSON.stringify(body)
+        })
+            .then(this._checkResponse)
+    }
+
+    resetPassword(body) {
+        return fetch(`${this._url}/password-reset`, {
+            method: "POST",
+            headers: this._headers,
+            body: JSON.stringify(body)
+        })
+            .then(this._checkResponse)
+    }
+
+    setNewPassword(password, token) {
+        return fetch(`${this._url}/password-reset/reset`, {
+            method: "POST",
+            headers: this._headers,
+            body: JSON.stringify({password, token})
         })
             .then(this._checkResponse)
     }
