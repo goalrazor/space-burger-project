@@ -1,20 +1,34 @@
-import React, {useState} from 'react'
-import {Link} from "react-router-dom";
+import React, {useCallback, useState} from 'react'
+import {Link, useHistory} from "react-router-dom";
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form"
 import {EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {login} from "../../services/actions/auth";
+import {useDispatch} from "react-redux";
 
 
 export function LoginPage() {
+    const dispatch = useDispatch()
+    const history = useHistory()
     const [form, setValue] = useState({email: "", password: ""});
 
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
+    const handleButtonClick = useCallback(
+        (e) => {
+            e.preventDefault()
+            dispatch(
+                login(form.email, form.password)
+            )
+            history.replace("/") //todo всегда переходит к / - нужно условие
+        }, [dispatch, form]
+    )
+
     return (
         <div className={style.formContainer}>
-            <Form header={"Вход"} buttonText={"Войти"}>
+            <Form header={"Вход"} buttonText={"Войти"} handleClick={handleButtonClick}>
                 <EmailInput
                     value={form.email}
                     name={"email"}

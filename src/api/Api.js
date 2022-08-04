@@ -1,7 +1,7 @@
 const config = {
     baseUrl: 'https://norma.nomoreparties.space/api',
     headers: {
-        'Accept': 'application/json',
+        // 'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
 }
@@ -44,11 +44,49 @@ class API {
             .then(this._checkResponse)
     }
 
+    register(email, password, name) {
+        return fetch(`${this._url}/auth/register`, {
+            method: "POST",
+            headers: this._headers,
+            body: JSON.stringify({email, password, name})
+        })
+            .then(this._checkResponse)
+    }
+
+    login(email, password) {
+        return fetch(`${this._url}/auth/login`, {
+            method: "POST",
+            headers: this._headers,
+            body: JSON.stringify({email, password})
+        })
+            .then(this._checkResponse)
+    }
+
+    logout(refreshToken) {
+        return fetch(`${this._url}/auth/logout`, {
+            method: "POST",
+            headers: this._headers,
+            body: JSON.stringify({token: refreshToken}) //todo проверить работоспособность, в документации стоит {"token": "{{refreshToken}}"}
+        })
+            .then(this._checkResponse)
+    }
+
+    refreshToken(refreshToken) {
+        return fetch(`${this._url}/auth/token`, {
+            method: "POST",
+            headers: this._headers,
+            body: JSON.stringify({token: refreshToken}) //todo проверить работоспособность, в документации стоит {"token": "{{refreshToken}}"}
+        })
+            .then(this._checkResponse)
+    }
+
     _checkResponse(res) {
-        if (res.ok) {
-            return res.json();
+        if (res.status === 200) {
+            return res.json()
         }
-        return Promise.reject(`Ошибка ${res.status}`);
+        return res.json().then(res => {
+            throw res.message
+        })
     }
 }
 

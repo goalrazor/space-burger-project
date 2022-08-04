@@ -1,18 +1,33 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+import {register} from "../../services/actions/auth";
+import {useDispatch} from "react-redux";
 
 export function RegistrationPage() {
     const [form, setValue] = useState({name: "", email: "", password: ""});
+    const history = useHistory()
+    const dispatch = useDispatch()
 
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
     };
+
+    const handleButtonClick = useCallback(
+        (e) => {
+            e.preventDefault()
+            dispatch(
+                register(form.email, form.password, form.name)
+            )
+            history.replace("/") //todo всегда переходит к / - нужно условие 
+        }, [dispatch, form]
+    )
+
     return (
         <div className={style.formContainer}>
-            <Form header={"Регистрация"} buttonText={"Зарегистрироваться"}>
+            <Form header={"Регистрация"} buttonText={"Зарегистрироваться"} handleClick={handleButtonClick}>
                 <Input
                     type={"text"}
                     placeholder={"Имя"}
