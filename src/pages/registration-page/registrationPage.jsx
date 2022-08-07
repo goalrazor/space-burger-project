@@ -2,14 +2,14 @@ import React, {useCallback, useState} from 'react'
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useHistory} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {register} from "../../services/actions/auth";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 export function RegistrationPage() {
     const [form, setValue] = useState({name: "", email: "", password: ""});
-    const history = useHistory()
     const dispatch = useDispatch()
+    const user = useSelector(store => store.authReducer.user)
 
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
@@ -21,9 +21,14 @@ export function RegistrationPage() {
             dispatch(
                 register(form.email, form.password, form.name)
             )
-            history.replace("/") //todo всегда переходит к / - нужно условие 
         }, [dispatch, form]
     )
+
+    if (user.name) {
+        return (
+            <Redirect to={"/"}/>
+        )
+    }
 
     return (
         <div className={style.formContainer}>

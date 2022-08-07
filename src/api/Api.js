@@ -26,11 +26,11 @@ class API {
             .then(this._checkResponse)
     }
 
-    resetPassword(body) {
+    resetPassword(email) {
         return fetch(`${this._url}/password-reset`, {
             method: "POST",
             headers: this._headers,
-            body: JSON.stringify(body)
+            body: JSON.stringify({email})
         })
             .then(this._checkResponse)
     }
@@ -66,7 +66,7 @@ class API {
         return fetch(`${this._url}/auth/logout`, {
             method: "POST",
             headers: this._headers,
-            body: JSON.stringify({token: refreshToken}) //todo проверить работоспособность, в документации стоит {"token": "{{refreshToken}}"}
+            body: JSON.stringify({token: refreshToken})
         })
             .then(this._checkResponse)
     }
@@ -75,7 +75,24 @@ class API {
         return fetch(`${this._url}/auth/token`, {
             method: "POST",
             headers: this._headers,
-            body: JSON.stringify({token: refreshToken}) //todo проверить работоспособность, в документации стоит {"token": "{{refreshToken}}"}
+            body: JSON.stringify({token: refreshToken})
+        })
+            .then(this._checkResponse)
+    }
+
+    getProfileInfo(token) {
+        return fetch(`${this._url}/auth/user`, {
+            method: "GET",
+            headers: {...this._headers, authorization: `Bearer ${token}`},
+        })
+            .then(this._checkResponse)
+    }
+
+    setProfileInfo(token, profileInfo) {
+        return fetch(`${this._url}/auth/user`, {
+            method: "PATCH",
+            headers: {...this._headers, 'authorization': `Bearer ${token}`},
+            body: JSON.stringify(profileInfo)
         })
             .then(this._checkResponse)
     }

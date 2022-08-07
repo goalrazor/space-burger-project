@@ -1,25 +1,35 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link} from "react-router-dom";
-import api from "../../api/Api";
+import {Link, useHistory} from "react-router-dom";
+import {getCookie} from "../../utils/cookie";
+import {useDispatch, useSelector} from "react-redux";
+import {setNewPassword} from "../../services/actions/auth";
 
 export function ResetPasswordPage() {
     const [form, setValue] = useState({password: "", keyword: ""});
     const [icon, setIcon] = useState({icon: "ShowIcon"})
+    const history = useHistory()
+    const passwordWasSent = useSelector(store => store.authReducer.resetPasswordWasSent)
+    const dispatch = useDispatch()
+
+    useEffect(
+        () => {
+            if (!passwordWasSent) {
+                history.replace("/forgot-password")
+            }
+        }, []
+    )
 
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyZWJjYjQ4NDJkMzRhMDAxYzI3ZjAwMiIsImlhdCI6MTY1OTYyMDE2OCwiZXhwIjoxNjU5NjIxMzY4fQ.wfyECJMiJh7XdTRAh6E_0j99WxlLVywKct7GltbN8KI"
-
     const handleClick = useCallback(
-        e => {
+        async (e) => {
             e.preventDefault()
-            api.setNewPassword(form.password, token)
-                .then(response => console.log(response))
+            await dispatch(setNewPassword(form.password, getCookie("accessToken")))
                 .then((response) => {
                     if (response.success) {
                         return response
@@ -29,7 +39,7 @@ export function ResetPasswordPage() {
                 .then(() => alert(`Пароль успешно изменен. Пожалуйста, войдите заново`))
                 .catch(error => console.error(error))
         },
-        [form]
+        [form, history]
     );
 
     return (
@@ -41,7 +51,7 @@ export function ResetPasswordPage() {
                     value={form.password}
                     name={"password"}
                     onChange={onChange}
-                    onIconClick={(e) => {
+                    onIconClick={() => {
                         setIcon({
                             icon: icon.icon === "ShowIcon" ? "HideIcon" : "ShowIcon"
                         })

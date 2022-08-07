@@ -3,27 +3,26 @@ import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
-import api from "../../api/Api";
+import {resetPassword} from "../../services/actions/auth";
+import {useDispatch} from "react-redux";
 
 export function ForgotPasswordPage() {
     const history = useHistory()
     const [form, setValue] = useState({email: "", password: ""});
-    const [isPasswordSent, setIsPasswordSent] = useState(false)
+    const dispatch = useDispatch()
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
     const handleClick = useCallback(
-        e => {
+        async (e) => {
             e.preventDefault()
-            api.resetPassword({email: form.email})
-                .then(response => console.log(response))
-                .then(response => setIsPasswordSent(response.success))
+            await dispatch(resetPassword(form.email))
                 .then(() => history.replace("/reset-password"))
                 .then(() => alert(`Письмо с кодом восстановления пароля выслано на электронную почту ${form.email}`))
                 .catch(error => console.error(error))
         },
-        [form]
+        [form, history]
     );
 
     return (

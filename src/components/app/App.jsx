@@ -13,6 +13,8 @@ import {ProfilePage} from "../../pages/profile-page/profilePage";
 import {IngredientPage} from "../../pages/ingredient-page/ingredientPage";
 import {NotFoundPage} from "../../pages/not-found-page/notFoundPage";
 import AppHeader from "../app-header/AppHeader";
+import {ProtectedRoute} from "../protected-route";
+import {AuthorizedRoute} from "../AuthorizedRoute";
 
 function App() {
     const dispatch = useDispatch();
@@ -43,24 +45,24 @@ function App() {
                     <Route path="/" exact>
                         <ConstructorPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
                     </Route>
-                    <Route path="/login" exact>
+                    <AuthorizedRoute path={"/login"}>
                         <LoginPage/>
-                    </Route>
-                    <Route path="/register" exact>
+                    </AuthorizedRoute>
+                    <AuthorizedRoute path={"/register"}>
                         <RegistrationPage/>
-                    </Route>
-                    <Route path="/forgot-password" exact>
+                    </AuthorizedRoute>
+                    <AuthorizedRoute path={"/forgot-password"}>
                         <ForgotPasswordPage/>
-                    </Route>
-                    <Route path="/reset-password" exact>
+                    </AuthorizedRoute>
+                    <AuthorizedRoute path={"/reset-password"}>
                         <ResetPasswordPage/>
-                    </Route>
-                    <Route path="/profile" exact>
+                    </AuthorizedRoute>
+                    <ProtectedRoute path={"/profile"}>
                         <ProfilePage/>
-                    </Route>
-                    <Route path="/ingredients/:id" exact>
+                    </ProtectedRoute>
+                    <ProtectedRoute path={"/ingredients/:id"}>
                         <IngredientPage/>
-                    </Route>
+                    </ProtectedRoute>
                     <Route path="*">
                         <NotFoundPage/>
                     </Route>

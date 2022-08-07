@@ -1,4 +1,7 @@
 import {
+    GET_PROFILE_INFO_FAILED,
+    GET_PROFILE_INFO_IN_PROGRESS,
+    GET_PROFILE_INFO_SUCCESS,
     LOGIN_REQUEST_FAILED,
     LOGIN_REQUEST_IN_PROGRESS,
     LOGIN_REQUEST_SUCCESS,
@@ -10,7 +13,16 @@ import {
     REFRESH_TOKEN_REQUEST_SUCCESS,
     REGISTER_REQUEST_FAILED,
     REGISTER_REQUEST_IN_PROGRESS,
-    REGISTER_REQUEST_SUCCESS
+    REGISTER_REQUEST_SUCCESS,
+    RESET_PASSWORD_FAILED,
+    RESET_PASSWORD_IN_PROGRESS,
+    RESET_PASSWORD_SUCCESS,
+    SET_NEW_PASSWORD_FAILED,
+    SET_NEW_PASSWORD_IN_PROGRESS,
+    SET_NEW_PASSWORD_SUCCESS,
+    SET_PROFILE_INFO_FAILED,
+    SET_PROFILE_INFO_IN_PROGRESS,
+    SET_PROFILE_INFO_SUCCESS
 } from "../actions/auth";
 
 const initialState = {
@@ -27,7 +39,20 @@ const initialState = {
     isLoggedIn: false,
 
     tokenRefreshRequestInProgress: false,
-    tokenRefreshRequestFailed: false
+    tokenRefreshRequestFailed: false,
+
+    getProfileInfoInProgress: false,
+    getProfileInfoFailed: false,
+
+    setProfileInfoInProgress: false,
+    setProfileInfoFailed: false,
+
+    resetPasswordInProgress: false,
+    resetPasswordFailed: false,
+    resetPasswordWasSent: false,
+
+    setNewPasswordInProgress: false,
+    setNewPasswordFailed: false,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -126,7 +151,8 @@ export const authReducer = (state = initialState, action) => {
                 ...state,
                 tokenRefreshRequestFailed: false,
                 tokenRefreshRequestInProgress: false,
-                accessToken: action.accessToken
+                accessToken: action.accessToken,
+                refreshToken: action.refreshToken
             }
         }
         case REFRESH_TOKEN_REQUEST_FAILED: {
@@ -138,6 +164,95 @@ export const authReducer = (state = initialState, action) => {
             }
         }
 
+        case GET_PROFILE_INFO_IN_PROGRESS: {
+            return {
+                ...state,
+                getProfileInfoInProgress: true
+            }
+        }
+        case GET_PROFILE_INFO_SUCCESS: {
+            return {
+                ...state,
+                getProfileInfoFailed: false,
+                getProfileInfoInProgress: false,
+                user: action.user
+            }
+        }
+        case GET_PROFILE_INFO_FAILED: {
+            return {
+                ...state,
+                getProfileInfoFailed: true,
+                getProfileInfoInProgress: false
+            }
+        }
+
+        case SET_PROFILE_INFO_IN_PROGRESS: {
+            return {
+                ...state,
+                setProfileInfoInProgress: true
+            }
+        }
+        case SET_PROFILE_INFO_SUCCESS: {
+            return {
+                ...state,
+                setProfileInfoFailed: false,
+                setProfileInfoInProgress: false,
+                user: action.user
+            }
+        }
+        case SET_PROFILE_INFO_FAILED: {
+            return {
+                ...state,
+                user: {},
+                setProfileInfoFailed: true,
+                setProfileInfoInProgress: false
+            }
+        }
+
+        case RESET_PASSWORD_IN_PROGRESS: {
+            return {
+                ...state,
+                resetPasswordInProgress: true
+            }
+        }
+        case RESET_PASSWORD_SUCCESS: {
+            return {
+                ...state,
+                resetPasswordFailed: false,
+                resetPasswordInProgress: false,
+                resetPasswordWasSent: true,
+            }
+        }
+        case RESET_PASSWORD_FAILED: {
+            return {
+                ...state,
+                resetPasswordFailed: true,
+                resetPasswordInProgress: false,
+                resetPasswordWasSent: false
+            }
+        }
+
+        case SET_NEW_PASSWORD_IN_PROGRESS: {
+            return {
+                ...state,
+                setProfileInfoInProgress: true
+            }
+        }
+        case SET_NEW_PASSWORD_SUCCESS: {
+            return {
+                ...state,
+                setNewPasswordFailed: false,
+                setNewPasswordInProgress: false,
+                resetPasswordWasSent: false,
+            }
+        }
+        case SET_NEW_PASSWORD_FAILED: {
+            return {
+                ...state,
+                setNewPasswordFailed: true,
+                setNewPasswordInProgress: false
+            }
+        }
         default: {
             return state;
         }

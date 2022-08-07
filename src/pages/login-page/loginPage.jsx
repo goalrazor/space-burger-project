@@ -5,25 +5,34 @@ import {Form} from "../../components/form/Form"
 import {EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {login} from "../../services/actions/auth";
 import {useDispatch} from "react-redux";
+import {setCookie} from "../../utils/cookie";
 
 
 export function LoginPage() {
     const dispatch = useDispatch()
-    const history = useHistory()
     const [form, setValue] = useState({email: "", password: ""});
+    let isLoggedIn = false
+    const history = useHistory()
 
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
     const handleButtonClick = useCallback(
-        (e) => {
+        async (e) => {
             e.preventDefault()
-            dispatch(
-                login(form.email, form.password)
-            )
-            history.replace("/") //todo всегда переходит к / - нужно условие
-        }, [dispatch, form]
+            await dispatch(login(form.email, form.password))
+                .then((res) => {
+                    setCookie("accessToken", res.accessToken.split('Bearer ')[1])
+                    localStorage.setItem("refreshToken", res.refreshToken)
+                })
+                .then(() => {
+                    isLoggedIn = true
+                })
+                .then(() => {
+                    history.replace("/")
+                })
+        }, [dispatch, form, isLoggedIn]
     )
 
     return (
