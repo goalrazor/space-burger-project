@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import ingredientDetailsStyle from './IngredientDetails.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
-import {getIngredients} from "../../services/actions/burger-ingredients";
+import {useLocation, useParams} from "react-router-dom";
+import {
+    getIngredients,
+    SET_INGREDIENT_MODAL_CLOSED,
+    SET_INGREDIENT_MODAL_SHOW
+} from "../../services/actions/burger-ingredients";
 
 const IngredientDetails = () => {
     const statsTextStyle = 'text text_type_main-default text_color_inactive';
@@ -24,6 +28,21 @@ const IngredientDetails = () => {
 
             getData()
         }, [dispatch, id])
+
+    const location = useLocation();
+    const background = location.state?.background;
+
+    useEffect(() => {
+        //...если компонент не в модальном окне, то не меняем стейт
+        background && dispatch({
+            type: SET_INGREDIENT_MODAL_SHOW
+        })
+        return () => {
+            background && dispatch({
+                type: SET_INGREDIENT_MODAL_CLOSED
+            })
+        }
+    }, [background, dispatch])
 
 
     const ingredients

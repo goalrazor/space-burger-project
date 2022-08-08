@@ -2,7 +2,7 @@ import '../../pages/constructor-page/constructorPage.module.css';
 import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/burger-ingredients";
 import {useDispatch} from "react-redux";
 import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {Route, Switch, useLocation} from "react-router-dom";
 import {ConstructorPage} from "../../pages/constructor-page/constructorPage";
 import {LoginPage} from "../../pages/login-page/loginPage";
 import {RegistrationPage} from "../../pages/registration-page/registrationPage";
@@ -13,10 +13,14 @@ import {NotFoundPage} from "../../pages/not-found-page/notFoundPage";
 import AppHeader from "../app-header/AppHeader";
 import {ProtectedRoute} from "../protected-route";
 import {AuthorizedRoute} from "../authorizedRoute";
-import {IngredientDetailsPage} from "../../pages/ingredient-details-page/ingredientDetailsPage";
+import {IngredientModalPage} from "../../pages/ingredient-modal-page/ingredientModalPage";
+import React from "react";
+import IngredientDetails from "../ingredient-details/IngredientDetails";
 
 function App() {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const background = location.state?.background;
 
     const handleClose = () => {
         dispatch({
@@ -32,9 +36,9 @@ function App() {
     };
 
     return (
-        <Router>
+        <>
             <AppHeader/>
-            <Switch>
+            <Switch location={background || location}>
                 <Route path="/" exact>
                     <ConstructorPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
                 </Route>
@@ -53,14 +57,18 @@ function App() {
                 <ProtectedRoute path={"/profile"}>
                     <ProfilePage/>
                 </ProtectedRoute>
-
-                <IngredientDetailsPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
-
+                <Route path={"/ingredients/:id"}>
+                    <IngredientDetails/>
+                </Route>
                 <Route path="*">
                     <NotFoundPage/>
                 </Route>
             </Switch>
-        </Router>
+            {background &&
+                <Route path={"/ingredients/:id"}>
+                    <IngredientModalPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
+                </Route>}
+        </>
     );
 }
 

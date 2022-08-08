@@ -22,7 +22,8 @@ export function ProfilePage() {
                     .then((res) => {
                         setValue({
                                 name: res.user.name,
-                                email: res.user.email
+                                email: res.user.email,
+                                password: ''
                             }
                         )
                     })
@@ -109,50 +110,52 @@ export function ProfilePage() {
                 <p className={"text text_type_main-small text_color_inactive mt-20"}>В этом разделе вы можете
                     изменить свои персональные данные</p>
             </nav>
-            <form className={formStyle.form}>
-                <div className={`mt-6 ${formStyle.input}`}>
-                    <Input
-                        type={"text"}
-                        placeholder={"Имя"}
-                        value={form.name}
-                        name={"name"}
-                        onChange={onChange}
-                        icon={"EditIcon"}
-                        onIconClick={toggleButtonsShown}
-                        disabled={!isEditButtonsShown.inputActive}
-                    />
-                    <Input
-                        type={"email"}
-                        placeholder={"Логин"}
-                        value={form.email}
-                        name={"email"}
-                        onChange={onChange}
-                        icon={"EditIcon"}
-                        onIconClick={toggleButtonsShown}
-                        disabled={!isEditButtonsShown.inputActive}
-                    />
-                    <Input
-                        type={"text"}
-                        placeholder={"Пароль"}
-                        value={form.password}
-                        name={"password"}
-                        onChange={onChange}
-                        icon={"EditIcon"}
-                        onIconClick={toggleButtonsShown}
-                        disabled={!isEditButtonsShown.inputActive}
-                    />
-                </div>
-                {isEditButtonsShown.isButtonsShown &&
-                    <div>
-                        <Button onClick={submitProfileChange}>
-                            Сохранить
-                        </Button>
-                        <Button onClick={cancelProfileChange}>
-                            Отмена
-                        </Button>
+            {form &&
+                <form className={formStyle.form}>
+                    <div className={`mt-6 ${formStyle.input}`}>
+                        <Input
+                            type={"text"}
+                            placeholder={"Имя"}
+                            value={form.name}
+                            name={"name"}
+                            onChange={onChange}
+                            icon={"EditIcon"}
+                            onIconClick={toggleButtonsShown}
+                            disabled={!isEditButtonsShown.inputActive}
+                        />
+                        <Input
+                            type={"email"}
+                            placeholder={"Логин"}
+                            value={form.email}
+                            name={"email"}
+                            onChange={onChange}
+                            icon={"EditIcon"}
+                            onIconClick={toggleButtonsShown}
+                            disabled={!isEditButtonsShown.inputActive}
+                        />
+                        <Input
+                            type={"text"}
+                            placeholder={"Пароль"}
+                            value={form.password}
+                            name={"password"}
+                            onChange={onChange}
+                            icon={"EditIcon"}
+                            onIconClick={toggleButtonsShown}
+                            disabled={!isEditButtonsShown.inputActive}
+                        />
                     </div>
-                }
-            </form>
+                    {isEditButtonsShown.isButtonsShown &&
+                        <div>
+                            <Button onClick={submitProfileChange}>
+                                Сохранить
+                            </Button>
+                            <Button onClick={cancelProfileChange}>
+                                Отмена
+                            </Button>
+                        </div>
+                    }
+                </form>
+            }
         </div>
     )
 }

@@ -23,7 +23,7 @@ HeaderMenuItem.propTypes = {
     className: PropTypes.string.isRequired,
     iconStatus: PropTypes.string,
     path: PropTypes.string.isRequired,
-    match: PropTypes.string,
+    match: PropTypes.object,
 }
 
 export default HeaderMenuItem;

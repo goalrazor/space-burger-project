@@ -13,6 +13,8 @@ import {
     RESET_TOTAL_PRICE,
     SET_CURRENT_INGREDIENT,
     SET_CURRENT_TAB,
+    SET_INGREDIENT_MODAL_CLOSED,
+    SET_INGREDIENT_MODAL_SHOW,
     TOTAL_PRICE
 } from "../actions/burger-ingredients";
 import {BUN} from "../../components/ingredients/Ingredients";
@@ -50,6 +52,19 @@ export const ingredientReducer = (state = initialState, action) => {
                 ...state,
                 ingredientModalShow: true,
                 currentIngredient: action.item
+            }
+        }
+
+        case SET_INGREDIENT_MODAL_SHOW: {
+            return {
+                ...state,
+                ingredientModalShow: true,
+            }
+        }
+        case SET_INGREDIENT_MODAL_CLOSED: {
+            return {
+                ...state,
+                ingredientModalShow: false,
             }
         }
 
