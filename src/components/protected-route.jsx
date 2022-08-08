@@ -29,6 +29,7 @@ export function ProtectedRoute({path, children}) {
             }
 
             checkToken()
+        // eslint-disable-next-line
         }, []
     )
 

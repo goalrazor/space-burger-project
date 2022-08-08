@@ -32,15 +32,17 @@ export function ProfilePage() {
             }
 
             checkUser();
+        // eslint-disable-next-line
         }, []
     )
 
-    const toggleButtonsShown = () => {
-        setEditButtonShown({
-            isButtonsShown: !isEditButtonsShown.isButtonsShown,
-            inputActive: !isEditButtonsShown.inputActive
-        })
-    }
+    const toggleButtonsShown = useCallback(() => {
+            setEditButtonShown({
+                isButtonsShown: !isEditButtonsShown.isButtonsShown,
+                inputActive: !isEditButtonsShown.inputActive
+            })
+        }, [isEditButtonsShown]
+    )
 
     const submitProfileChange = useCallback(
         async (e) => {
@@ -58,7 +60,7 @@ export function ProfilePage() {
                     console.error(err)
                     history.replace("/login")
                 })
-        }, [form, dispatch, user])
+        }, [form, dispatch, user, history])
 
 
     const cancelProfileChange = useCallback(
@@ -68,7 +70,7 @@ export function ProfilePage() {
                 email: user.email
             })
             toggleButtonsShown()
-        }, [form, user])
+        }, [user, toggleButtonsShown])
 
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
@@ -130,9 +132,9 @@ export function ProfilePage() {
                         <Button onClick={submitProfileChange}>
                             Сохранить
                         </Button>
-                        <a onClick={cancelProfileChange}>
+                        <Button onClick={cancelProfileChange}>
                             Отмена
-                        </a>
+                        </Button>
                     </div>
                 }
             </form>

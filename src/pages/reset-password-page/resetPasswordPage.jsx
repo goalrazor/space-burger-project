@@ -19,6 +19,7 @@ export function ResetPasswordPage() {
             if (!passwordWasSent) {
                 history.replace("/forgot-password")
             }
+            // eslint-disable-next-line
         }, []
     )
 
@@ -39,7 +40,7 @@ export function ResetPasswordPage() {
                 .then(() => alert(`Пароль успешно изменен. Пожалуйста, войдите заново`))
                 .catch(error => console.error(error))
         },
-        [form, history]
+        [form, history, dispatch]
     );
 
     return (

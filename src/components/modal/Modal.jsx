@@ -18,6 +18,7 @@ const Modal = ({title, children, handleClose, handleEscKeydown}) => {
         return () => {
             document.removeEventListener('keydown', handleEscKeydown);
         };
+        // eslint-disable-next-line
     }, []);
 
     return ReactDOM.createPortal(

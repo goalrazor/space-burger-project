@@ -11,7 +11,6 @@ import {setCookie} from "../../utils/cookie";
 export function LoginPage() {
     const dispatch = useDispatch()
     const [form, setValue] = useState({email: "", password: ""});
-    let isLoggedIn = false
     const history = useHistory()
 
     const onChange = e => {
@@ -27,12 +26,9 @@ export function LoginPage() {
                     localStorage.setItem("refreshToken", res.refreshToken)
                 })
                 .then(() => {
-                    isLoggedIn = true
-                })
-                .then(() => {
                     history.replace("/")
                 })
-        }, [dispatch, form, isLoggedIn]
+        }, [dispatch, form, history]
     )
 
     return (

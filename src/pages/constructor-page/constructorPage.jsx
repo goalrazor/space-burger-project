@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Modal from "../../components/modal/Modal";
 import IngredientDetails from "../../components/ingredient-details/IngredientDetails";
 import OrderDetails from "../../components/order-details/OrderDetails";
@@ -7,12 +7,19 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import style from "./constructorPage.module.css";
 import BurgerIngredients from "../../components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "../../components/burger-constructor/BurgerConstructor";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getIngredients} from "../../services/actions/burger-ingredients";
 
 
 export function ConstructorPage({handleClose, handleEscKeydown}) {
     const isIngredientModalShown = useSelector(store => store.ingredientReducer.ingredientModalShow)
     const isOrderDetailsModalShown = useSelector(store => store.orderDetailsReducer.orderModalShown)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(
+            getIngredients())
+    }, [dispatch]);
 
     return (
         <div className="App">

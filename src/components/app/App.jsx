@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
 import '../../pages/constructor-page/constructorPage.module.css';
-import {CLOSE_INGREDIENT_MODAL, getIngredients} from "../../services/actions/burger-ingredients";
+import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/burger-ingredients";
 import {useDispatch} from "react-redux";
 import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -18,11 +17,6 @@ import {AuthorizedRoute} from "../AuthorizedRoute";
 
 function App() {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(
-            getIngredients())
-    }, [dispatch]);
 
     const handleClose = () => {
         dispatch({

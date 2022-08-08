@@ -22,7 +22,7 @@ export function ForgotPasswordPage() {
                 .then(() => alert(`Письмо с кодом восстановления пароля выслано на электронную почту ${form.email}`))
                 .catch(error => console.error(error))
         },
-        [form, history]
+        [form, history, dispatch]
     );
 
     return (
