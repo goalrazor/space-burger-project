@@ -9,7 +9,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {setOrder} from "../../services/actions/burger-constructor-ingredients";
 import {useDrop} from "react-dnd";
 import {v4 as uuidv4} from 'uuid';
-import {ADD_INGREDIENT, INCREASE_INGREDIENT_COUNT, MOVE_INGREDIENT} from "../../services/actions/burger-ingredients";
+import {
+    ADD_INGREDIENT,
+    INCREASE_INGREDIENT_COUNT,
+    MOVE_INGREDIENT,
+    RESET_INGREDIENT_COUNT
+} from "../../services/actions/burger-ingredients";
 
 const BurgerConstructor = () => {
     const data = useSelector(store => store.ingredientReducer.constructorIngredients);
@@ -23,6 +28,9 @@ const BurgerConstructor = () => {
                     return item._id
                 })
             }))
+            dispatch({
+                type: RESET_INGREDIENT_COUNT
+            })
         } else {
             console.log("Неверный состав заказа")
             alert("Неверный состав заказа. Пожалуйста, выберите булку и хотя бы один ингредиент")

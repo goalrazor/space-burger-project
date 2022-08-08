@@ -9,6 +9,7 @@ import {
     GET_INGREDIENTS_SUCCESS,
     INCREASE_INGREDIENT_COUNT,
     MOVE_INGREDIENT,
+    RESET_INGREDIENT_COUNT,
     RESET_TOTAL_PRICE,
     SET_CURRENT_INGREDIENT,
     SET_CURRENT_TAB,
@@ -140,7 +141,6 @@ export const ingredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredientModalShow: false,
-                currentIngredient: {}
             }
         }
 
@@ -167,6 +167,16 @@ export const ingredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 totalPrice: 0
+            }
+        }
+
+        case RESET_INGREDIENT_COUNT: {
+            return {
+                ...state,
+                ingredients: state.ingredients.map(item => {
+                    item.ingredientCount = 0
+                    return item
+                })
             }
         }
         default: {

@@ -9,11 +9,11 @@ import {RegistrationPage} from "../../pages/registration-page/registrationPage";
 import {ForgotPasswordPage} from "../../pages/forgot-password-page/forgotPasswordPage";
 import {ResetPasswordPage} from "../../pages/reset-password-page/resetPasswordPage";
 import {ProfilePage} from "../../pages/profile-page/profilePage";
-import {IngredientPage} from "../../pages/ingredient-page/ingredientPage";
 import {NotFoundPage} from "../../pages/not-found-page/notFoundPage";
 import AppHeader from "../app-header/AppHeader";
 import {ProtectedRoute} from "../protected-route";
 import {AuthorizedRoute} from "../AuthorizedRoute";
+import {IngredientDetailsPage} from "../../pages/ingredient-details-page/ingredientDetailsPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -54,9 +54,9 @@ function App() {
                     <ProtectedRoute path={"/profile"}>
                         <ProfilePage/>
                     </ProtectedRoute>
-                    <ProtectedRoute path={"/ingredients/:id"}>
-                        <IngredientPage/>
-                    </ProtectedRoute>
+
+                    <IngredientDetailsPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
+
                     <Route path="*">
                         <NotFoundPage/>
                     </Route>

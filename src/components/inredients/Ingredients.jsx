@@ -55,7 +55,8 @@ const Ingredients = ({children, data}) => {
             </h2>
             <div className={style.cardsContainer}>
                 {getPartOfBurgerData(children, data).map(item => {
-                    return (<Card
+                    return (
+                        <Card
                             key={item._id}
                             {...item}
                         />
