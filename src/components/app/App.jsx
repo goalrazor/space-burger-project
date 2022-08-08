@@ -33,8 +33,8 @@ function App() {
 
     return (
         <>
-            <AppHeader/>
             <Router>
+                <AppHeader/>
                 <Switch>
                     <Route path="/" exact>
                         <ConstructorPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>

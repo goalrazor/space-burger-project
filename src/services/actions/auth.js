@@ -129,6 +129,7 @@ export function refreshToken(refreshToken) {
             .catch(err => {
                 console.error(err)
                 dispatch(refreshFailed())
+                throw err
             })
     }
 }

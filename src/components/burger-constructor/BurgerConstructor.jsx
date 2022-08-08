@@ -6,7 +6,6 @@ import scroller from '../../pages/constructor-page/constructorPage.module.css'
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
 import {useDispatch, useSelector} from "react-redux";
-import {setOrder} from "../../services/actions/burger-constructor-ingredients";
 import {useDrop} from "react-dnd";
 import {v4 as uuidv4} from 'uuid';
 import {
@@ -15,13 +14,18 @@ import {
     MOVE_INGREDIENT,
     RESET_INGREDIENT_COUNT
 } from "../../services/actions/burger-ingredients";
+import {getCookie} from "../../utils/cookie";
+import {refreshToken} from "../../services/actions/auth";
+import {useHistory} from "react-router-dom";
+import {setOrder} from "../../services/actions/burger-constructor-ingredients";
 
 const BurgerConstructor = () => {
     const data = useSelector(store => store.ingredientReducer.constructorIngredients);
     const bun = data.filter(item => item.type === 'bun')
     const dispatch = useDispatch();
+    const history = useHistory();
 
-    const submitOrderOnClickHandler = () => {
+    const makeOrder = () => {
         if (bun.length > 0 && data.filter(item => item.type !== 'bun').length > 0) {
             dispatch(setOrder({
                 ingredients: data.map((item) => {
@@ -35,6 +39,22 @@ const BurgerConstructor = () => {
             console.log("Неверный состав заказа")
             alert("Неверный состав заказа. Пожалуйста, выберите булку и хотя бы один ингредиент")
         }
+    }
+
+    const submitOrderOnClickHandler = async () => {
+        if (!getCookie("accessToken")) {
+            console.log("!accessToken")
+            await dispatch(refreshToken(localStorage.getItem("refreshToken")))
+                .then(() => {
+                    makeOrder()
+                })
+                .catch(() => {
+                    history.replace("/login")
+                })
+        } else {
+            makeOrder()
+        }
+
     }
 
     const [, dropTarget] = useDrop({

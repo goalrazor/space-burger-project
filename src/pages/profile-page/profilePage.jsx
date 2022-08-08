@@ -2,9 +2,9 @@ import React, {useCallback, useEffect, useState} from 'react'
 import formStyle from "../../components/form/form.module.css";
 import style from "./profilePage.module.css"
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, useHistory} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfileInfo, refreshToken, setProfileInfo} from "../../services/actions/auth";
+import {getProfileInfo, logout, refreshToken, setProfileInfo} from "../../services/actions/auth";
 import {getCookie} from "../../utils/cookie";
 
 export function ProfilePage() {
@@ -13,6 +13,7 @@ export function ProfilePage() {
     const dispatch = useDispatch()
     const history = useHistory()
     const user = useSelector(store => store.authReducer.user)
+    const location = useLocation()
 
     useEffect(() => {
             async function checkUser() {
@@ -26,7 +27,6 @@ export function ProfilePage() {
                         )
                     })
                     .catch(() => {
-                        console.log("profilePage")
                         history.replace("/login")
                     })
             }
@@ -75,20 +75,35 @@ export function ProfilePage() {
     const onChange = e => {
         setValue({...form, [e.target.name]: e.target.value});
     };
+
+    const handleLogout = () => {
+        dispatch(logout(localStorage.getItem("refreshToken")))
+            .catch((err) => {
+                console.error("Не удалось выполнить выход", err)
+            })
+        document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem('refreshToken');
+    }
+
     return (
         <div className={formStyle.formContainer}>
             <nav className={style.navigation}>
                 <ul className={style.list}>
                     <li className={style.listElement}>
-                        <Link className={`text text_type_main-medium ${style.link}`} to={"/profile"}>Профиль</Link>
+                        <Link className={`${location.pathname === '/profile' ? 'text text_type_main-medium'
+                            : 'text text_type_main-medium text_color_inactive'} ${style.link}`}
+                              style={location.pathname === '/profile' ? {color: "#F2F2F3"} : {}}
+                              to={"/profile"}>Профиль</Link>
                     </li>
                     <li className={style.listElement}>
-                        <Link className={`text text_type_main-medium text_color_inactive ${style.link}`}
+                        <Link className={`${location.pathname === '/profile/orders' ? 'text text_type_main-medium'
+                            : 'text text_type_main-medium text_color_inactive'} ${style.link}`}
+                              style={location.pathname === '/profile/orders' ? {color: "#F2F2F3"} : {}}
                               to={"/profile/orders"}>История заказов</Link>
                     </li>
                     <li className={style.listElement}>
-                        <Link className={`text text_type_main-medium text_color_inactive ${style.link}`}
-                              to={"/"}>Выход</Link>
+                        <Link to={"/login"} className={`text text_type_main-medium text_color_inactive ${style.link}`}
+                              onClick={handleLogout}>Выход</Link>
                     </li>
                 </ul>
                 <p className={"text text_type_main-small text_color_inactive mt-20"}>В этом разделе вы можете
