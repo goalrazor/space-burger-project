@@ -15,7 +15,7 @@ import {
     SET_CURRENT_TAB,
     TOTAL_PRICE
 } from "../actions/burger-ingredients";
-import {BUN} from "../../components/inredients/Ingredients";
+import {BUN} from "../../components/ingredients/Ingredients";
 
 const initialState = {
     ingredients: [],

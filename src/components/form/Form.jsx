@@ -1,6 +1,7 @@
 import React from "react";
 import style from "./form.module.css";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
 
 export function Form({header, buttonText, handleClick, children}) {
     return (
@@ -16,4 +17,10 @@ export function Form({header, buttonText, handleClick, children}) {
             </div>
         </form>
     )
+}
+
+Form.propTypes = {
+    header: PropTypes.string.isRequired,
+    buttonText: PropTypes.string.isRequired,
+    handleClick: PropTypes.func,
 }

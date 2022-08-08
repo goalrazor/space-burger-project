@@ -7,6 +7,7 @@ import BurgerConstructor from "../../components/burger-constructor/BurgerConstru
 import {useDispatch} from "react-redux";
 import {getIngredients} from "../../services/actions/burger-ingredients";
 import {SendOrderModalPage} from "../send-order-modal-page/sendOrderModalPage";
+import PropTypes from "prop-types";
 
 
 export function ConstructorPage({handleClose, handleEscKeydown}) {
@@ -29,5 +30,10 @@ export function ConstructorPage({handleClose, handleEscKeydown}) {
             </DndProvider>
         </div>
     )
+}
+
+ConstructorPage.propTypes = {
+    handleClose: PropTypes.func.isRequired,
+    handleEscKeydown: PropTypes.func.isRequired,
 }
 

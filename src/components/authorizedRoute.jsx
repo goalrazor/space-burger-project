@@ -1,6 +1,7 @@
 import React, {useEffect} from "react";
 import {Route, useHistory} from "react-router-dom";
 import {getCookie} from "../utils/cookie";
+import PropTypes from "prop-types";
 
 export function AuthorizedRoute({path, children}) {
     const accessToken = getCookie("accessToken")
@@ -20,5 +21,6 @@ export function AuthorizedRoute({path, children}) {
     )
 }
 
-
-
+AuthorizedRoute.propTypes = {
+    path: PropTypes.string.isRequired,
+}

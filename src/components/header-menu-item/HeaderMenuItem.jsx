@@ -20,7 +20,10 @@ const HeaderMenuItem = ({icon: Icon, iconStatus, className, path, match, childre
 
 HeaderMenuItem.propTypes = {
     icon: PropTypes.elementType.isRequired,
-    className: PropTypes.string.isRequired
+    className: PropTypes.string.isRequired,
+    iconStatus: PropTypes.string,
+    path: PropTypes.string.isRequired,
+    match: PropTypes.string,
 }
 
 export default HeaderMenuItem;

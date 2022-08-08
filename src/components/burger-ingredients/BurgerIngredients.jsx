@@ -3,7 +3,7 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 
 import style from './BurgerIngredients.module.css'
 import scrollerStyle from '../../pages/constructor-page/constructorPage.module.css'
-import Ingredients, {BUN, MAIN, SAUCE} from "../inredients/Ingredients";
+import Ingredients, {BUN, MAIN, SAUCE} from "../ingredients/Ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import {useInView} from "react-intersection-observer";
 import {setCurrentTab} from "../../services/actions/burger-ingredients";

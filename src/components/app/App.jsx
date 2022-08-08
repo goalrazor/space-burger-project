@@ -12,7 +12,7 @@ import {ProfilePage} from "../../pages/profile-page/profilePage";
 import {NotFoundPage} from "../../pages/not-found-page/notFoundPage";
 import AppHeader from "../app-header/AppHeader";
 import {ProtectedRoute} from "../protected-route";
-import {AuthorizedRoute} from "../AuthorizedRoute";
+import {AuthorizedRoute} from "../authorizedRoute";
 import {IngredientDetailsPage} from "../../pages/ingredient-details-page/ingredientDetailsPage";
 
 function App() {
@@ -32,37 +32,35 @@ function App() {
     };
 
     return (
-        <>
-            <Router>
-                <AppHeader/>
-                <Switch>
-                    <Route path="/" exact>
-                        <ConstructorPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
-                    </Route>
-                    <AuthorizedRoute path={"/login"}>
-                        <LoginPage/>
-                    </AuthorizedRoute>
-                    <AuthorizedRoute path={"/register"}>
-                        <RegistrationPage/>
-                    </AuthorizedRoute>
-                    <AuthorizedRoute path={"/forgot-password"}>
-                        <ForgotPasswordPage/>
-                    </AuthorizedRoute>
-                    <AuthorizedRoute path={"/reset-password"}>
-                        <ResetPasswordPage/>
-                    </AuthorizedRoute>
-                    <ProtectedRoute path={"/profile"}>
-                        <ProfilePage/>
-                    </ProtectedRoute>
+        <Router>
+            <AppHeader/>
+            <Switch>
+                <Route path="/" exact>
+                    <ConstructorPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
+                </Route>
+                <AuthorizedRoute path={"/login"}>
+                    <LoginPage/>
+                </AuthorizedRoute>
+                <AuthorizedRoute path={"/register"}>
+                    <RegistrationPage/>
+                </AuthorizedRoute>
+                <AuthorizedRoute path={"/forgot-password"}>
+                    <ForgotPasswordPage/>
+                </AuthorizedRoute>
+                <AuthorizedRoute path={"/reset-password"}>
+                    <ResetPasswordPage/>
+                </AuthorizedRoute>
+                <ProtectedRoute path={"/profile"}>
+                    <ProfilePage/>
+                </ProtectedRoute>
 
-                    <IngredientDetailsPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
+                <IngredientDetailsPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
 
-                    <Route path="*">
-                        <NotFoundPage/>
-                    </Route>
-                </Switch>
-            </Router>
-        </>
+                <Route path="*">
+                    <NotFoundPage/>
+                </Route>
+            </Switch>
+        </Router>
     );
 }
 
