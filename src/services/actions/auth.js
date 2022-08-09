@@ -39,21 +39,20 @@ export function register(email, password, name) {
             type: REGISTER_REQUEST_IN_PROGRESS
         });
         return api.register(email, password, name)
+            .then(res => checkSuccess(res))
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: REGISTER_REQUEST_SUCCESS,
-                        user: res.user,
-                        accessToken: res.accessToken.split('Bearer ')[1],
-                        refreshToken: res.refreshToken
-                    })
-                } else {
-                    dispatch(registerFailed());
-                }
+                dispatch({
+                    type: REGISTER_REQUEST_SUCCESS,
+                    user: res.user,
+                    accessToken: res.accessToken.split('Bearer ')[1],
+                    refreshToken: res.refreshToken
+                })
+                return res
             })
             .catch(err => {
                 console.error(err)
                 dispatch(registerFailed())
+                return err
             })
     }
 }
@@ -64,22 +63,20 @@ export function login(email, password) {
             type: LOGIN_REQUEST_IN_PROGRESS
         });
         return api.login(email, password)
+            .then(res => checkSuccess(res))
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: LOGIN_REQUEST_SUCCESS,
-                        user: res.user,
-                        accessToken: res.accessToken.split('Bearer ')[1],
-                        refreshToken: res.refreshToken
-                    })
-                    return res
-                } else {
-                    dispatch(loginFailed());
-                }
+                dispatch({
+                    type: LOGIN_REQUEST_SUCCESS,
+                    user: res.user,
+                    accessToken: res.accessToken.split('Bearer ')[1],
+                    refreshToken: res.refreshToken
+                })
+                return res
             })
             .catch(err => {
                 console.error(err)
                 dispatch(loginFailed())
+                return err
             })
     }
 }
@@ -90,18 +87,17 @@ export function logout(refreshToken) {
             type: LOGOUT_REQUEST_IN_PROGRESS
         });
         return api.logout(refreshToken)
+            .then(res => checkSuccess(res))
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: LOGOUT_REQUEST_SUCCESS,
-                    })
-                } else {
-                    dispatch(logoutFailed());
-                }
+                dispatch({
+                    type: LOGOUT_REQUEST_SUCCESS,
+                })
+                return res
             })
             .catch(err => {
                 console.error(err)
                 dispatch(logoutFailed())
+                return err
             })
     }
 }
@@ -112,19 +108,16 @@ export function refreshToken(refreshToken) {
             type: REFRESH_TOKEN_REQUEST_IN_PROGRESS
         });
         return api.refreshToken(refreshToken)
+            .then(res => checkSuccess(res))
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: REFRESH_TOKEN_REQUEST_SUCCESS,
-                        accessToken: res.accessToken.split('Bearer ')[1],
-                        refreshToken: res.refreshToken
-                    })
-                    localStorage.setItem("refreshToken", res.refreshToken)
-                    setCookie("accessToken", res.accessToken.split('Bearer ')[1])
-                    return res
-                } else {
-                    dispatch(refreshFailed());
-                }
+                dispatch({
+                    type: REFRESH_TOKEN_REQUEST_SUCCESS,
+                    accessToken: res.accessToken.split('Bearer ')[1],
+                    refreshToken: res.refreshToken
+                })
+                localStorage.setItem("refreshToken", res.refreshToken)
+                setCookie("accessToken", res.accessToken.split('Bearer ')[1])
+                return res
             })
             .catch(err => {
                 console.error(err)
@@ -141,20 +134,18 @@ export function getProfileInfo(token) {
             type: GET_PROFILE_INFO_IN_PROGRESS
         });
         return api.getProfileInfo(token)
+            .then(res => checkSuccess(res))
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: GET_PROFILE_INFO_SUCCESS,
-                        user: res.user,
-                    })
-                    return res
-                } else {
-                    dispatch(getProfileFailed());
-                }
+                dispatch({
+                    type: GET_PROFILE_INFO_SUCCESS,
+                    user: res.user,
+                })
+                return res
             })
             .catch(err => {
                 console.error(err)
                 dispatch(getProfileFailed())
+                return err
             })
     }
 }
@@ -165,20 +156,18 @@ export function setProfileInfo(token, email, password, name) {
             type: SET_PROFILE_INFO_IN_PROGRESS
         });
         return api.setProfileInfo(token, email, password, name)
+            .then(res => checkSuccess(res))
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: SET_PROFILE_INFO_SUCCESS,
-                        user: res.user,
-                    })
-                    return res
-                } else {
-                    dispatch(setProfileFailed());
-                }
+                dispatch({
+                    type: SET_PROFILE_INFO_SUCCESS,
+                    user: res.user,
+                })
+                return res
             })
             .catch(err => {
                 console.error(err)
                 dispatch(setProfileFailed())
+                return err
             })
     }
 }
@@ -189,19 +178,17 @@ export function resetPassword(email) {
             type: RESET_PASSWORD_IN_PROGRESS
         });
         return api.resetPassword(email)
+            .then(res => checkSuccess(res))
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: RESET_PASSWORD_SUCCESS,
-                    })
-                    return res
-                } else {
-                    dispatch(resetPasswordFailed());
-                }
+                dispatch({
+                    type: RESET_PASSWORD_SUCCESS,
+                })
+                return res
             })
             .catch(err => {
                 console.error(err)
                 dispatch(resetPasswordFailed())
+                return err
             })
     }
 }
@@ -212,21 +199,26 @@ export function setNewPassword(email, token) {
             type: SET_NEW_PASSWORD_IN_PROGRESS
         });
         return api.setNewPassword(email, token)
+            .then(res => checkSuccess(res))
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: SET_NEW_PASSWORD_SUCCESS,
-                    })
-                    return res
-                } else {
-                    dispatch(setNewPasswordFailed());
-                }
+                dispatch({
+                    type: SET_NEW_PASSWORD_SUCCESS,
+                })
+                return res
             })
             .catch(err => {
                 console.error(err)
                 dispatch(setNewPasswordFailed())
+                return err
             })
     }
+}
+
+function checkSuccess(res) {
+    if (res && res.success) {
+        return res
+    }
+    throw res.message()
 }
 
 function resetPasswordFailed() {
