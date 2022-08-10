@@ -8,22 +8,31 @@
 .containerRow {
     width: 584px;
     display: flex;
-    max-height: 206px;
+    height: 206px;
     gap: 36px;
 }
 
 .numsContainer {
     display: flex;
-    flex-direction: column;
-    column-count: 2;
     width: 280px;
+    flex-direction: column;
 }
 
 .nums {
     width: fit-content;
+    margin-bottom: 8px;
 }
 
 .list {
+    display: flex;
+    flex-direction: column;
     list-style: none;
     padding: 0;
+    margin: 0;
+    flex-flow: column wrap;
+    overflow: auto;
+    align-content: flex-start;
+    align-items: flex-start;
+    max-height: 100%;
+    column-gap: 40px;
 }

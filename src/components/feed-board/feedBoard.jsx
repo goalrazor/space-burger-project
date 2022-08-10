@@ -8,7 +8,7 @@ export const FeedBoard = ({orders, total, totalToday}) => {
             <div className={style.container}>
                 <div className={style.containerRow}>
                     <div className={style.numsContainer}>
-                        <p className="text text_type_main-medium pb-6">Готовы:</p>
+                        <p className="text text_type_main-medium pb-3">Готовы:</p>
                         <ul className={style.list}>
                             {orders.map(item => {
                                 if (item.status === 'done') {
@@ -22,13 +22,13 @@ export const FeedBoard = ({orders, total, totalToday}) => {
                             })}
                         </ul>
                     </div>
-                    <div>
+                    <div className={style.numsContainer}>
                         <p className="text text_type_main-medium pb-6">В работе:</p>
-                        <ul>
+                        <ul className={style.list}>
                             {orders.map(item => {
                                 if (item.status === 'pending') {
                                     return (
-                                        <li className="text text_type_digits-default" key={item.number}>
+                                        <li className={`text text_type_digits-default ${style.nums}`} key={item.number}>
                                             {item.number}
                                         </li>
                                     )
