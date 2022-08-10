@@ -10,9 +10,12 @@ export const DELETE_INGREDIENT = 'DELETE_INGREDIENT'
 export const MOVE_INGREDIENT = 'MOVE_INGREDIENT';
 export const INCREASE_INGREDIENT_COUNT = 'INCREASE_INGREDIENT_COUNT'
 export const DECREASE_INGREDIENT_COUNT = 'DECREASE_INGREDIENT_COUNT'
-export const SET_CURRENT_INGREDIENT = 'CURRENT_INGREDIENT';
+export const SET_CURRENT_INGREDIENT = 'SET_CURRENT_INGREDIENT';
+export const SET_INGREDIENT_MODAL_SHOW = 'SET_INGREDIENT_MODAL_SHOW';
+export const SET_INGREDIENT_MODAL_CLOSED = 'SET_INGREDIENT_MODAL_CLOSED';
 export const CLOSE_INGREDIENT_MODAL = 'CLOSE_INGREDIENT_MODAL';
 export const DELETE_ALL_INGREDIENTS = 'DELETE_ALL_INGREDIENTS';
+export const RESET_INGREDIENT_COUNT = 'RESET_INGREDIENT_COUNT';
 
 
 export const SET_CURRENT_TAB = 'SET_CURRENT_TAB';
@@ -28,7 +31,7 @@ export function getIngredients() {
         dispatch({
             type: GET_INGREDIENTS_REQUEST
         });
-        api.getIngredients()
+        return api.getIngredients()
             .then(res => {
                 if (res && res.success) {
                     const data = res.data.map((item) => {
@@ -42,6 +45,7 @@ export function getIngredients() {
                 } else {
                     dispatch(setIngredientsRequestFailed());
                 }
+                return res.data
             }).catch(err => {
             console.error(err);
             dispatch(setIngredientsRequestFailed())

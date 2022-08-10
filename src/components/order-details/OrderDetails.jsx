@@ -1,3 +1,4 @@
+import React from 'react'
 import orderDetailsStyle from './OrderDetails.module.css'
 import doneImage from '../../images/done.svg'
 import {useSelector} from "react-redux";

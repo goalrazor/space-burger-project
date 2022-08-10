@@ -9,12 +9,15 @@ import {
     GET_INGREDIENTS_SUCCESS,
     INCREASE_INGREDIENT_COUNT,
     MOVE_INGREDIENT,
+    RESET_INGREDIENT_COUNT,
     RESET_TOTAL_PRICE,
     SET_CURRENT_INGREDIENT,
     SET_CURRENT_TAB,
+    SET_INGREDIENT_MODAL_CLOSED,
+    SET_INGREDIENT_MODAL_SHOW,
     TOTAL_PRICE
 } from "../actions/burger-ingredients";
-import {BUN} from "../../components/inredients/Ingredients";
+import {BUN} from "../../components/ingredients/Ingredients";
 
 const initialState = {
     ingredients: [],
@@ -49,6 +52,19 @@ export const ingredientReducer = (state = initialState, action) => {
                 ...state,
                 ingredientModalShow: true,
                 currentIngredient: action.item
+            }
+        }
+
+        case SET_INGREDIENT_MODAL_SHOW: {
+            return {
+                ...state,
+                ingredientModalShow: true,
+            }
+        }
+        case SET_INGREDIENT_MODAL_CLOSED: {
+            return {
+                ...state,
+                ingredientModalShow: false,
             }
         }
 
@@ -140,7 +156,6 @@ export const ingredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredientModalShow: false,
-                currentIngredient: {}
             }
         }
 
@@ -167,6 +182,16 @@ export const ingredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 totalPrice: 0
+            }
+        }
+
+        case RESET_INGREDIENT_COUNT: {
+            return {
+                ...state,
+                ingredients: state.ingredients.map(item => {
+                    item.ingredientCount = 0
+                    return item
+                })
             }
         }
         default: {
