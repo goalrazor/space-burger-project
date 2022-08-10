@@ -8,11 +8,11 @@ import {SendOrderModalPage} from "../send-order-modal-page/sendOrderModalPage";
 import PropTypes from "prop-types";
 
 
-export function ConstructorPage({handleClose, handleEscKeydown}) {
+export function ConstructorPage({handleClose}) {
 
     return (
         <div className="App">
-            <SendOrderModalPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
+            <SendOrderModalPage handleClose={handleClose}/>
             <DndProvider backend={HTML5Backend}>
                 <div
                     className={style.content}>
@@ -26,6 +26,5 @@ export function ConstructorPage({handleClose, handleEscKeydown}) {
 
 ConstructorPage.propTypes = {
     handleClose: PropTypes.func.isRequired,
-    handleEscKeydown: PropTypes.func.isRequired,
 }
 

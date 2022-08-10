@@ -30,10 +30,6 @@ function App() {
         });
     }
 
-    const handleEscKeydown = (e) => {
-        e.key === "Escape" && handleClose();
-    };
-
     useEffect(() => {
         dispatch(
             getIngredients())
@@ -44,7 +40,7 @@ function App() {
             <AppHeader/>
             <Switch location={background || location}>
                 <Route path="/" exact>
-                    <ConstructorPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
+                    <ConstructorPage handleClose={handleClose}/>
                 </Route>
                 <ProtectedRoute notForAuthorisedRoute={true} path={"/login"}>
                     <LoginPage/>
@@ -70,7 +66,7 @@ function App() {
             </Switch>
             {background &&
                 <Route path={"/ingredients/:id"}>
-                    <IngredientModalPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
+                    <IngredientModalPage handleClose={handleClose}/>
                 </Route>}
         </>
     );

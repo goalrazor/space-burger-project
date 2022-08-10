@@ -2,7 +2,7 @@ import React from 'react'
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import HeaderMenuItem from "../header-menu-item/HeaderMenuItem";
 import header from "./AppHeader.module.css"
-import {useRouteMatch} from "react-router-dom";
+import {Link, useRouteMatch} from "react-router-dom";
 
 
 const BurgerMenuIcon = ({type}) => {
@@ -68,9 +68,9 @@ const AppHeader = () => {
                         Лента заказов
                     </HeaderMenuItem>
                 </nav>
-                <div className={`${header.logo} ${'m-6'}`}>
+                <Link to={"/"} className={`${header.logo} ${'m-6'}`}>
                     <Logo/>
-                </div>
+                </Link>
                 <HeaderMenuItem
                     className={`${header.headerMenuItem} text text_type_main-default text_color_inactive`}
                     icon={ProfileMenuIcon}

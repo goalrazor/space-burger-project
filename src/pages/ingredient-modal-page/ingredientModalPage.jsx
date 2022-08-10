@@ -4,7 +4,7 @@ import React from "react";
 import {useHistory} from "react-router-dom";
 import PropTypes from "prop-types";
 
-export function IngredientModalPage({handleClose, handleEscKeydown}) {
+export function IngredientModalPage({handleClose}) {
     const history = useHistory()
     return (
         <Modal title="Детали ингредиента"
@@ -12,10 +12,7 @@ export function IngredientModalPage({handleClose, handleEscKeydown}) {
                    handleClose()
                    history.goBack()
                }}
-               handleEscKeydown={(e) => {
-                   handleEscKeydown(e)
-                   history.goBack()
-               }}>
+        >
             <IngredientDetails/>
         </Modal>
     )
@@ -23,5 +20,4 @@ export function IngredientModalPage({handleClose, handleEscKeydown}) {
 
 IngredientModalPage.propTypes = {
     handleClose: PropTypes.func.isRequired,
-    handleEscKeydown: PropTypes.func.isRequired,
 }

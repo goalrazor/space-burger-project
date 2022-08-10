@@ -4,7 +4,7 @@ import OrderDetails from "../../components/order-details/OrderDetails";
 import {useSelector} from "react-redux";
 import PropTypes from "prop-types";
 
-export function SendOrderModalPage({handleClose, handleEscKeydown}) {
+export function SendOrderModalPage({handleClose}) {
     const isOrderDetailsModalShown = useSelector(store => store.orderDetailsReducer.orderModalShown)
     return (
         <>
@@ -13,9 +13,7 @@ export function SendOrderModalPage({handleClose, handleEscKeydown}) {
                        handleClose={() => {
                            handleClose()
                        }}
-                       handleEscKeydown={(e) => {
-                           handleEscKeydown(e)
-                       }}>
+                >
                     <OrderDetails/>
                 </Modal>
             }
@@ -25,5 +23,4 @@ export function SendOrderModalPage({handleClose, handleEscKeydown}) {
 
 SendOrderModalPage.propTypes = {
     handleClose: PropTypes.func.isRequired,
-    handleEscKeydown: PropTypes.func.isRequired,
 }
