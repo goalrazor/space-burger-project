@@ -1,0 +1,14 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 16px;
+    height: 720px;
+    padding: 0;
+    margin: 0;
+}
+
+.link {
+    color: #F2F2F3;
+    text-decoration: none;
+}

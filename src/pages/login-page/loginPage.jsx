@@ -29,7 +29,9 @@ export function LoginPage() {
                 .then(() => {
                     history.replace({pathname: location?.state?.from.pathname || '/'})
                 })
-        }, [dispatch, formData, history, location]
+        },
+        // eslint-disable-next-line
+        [dispatch, formData, history, location]
     )
 
     return (

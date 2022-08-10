@@ -21,6 +21,7 @@ export function ForgotPasswordPage() {
                 .then(() => alert(`Письмо с кодом восстановления пароля выслано на электронную почту ${email}`))
                 .catch(error => console.error(error))
         },
+        // eslint-disable-next-line
         [formData, history, dispatch]
     );
 

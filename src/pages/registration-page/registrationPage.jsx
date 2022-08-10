@@ -19,6 +19,7 @@ export function RegistrationPage() {
             dispatch(
                 register(email, password, name)
             )
+            // eslint-disable-next-line
         }, [dispatch, formData]
     )
 

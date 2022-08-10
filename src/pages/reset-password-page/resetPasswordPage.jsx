@@ -38,6 +38,7 @@ export function ResetPasswordPage() {
                 .then(() => alert(`Пароль успешно изменен. Пожалуйста, войдите заново`))
                 .catch(error => console.error(error))
         },
+        // eslint-disable-next-line
         [formData, history, dispatch]
     );
 

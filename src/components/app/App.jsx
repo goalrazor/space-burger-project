@@ -15,6 +15,10 @@ import {ProtectedRoute} from "../protected-route";
 import {IngredientModalPage} from "../../pages/ingredient-modal-page/ingredientModalPage";
 import React, {useEffect} from "react";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
+import {FeedPage} from "../../pages/feed-page/feedPage";
+import {FeedIdPage} from "../../pages/feed-page/feedIdPage";
+import {OrderHistoryPage} from "../../pages/order-history-page/orderHistoryPage";
+import {OrderHistoryIdPage} from "../../pages/order-history-page/orderHistoryIdPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -54,12 +58,24 @@ function App() {
                 <ProtectedRoute notForAuthorisedRoute={true} path={"/reset-password"}>
                     <ResetPasswordPage/>
                 </ProtectedRoute>
-                <ProtectedRoute path={"/profile"}>
-                    <ProfilePage/>
-                </ProtectedRoute>
                 <Route path={"/ingredients/:id"}>
                     <IngredientDetails/>
                 </Route>
+                <Route path={"/feed"} exact>
+                    <FeedPage/>
+                </Route>
+                <Route path={"/feed/:id"}>
+                    <FeedIdPage/>
+                </Route>
+                <ProtectedRoute path={"/profile/feed/:id"}>
+                    <OrderHistoryIdPage/>
+                </ProtectedRoute>
+                <ProtectedRoute path={"/profile/feed"}>
+                    <OrderHistoryPage/>
+                </ProtectedRoute>
+                <ProtectedRoute path={"/profile"}>
+                    <ProfilePage/>
+                </ProtectedRoute>
                 <Route path="*">
                     <NotFoundPage/>
                 </Route>
