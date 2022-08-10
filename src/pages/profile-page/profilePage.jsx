@@ -6,9 +6,11 @@ import {Link, useHistory, useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfileInfo, logout, refreshToken, setProfileInfo} from "../../services/actions/auth";
 import {getCookie} from "../../utils/cookie";
+import {useForm} from "../../services/hooks/useForm";
 
 export function ProfilePage() {
-    const [form, setValue] = useState({name: "", email: "", password: ""});
+    const {formData, handleInputChange, setFormData} = useForm({name: "", email: "", password: ""});
+    const {name, email, password} = formData;
     const [isEditButtonsShown, setEditButtonShown] = useState({isButtonsShown: false, inputActive: false})
     const dispatch = useDispatch()
     const history = useHistory()
@@ -16,11 +18,11 @@ export function ProfilePage() {
     const location = useLocation()
 
     useEffect(() => {
-            async function checkUser() {
-                await dispatch(refreshToken(localStorage.getItem("refreshToken")))
-                    .then(() => dispatch(getProfileInfo(getCookie("accessToken"))))
+        async function checkUser() {
+            await dispatch(refreshToken(localStorage.getItem("refreshToken")))
+                .then(() => dispatch(getProfileInfo(getCookie("accessToken"))))
                     .then((res) => {
-                        setValue({
+                        setFormData({
                                 name: res.user.name,
                                 email: res.user.email,
                                 password: ''
@@ -50,32 +52,28 @@ export function ProfilePage() {
             e.preventDefault()
             await dispatch(refreshToken(localStorage.getItem("refreshToken")))
                 .then(() => {
-                    if (form.name !== user.name) {
-                        dispatch(setProfileInfo(getCookie("accessToken"), {name: form.name}))
+                    if (name !== user.name) {
+                        dispatch(setProfileInfo(getCookie("accessToken"), {name: name}))
                     }
-                    if (form.email !== user.email) {
-                        dispatch(setProfileInfo(getCookie("accessToken"), {email: form.email}))
+                    if (email !== user.email) {
+                        dispatch(setProfileInfo(getCookie("accessToken"), {email: email}))
                     }
                 })
                 .catch((err) => {
                     console.error(err)
                     history.replace("/login")
                 })
-        }, [form, dispatch, user, history])
+        }, [formData, dispatch, user, history])
 
 
     const cancelProfileChange = useCallback(
         () => {
-            setValue({
+            setFormData({
                 name: user.name,
                 email: user.email
             })
             toggleButtonsShown()
         }, [user, toggleButtonsShown])
-
-    const onChange = e => {
-        setValue({...form, [e.target.name]: e.target.value});
-    };
 
     const handleLogout = () => {
         dispatch(logout(localStorage.getItem("refreshToken")))
@@ -110,15 +108,15 @@ export function ProfilePage() {
                 <p className={"text text_type_main-small text_color_inactive mt-20"}>В этом разделе вы можете
                     изменить свои персональные данные</p>
             </nav>
-            {form &&
-                <form className={formStyle.form}>
+            {name &&
+                <form className={formStyle.form} onSubmit={submitProfileChange}>
                     <div className={`mt-6 ${formStyle.input}`}>
                         <Input
                             type={"text"}
                             placeholder={"Имя"}
-                            value={form.name}
+                            value={name}
                             name={"name"}
-                            onChange={onChange}
+                            onChange={handleInputChange}
                             icon={"EditIcon"}
                             onIconClick={toggleButtonsShown}
                             disabled={!isEditButtonsShown.inputActive}
@@ -126,9 +124,9 @@ export function ProfilePage() {
                         <Input
                             type={"email"}
                             placeholder={"Логин"}
-                            value={form.email}
+                            value={email}
                             name={"email"}
-                            onChange={onChange}
+                            onChange={handleInputChange}
                             icon={"EditIcon"}
                             onIconClick={toggleButtonsShown}
                             disabled={!isEditButtonsShown.inputActive}
@@ -136,9 +134,9 @@ export function ProfilePage() {
                         <Input
                             type={"text"}
                             placeholder={"Пароль"}
-                            value={form.password}
+                            value={password}
                             name={"password"}
-                            onChange={onChange}
+                            onChange={handleInputChange}
                             icon={"EditIcon"}
                             onIconClick={toggleButtonsShown}
                             disabled={!isEditButtonsShown.inputActive}

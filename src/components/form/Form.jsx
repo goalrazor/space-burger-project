@@ -3,15 +3,15 @@ import style from "./form.module.css";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
-export function Form({header, buttonText, handleClick, children}) {
+export function Form({header, buttonText, handleSubmit, children}) {
     return (
-        <form className={style.form}>
+        <form className={style.form} onSubmit={handleSubmit}>
             <h1 className={`text text_type_main-default ${style.text}`}>{header}</h1>
             <div className={`mt-6 ${style.input}`}>
                 {children}
             </div>
             <div className={style.button}>
-                <Button size={"medium"} onClick={handleClick}>
+                <Button size={"medium"} onClick={handleSubmit}>
                     {buttonText}
                 </Button>
             </div>
@@ -22,5 +22,5 @@ export function Form({header, buttonText, handleClick, children}) {
 Form.propTypes = {
     header: PropTypes.string.isRequired,
     buttonText: PropTypes.string.isRequired,
-    handleClick: PropTypes.func,
+    handleSubmit: PropTypes.func,
 }

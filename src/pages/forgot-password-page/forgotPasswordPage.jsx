@@ -1,39 +1,38 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback} from 'react'
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
 import {resetPassword} from "../../services/actions/auth";
 import {useDispatch} from "react-redux";
+import {useForm} from "../../services/hooks/useForm";
 
 export function ForgotPasswordPage() {
     const history = useHistory()
-    const [form, setValue] = useState({email: "", password: ""});
     const dispatch = useDispatch()
-    const onChange = e => {
-        setValue({...form, [e.target.name]: e.target.value});
-    };
+    const {formData, handleInputChange} = useForm({email: ""});
+    const {email} = formData;
 
     const handleClick = useCallback(
         async (e) => {
             e.preventDefault()
-            await dispatch(resetPassword(form.email))
+            await dispatch(resetPassword(email))
                 .then(() => history.replace("/reset-password"))
-                .then(() => alert(`Письмо с кодом восстановления пароля выслано на электронную почту ${form.email}`))
+                .then(() => alert(`Письмо с кодом восстановления пароля выслано на электронную почту ${email}`))
                 .catch(error => console.error(error))
         },
-        [form, history, dispatch]
+        [formData, history, dispatch]
     );
 
     return (
         <div className={style.formContainer}>
-            <Form header={"Восстановление пароля"} buttonText={"Восстановить"} handleClick={handleClick}>
+            <Form header={"Восстановление пароля"} buttonText={"Восстановить"} handleSubmit={handleClick}>
                 <Input
                     type={"email"}
                     placeholder={"Укажите e-mail"}
-                    value={form.email}
+                    value={email}
                     name={"email"}
-                    onChange={onChange}/>
+                    onChange={handleInputChange}/>
             </Form>
             <p className={`text text_type_main-default text_color_inactive mt-20 ${style.text}`}>Вспомнили пароль?
                 <Link

@@ -6,14 +6,16 @@ import {Link, useHistory} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
 import {useDispatch, useSelector} from "react-redux";
 import {setNewPassword} from "../../services/actions/auth";
+import {useForm} from "../../services/hooks/useForm";
 
 export function ResetPasswordPage() {
-    const [form, setValue] = useState({password: "", keyword: ""});
     const [icon, setIcon] = useState({icon: "ShowIcon"})
     const history = useHistory()
     const passwordWasSent = useSelector(store => store.authReducer.resetPasswordWasSent)
     const dispatch = useDispatch()
 
+    const {formData, handleInputChange} = useForm({password: "", keyword: ""});
+    const {password, keyword} = formData;
     useEffect(
         () => {
             if (!passwordWasSent) {
@@ -23,14 +25,10 @@ export function ResetPasswordPage() {
         }, []
     )
 
-    const onChange = e => {
-        setValue({...form, [e.target.name]: e.target.value});
-    };
-
-    const handleClick = useCallback(
+    const handleSubmit = useCallback(
         async (e) => {
             e.preventDefault()
-            await dispatch(setNewPassword(form.password, getCookie("accessToken")))
+            await dispatch(setNewPassword(password, getCookie("accessToken")))
                 .then((response) => {
                     if (response.success) {
                         return response
@@ -40,18 +38,18 @@ export function ResetPasswordPage() {
                 .then(() => alert(`Пароль успешно изменен. Пожалуйста, войдите заново`))
                 .catch(error => console.error(error))
         },
-        [form, history, dispatch]
+        [formData, history, dispatch]
     );
 
     return (
         <div className={style.formContainer}>
-            <Form header={"Восстановление пароля"} buttonText={"Сохранить"} handleClick={handleClick}>
+            <Form header={"Восстановление пароля"} buttonText={"Сохранить"} handleSubmit={handleSubmit}>
                 <Input
                     type={"text"}
                     placeholder={"Введите новый пароль"}
-                    value={form.password}
+                    value={password}
                     name={"password"}
-                    onChange={onChange}
+                    onChange={handleInputChange}
                     onIconClick={() => {
                         setIcon({
                             icon: icon.icon === "ShowIcon" ? "HideIcon" : "ShowIcon"
@@ -62,9 +60,9 @@ export function ResetPasswordPage() {
                 <Input
                     type={"text"}
                     placeholder={"Введите код из письма"}
-                    value={form.keyword}
+                    value={keyword}
                     name={"keyword"}
-                    onChange={onChange}
+                    onChange={handleInputChange}
                 />
             </Form>
             <p className={`text text_type_main-default text_color_inactive mt-20 ${style.text}`}>Вспомнили пароль?

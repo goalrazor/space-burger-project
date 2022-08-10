@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback} from 'react'
 import {Link, useHistory} from "react-router-dom";
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form"
@@ -6,21 +6,21 @@ import {EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui
 import {login} from "../../services/actions/auth";
 import {useDispatch} from "react-redux";
 import {setCookie} from "../../utils/cookie";
+import {useForm} from "../../services/hooks/useForm";
 
 
 export function LoginPage() {
     const dispatch = useDispatch()
-    const [form, setValue] = useState({email: "", password: ""});
     const history = useHistory()
 
-    const onChange = e => {
-        setValue({...form, [e.target.name]: e.target.value});
-    };
+    const {formData, handleInputChange} = useForm({email: "", password: ""});
 
-    const handleButtonClick = useCallback(
+    const {email, password} = formData;
+
+    const handleSubmit = useCallback(
         async (e) => {
             e.preventDefault()
-            await dispatch(login(form.email, form.password))
+            await dispatch(login(email, password))
                 .then((res) => {
                     setCookie("accessToken", res.accessToken.split('Bearer ')[1])
                     localStorage.setItem("refreshToken", res.refreshToken)
@@ -28,20 +28,20 @@ export function LoginPage() {
                 .then(() => {
                     history.replace("/")
                 })
-        }, [dispatch, form, history]
+        }, [dispatch, formData, history]
     )
 
     return (
         <div className={style.formContainer}>
-            <Form header={"Вход"} buttonText={"Войти"} handleClick={handleButtonClick}>
+            <Form header={"Вход"} buttonText={"Войти"} handleSubmit={handleSubmit}>
                 <EmailInput
-                    value={form.email}
+                    value={email}
                     name={"email"}
-                    onChange={onChange}/>
+                    onChange={handleInputChange}/>
                 <PasswordInput
-                    value={form.password}
+                    value={password}
                     name={"password"}
-                    onChange={onChange}/>
+                    onChange={handleInputChange}/>
             </Form>
             <p className={`text text_type_main-default text_color_inactive mt-20 ${style.text}`}>Вы новый
                 пользователь?
