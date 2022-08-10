@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react'
-import {Link, useHistory} from "react-router-dom";
+import {Link, useHistory, useLocation} from "react-router-dom";
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form"
 import {EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -12,6 +12,7 @@ import {useForm} from "../../services/hooks/useForm";
 export function LoginPage() {
     const dispatch = useDispatch()
     const history = useHistory()
+    const location = useLocation()
 
     const {formData, handleInputChange} = useForm({email: "", password: ""});
 
@@ -26,9 +27,10 @@ export function LoginPage() {
                     localStorage.setItem("refreshToken", res.refreshToken)
                 })
                 .then(() => {
-                    history.replace("/")
+                    console.log(location)
+                    history.replace({pathname: location?.state?.from.pathname || '/'})
                 })
-        }, [dispatch, formData, history]
+        }, [dispatch, formData, history, location]
     )
 
     return (

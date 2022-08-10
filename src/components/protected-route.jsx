@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
-import {Route, useHistory} from "react-router-dom";
+import {Redirect, Route, useHistory} from "react-router-dom";
 import {getCookie, setCookie} from "../utils/cookie";
 import {useDispatch} from "react-redux";
 import {refreshToken} from "../services/actions/auth";
 import PropTypes from "prop-types";
 
-export function ProtectedRoute({path, children}) {
+export function ProtectedRoute({children, notForAuthorisedRoute, ...rest}) {
     const dispatch = useDispatch()
     const accessToken = getCookie("accessToken")
     const refToken = localStorage.getItem("refreshToken")
@@ -23,22 +23,38 @@ export function ProtectedRoute({path, children}) {
                                 console.error(error)
                                 history.replace("/login")
                             })
-                    } else {
-                        history.replace("/login")
                     }
                 }
             }
 
             checkToken()
-        // eslint-disable-next-line
+            // eslint-disable-next-line
         }, []
     )
 
+    if (notForAuthorisedRoute && accessToken) {
+        return <Redirect to="/"/>
+    }
+
     return (
-        <Route to={path} exact>
-            {children}
-        </Route>
-    )
+        <>
+            <Route
+                {...rest}
+                render={({location}) =>
+                    accessToken || notForAuthorisedRoute ? (
+                        children
+                    ) : (
+                        <Redirect
+                            to={{
+                                pathname: '/login',
+                                state: {from: location}
+                            }}
+                        />
+                    )
+                }
+            />
+
+        </>);
 }
 
 

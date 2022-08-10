@@ -126,7 +126,8 @@ export const authReducer = (state = initialState, action) => {
                 user: {},
                 accessToken: "",
                 refreshToken: "",
-                logoutRequestInProgress: false
+                logoutRequestInProgress: false,
+                isLoggedIn: false
             }
         }
         case LOGOUT_REQUEST_FAILED: {

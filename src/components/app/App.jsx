@@ -12,7 +12,6 @@ import {ProfilePage} from "../../pages/profile-page/profilePage";
 import {NotFoundPage} from "../../pages/not-found-page/notFoundPage";
 import AppHeader from "../app-header/AppHeader";
 import {ProtectedRoute} from "../protected-route";
-import {AuthorizedRoute} from "../authorizedRoute";
 import {IngredientModalPage} from "../../pages/ingredient-modal-page/ingredientModalPage";
 import React from "react";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
@@ -42,18 +41,18 @@ function App() {
                 <Route path="/" exact>
                     <ConstructorPage handleClose={handleClose} handleEscKeydown={handleEscKeydown}/>
                 </Route>
-                <AuthorizedRoute path={"/login"}>
+                <ProtectedRoute notForAuthorisedRoute={true} path={"/login"}>
                     <LoginPage/>
-                </AuthorizedRoute>
-                <AuthorizedRoute path={"/register"}>
+                </ProtectedRoute>
+                <ProtectedRoute notForAuthorisedRoute={true} path={"/register"}>
                     <RegistrationPage/>
-                </AuthorizedRoute>
-                <AuthorizedRoute path={"/forgot-password"}>
+                </ProtectedRoute>
+                <ProtectedRoute notForAuthorisedRoute={true} path={"/forgot-password"}>
                     <ForgotPasswordPage/>
-                </AuthorizedRoute>
-                <AuthorizedRoute path={"/reset-password"}>
+                </ProtectedRoute>
+                <ProtectedRoute notForAuthorisedRoute={true} path={"/reset-password"}>
                     <ResetPasswordPage/>
-                </AuthorizedRoute>
+                </ProtectedRoute>
                 <ProtectedRoute path={"/profile"}>
                     <ProfilePage/>
                 </ProtectedRoute>
