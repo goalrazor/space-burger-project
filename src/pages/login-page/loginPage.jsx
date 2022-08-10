@@ -27,7 +27,6 @@ export function LoginPage() {
                     localStorage.setItem("refreshToken", res.refreshToken)
                 })
                 .then(() => {
-                    console.log(location)
                     history.replace({pathname: location?.state?.from.pathname || '/'})
                 })
         }, [dispatch, formData, history, location]

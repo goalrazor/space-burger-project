@@ -41,18 +41,21 @@ const BurgerConstructor = () => {
         }
     }
 
-    const submitOrderOnClickHandler = async () => {
-        if (!getCookie("accessToken")) {
-            console.log("!accessToken")
-            await dispatch(refreshToken(localStorage.getItem("refreshToken")))
-                .then(() => {
-                    makeOrder()
-                })
-                .catch(() => {
-                    history.replace("/login")
-                })
+    const submitOrderOnClickHandler =
+        async () => {
+            if (!getCookie("accessToken")) {
+                console.log("!accessToken")
+                await dispatch(refreshToken(localStorage.getItem("refreshToken")))
+                    .then(() => {
+                        console.log("!accessToken makeOrder")
+                        makeOrder()
+                    })
+                    .catch(() => {
+                        history.replace("/login")
+                    })
         } else {
-            makeOrder()
+                console.log("accessToken")
+                makeOrder()
         }
 
     }
