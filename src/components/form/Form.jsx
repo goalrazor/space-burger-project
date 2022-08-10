@@ -11,7 +11,7 @@ export function Form({header, buttonText, handleSubmit, children}) {
                 {children}
             </div>
             <div className={style.button}>
-                <Button size={"medium"} onClick={handleSubmit}>
+                <Button size={"medium"}>
                     {buttonText}
                 </Button>
             </div>

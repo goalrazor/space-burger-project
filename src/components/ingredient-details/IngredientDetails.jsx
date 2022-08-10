@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import ingredientDetailsStyle from './IngredientDetails.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation, useParams} from "react-router-dom";
-import {
-    getIngredients,
-    SET_INGREDIENT_MODAL_CLOSED,
-    SET_INGREDIENT_MODAL_SHOW
-} from "../../services/actions/burger-ingredients";
+import {SET_INGREDIENT_MODAL_CLOSED, SET_INGREDIENT_MODAL_SHOW} from "../../services/actions/burger-ingredients";
 
 const IngredientDetails = () => {
     const statsTextStyle = 'text text_type_main-default text_color_inactive';
@@ -14,26 +10,11 @@ const IngredientDetails = () => {
 
     const {id} = useParams()
     const dispatch = useDispatch()
-    const [ingredient, setIngredient] = useState({})
-
-    useEffect(
-        () => {
-            async function getData() {
-                await dispatch(getIngredients())
-                    .then((res) => {
-                        const ingredient = res.find(item => item._id === id)
-                        setIngredient({...ingredient})
-                    })
-            }
-
-            getData()
-        }, [dispatch, id])
 
     const location = useLocation();
     const background = location.state?.background;
 
     useEffect(() => {
-        //...если компонент не в модальном окне, то не меняем стейт
         background && dispatch({
             type: SET_INGREDIENT_MODAL_SHOW
         })
@@ -44,9 +25,12 @@ const IngredientDetails = () => {
         }
     }, [background, dispatch])
 
-
+    let ingredient;
     const ingredients
         = useSelector(store => store.ingredientReducer.ingredients)
+    if (ingredients.length > 0) {
+        ingredient = ingredients.find(item => item._id === id)
+    }
 
     return (
         <>

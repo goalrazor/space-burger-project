@@ -1,5 +1,5 @@
 import '../../pages/constructor-page/constructorPage.module.css';
-import {CLOSE_INGREDIENT_MODAL} from "../../services/actions/burger-ingredients";
+import {CLOSE_INGREDIENT_MODAL, getIngredients} from "../../services/actions/burger-ingredients";
 import {useDispatch} from "react-redux";
 import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
 import {Route, Switch, useLocation} from "react-router-dom";
@@ -13,7 +13,7 @@ import {NotFoundPage} from "../../pages/not-found-page/notFoundPage";
 import AppHeader from "../app-header/AppHeader";
 import {ProtectedRoute} from "../protected-route";
 import {IngredientModalPage} from "../../pages/ingredient-modal-page/ingredientModalPage";
-import React from "react";
+import React, {useEffect} from "react";
 import IngredientDetails from "../ingredient-details/IngredientDetails";
 
 function App() {
@@ -33,6 +33,11 @@ function App() {
     const handleEscKeydown = (e) => {
         e.key === "Escape" && handleClose();
     };
+
+    useEffect(() => {
+        dispatch(
+            getIngredients())
+    }, [dispatch]);
 
     return (
         <>
