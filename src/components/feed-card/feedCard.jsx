@@ -5,11 +5,11 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 export const FeedCard = ({order}) => {
     const {number, createdAt, name,} = order;
     const mockedImgList = [
-        "https://code.s3.yandex.net/react/code/bun-02.png",
-        "https://code.s3.yandex.net/react/code/bun-02.png",
-        "https://code.s3.yandex.net/react/code/bun-02.png",
-        "https://code.s3.yandex.net/react/code/bun-02.png",
-        "https://code.s3.yandex.net/react/code/bun-02.png",
+        "https://code.s3.yandex.net/react/code/bun-01.png",
+        "https://code.s3.yandex.net/react/code/bun-01.png",
+        "https://code.s3.yandex.net/react/code/bun-01.png",
+        "https://code.s3.yandex.net/react/code/bun-01.png",
+        "https://code.s3.yandex.net/react/code/bun-01.png",
     ]
 
     return (
@@ -24,8 +24,12 @@ export const FeedCard = ({order}) => {
                 <ul className={style.images}>
                     {mockedImgList.map((image, index) => {
                         return (
-                            <li>
-                                <img className={style.image} src={image} key={index}/>
+                            <li className={style.imageRow}>
+                                <div className={style.gradientRing}>
+                                    <div className={style.background}>
+                                        <img className={style.image} src={image} key={index}/>
+                                    </div>
+                                </div>
                             </li>
                         )
                     })}
