@@ -1,16 +1,13 @@
 import React from "react";
-import container from "../burger-ingredients/BurgerIngredients.module.css";
+import container from "./history.module.css";
 import scrollerStyle from "../../pages/constructor-page/constructorPage.module.css";
 import {OrderCards} from "../order-cards/orderCards";
 
-export const Feed = ({orders}) => {
+export const History = ({orders}) => {
     return (
         <section className={container.container}>
-            <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
-                Лента заказов
-            </h1>
             <div className={scrollerStyle.scroller}>
-                <OrderCards orders={orders} parentPath={"/feed"}/>
+                <OrderCards orders={orders} parentPath={"/profile/orders"}/>
             </div>
         </section>
     )

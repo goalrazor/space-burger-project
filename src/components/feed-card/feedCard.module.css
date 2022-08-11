@@ -16,7 +16,7 @@
 .images {
     list-style: none;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     padding: 0;
     margin: 0;
     position: relative;
