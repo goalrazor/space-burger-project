@@ -1,20 +1,28 @@
-// socketMiddleware.js
 import {getCookie} from "../../utils/cookie";
 
-export const socketMiddleware = wsUrl => {
+export const socketMiddleware = () => {
+    const ordersWsAll = "wss://norma.nomoreparties.space/orders/all"
+    const ordersWsUser = "wss://norma.nomoreparties.space/orders"
+
     return store => {
         let socket = null;
 
         return next => action => {
-            const {dispatch, getState} = store;
+            const {dispatch} = store;
             const {type, payload} = action;
 
             if (type === 'WS_CONNECTION_START') {
-                // объект класса WebSocket
-                socket = new WebSocket(`${wsUrl}?token=${getCookie("accessToken")}`);
+                socket = new WebSocket(`${ordersWsAll}`);
             }
-            if (socket) {
 
+            if (type === 'WS_AUTH_CONNECTION_START') {
+                const token = getCookie("accessToken")
+                if (token) {
+                    socket = new WebSocket(`${ordersWsUser}?token=${token}`);
+                }
+            }
+
+            if (socket) {
                 // функция, которая вызывается при открытии сокета
                 socket.onopen = event => {
                     dispatch({type: 'WS_CONNECTION_SUCCESS', payload: event});
@@ -28,7 +36,7 @@ export const socketMiddleware = wsUrl => {
                 // функция, которая вызывается при получении события от сервера
                 socket.onmessage = event => {
                     const {data} = event;
-                    dispatch({type: 'WS_GET_MESSAGE', payload: data});
+                    dispatch({type: 'WS_GET_MESSAGE', payload: {...JSON.parse(data)}});
                 };
                 // функция, которая вызывается при закрытии соединения
                 socket.onclose = event => {
@@ -37,7 +45,7 @@ export const socketMiddleware = wsUrl => {
 
                 if (type === 'WS_SEND_MESSAGE') {
                     // функция для отправки сообщения на сервер
-                    socket.send(JSON.stringify(payload));
+                    socket.send(JSON.stringify({...payload}));
                 }
             }
 

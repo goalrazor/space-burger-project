@@ -12,13 +12,12 @@ const composeEnhancers =
         ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
         : compose;
 
-const ordersWsAll = "wss://norma.nomoreparties.space/orders/all"
-const ordersWsUser = "wss://norma.nomoreparties.space/orders"
+
 
 const enhancer = composeEnhancers(applyMiddleware(
         thunk,
-        socketMiddleware(ordersWsAll),
-        socketMiddleware(ordersWsUser),
+        socketMiddleware(),
+        socketMiddleware(),
     )
 );
 

@@ -26,8 +26,13 @@
     width: 110px;
 }
 
+.groupedImage {
+    opacity: 0.4;
+}
+
 .imageRow {
     margin-left: -16px;
+    position: relative;
 }
 
 .gradientRing {
@@ -62,4 +67,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.groupedImageText {
+    position: absolute;
+    opacity: 1;
+    font-size: 16px;
 }

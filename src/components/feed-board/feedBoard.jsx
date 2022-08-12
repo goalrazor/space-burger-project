@@ -1,8 +1,11 @@
 import React from "react";
 import container from "../burger-ingredients/BurgerIngredients.module.css";
 import style from "./feedBoard.module.css";
+import {useSelector} from "react-redux";
 
-export const FeedBoard = ({orders, total, totalToday}) => {
+export const FeedBoard = () => {
+    const {orders, total, totalToday} = useSelector(store => store.wsReducer);
+
     return (
         <section className={container.container}>
             <div className={style.container}>
