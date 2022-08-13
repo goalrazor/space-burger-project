@@ -13,7 +13,7 @@ export const FeedBoard = () => {
                     <div className={style.numsContainer}>
                         <p className="text text_type_main-medium pb-3">Готовы:</p>
                         <ul className={style.list}>
-                            {orders.map(item => {
+                            {orders.slice(0, 10).map(item => {
                                 if (item.status === 'done') {
                                     return (
                                         <li className={`text text_type_digits-default text_color_success ${style.nums}`}
@@ -28,8 +28,8 @@ export const FeedBoard = () => {
                     <div className={style.numsContainer}>
                         <p className="text text_type_main-medium pb-6">В работе:</p>
                         <ul className={style.list}>
-                            {orders.map(item => {
-                                if (item.status === 'pending') {
+                            {orders.slice(0, 10).map(item => {
+                                if (item.status !== 'done') {
                                     return (
                                         <li className={`text text_type_digits-default ${style.nums}`} key={item.number}>
                                             {item.number}
