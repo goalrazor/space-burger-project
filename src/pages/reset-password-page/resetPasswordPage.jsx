@@ -43,7 +43,7 @@ export function ResetPasswordPage() {
     );
 
     return (
-        <div className={style.formContainer}>
+        <div className={`${style.formContainerOnlyForm} ${style.formContainer}`}>
             <Form header={"Восстановление пароля"} buttonText={"Сохранить"} handleSubmit={handleSubmit}>
                 <Input
                     type={"text"}

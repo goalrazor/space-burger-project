@@ -24,6 +24,11 @@
     position: relative;
 }
 
+.formContainerOnlyForm {
+    flex-direction: column;
+    align-items: center;
+}
+
 .input div {
     width: 100%;
     display: flex;

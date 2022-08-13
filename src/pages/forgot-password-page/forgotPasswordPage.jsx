@@ -26,7 +26,7 @@ export function ForgotPasswordPage() {
     );
 
     return (
-        <div className={style.formContainer}>
+        <div className={`${style.formContainerOnlyForm} ${style.formContainer}`}>
             <Form header={"Восстановление пароля"} buttonText={"Восстановить"} handleSubmit={handleClick}>
                 <Input
                     type={"email"}

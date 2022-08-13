@@ -35,7 +35,7 @@ export function LoginPage() {
     )
 
     return (
-        <div className={style.formContainer}>
+        <div className={`${style.formContainerOnlyForm} ${style.formContainer}`}>
             <Form header={"Вход"} buttonText={"Войти"} handleSubmit={handleSubmit}>
                 <EmailInput
                     value={email}
