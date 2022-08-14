@@ -16,10 +16,10 @@ class API {
             .then(this._checkResponse)
     };
 
-    saveOrder(body) {
+    saveOrder(body, token) {
         return fetch(`${this._url}/orders`, {
             method: "POST",
-            headers: this._headers,
+            headers: {...this._headers, authorization: `Bearer ${token}`},
             body: JSON.stringify(body)
         })
             .then(this._checkResponse)

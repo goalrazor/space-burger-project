@@ -27,10 +27,10 @@ export const ProfileNav = () => {
                           to={"/profile"}>Профиль</Link>
                 </li>
                 <li className={style.listElement}>
-                    <Link className={`${location.pathname === '/profile/feed' ? 'text text_type_main-medium'
+                    <Link className={`${location.pathname === '/profile/orders' ? 'text text_type_main-medium'
                         : 'text text_type_main-medium text_color_inactive'} ${style.link}`}
-                          style={location.pathname === '/profile/feed' ? {color: "#F2F2F3"} : {}}
-                          to={"/profile/feed"}>История заказов</Link>
+                          style={location.pathname === '/profile/orders' ? {color: "#F2F2F3"} : {}}
+                          to={"/profile/orders"}>История заказов</Link>
                 </li>
                 <li className={style.listElement}>
                     <Link to={"/login"} className={`text text_type_main-medium text_color_inactive ${style.link}`}

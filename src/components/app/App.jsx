@@ -67,10 +67,10 @@ function App() {
                 <Route path={"/feed/:id"}>
                     <FeedIdPage/>
                 </Route>
-                <ProtectedRoute path={"/profile/feed/:id"}>
+                <ProtectedRoute path={"/profile/orders/:id"}>
                     <OrderHistoryIdPage/>
                 </ProtectedRoute>
-                <ProtectedRoute path={"/profile/feed"} exact>
+                <ProtectedRoute path={"/profile/orders"} exact>
                     <OrderHistoryPage/>
                 </ProtectedRoute>
                 <ProtectedRoute path={"/profile"} exact>

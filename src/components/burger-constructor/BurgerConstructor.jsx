@@ -28,10 +28,11 @@ const BurgerConstructor = () => {
     const makeOrder = () => {
         if (bun.length > 0 && data.filter(item => item.type !== 'bun').length > 0) {
             dispatch(setOrder({
-                ingredients: data.map((item) => {
-                    return item._id
-                })
-            }))
+                    ingredients: data.map((item) => {
+                        return item._id
+                    })
+                },
+                getCookie('accessToken')))
             dispatch({
                 type: RESET_INGREDIENT_COUNT
             })
@@ -53,12 +54,12 @@ const BurgerConstructor = () => {
                     .catch(() => {
                         history.replace("/login")
                     })
-        } else {
+            } else {
                 console.log("accessToken")
                 makeOrder()
-        }
+            }
 
-    }
+        }
 
     const [, dropTarget] = useDrop({
         accept: "ingredient",

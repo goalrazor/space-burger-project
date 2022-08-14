@@ -23,12 +23,12 @@ function resetConstructor() {
     }
 }
 
-export function setOrder(body) {
+export function setOrder(body, token) {
     return function (dispatch) {
         dispatch({
             type: SET_ORDER_REQUEST
         });
-        api.saveOrder(body)
+        api.saveOrder(body, token)
             .then(res => {
                 if (res && res.success) {
                     dispatch({
