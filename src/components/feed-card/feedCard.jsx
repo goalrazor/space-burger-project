@@ -3,6 +3,7 @@ import style from "./feedCard.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
 import {v4 as uuidv4} from 'uuid';
+import dayjs from 'dayjs'
 
 export const FeedCard = ({order}) => {
     const {number, createdAt, name,} = order;
@@ -62,11 +63,30 @@ export const FeedCard = ({order}) => {
     }, [order])
 
 
+    const formatDate = (date) => {
+        let result = dayjs(date).format('HH:mm Z')
+        const now = dayjs()
+
+        const getDiffString = (diffDate) => {
+            switch (diffDate) {
+                case 0 :
+                    return 'Сегодня'
+                case 1 :
+                    return 'Вчера'
+                default :
+                    return `${diffDate} дня назад`
+            }
+        }
+
+        result = `${getDiffString(now.diff(date, 'day'))}, ${result} i-GMT`;
+        return result
+    }
+
     return (
         <div className={style.feedCard}>
             <div className={style.feedCardHeader}>
                 <p className="text text_type_digits-default">{`#${number}`}</p>
-                <p className="text text_type_main-default text_color_inactive">{createdAt}</p>
+                <p className="text text_type_main-default text_color_inactive">{formatDate(createdAt)}</p>
             </div>
             <p className="text text_type_main-medium">{name}</p>
             <div className={style.contentContainer}>

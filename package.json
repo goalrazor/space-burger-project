@@ -6,6 +6,7 @@
   "dependencies": {
     "@ya.praktikum/react-developer-burger-ui-components": "^1.13.1",
     "clsx": "^1.1.1",
+    "dayjs": "^1.11.5",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dnd": "^16.0.1",
