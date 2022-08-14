@@ -4,12 +4,20 @@ import ModalOverlay from "../modal-overlay/ModalOverlay";
 import modalStyles from './Modal.module.css'
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import PropTypes from "prop-types";
+import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
 
 const modalsContainer = document.querySelector('#modals');
 
 const Modal = ({title, children, handleClose}) => {
+    const history = useHistory()
+    const dispatch = useDispatch()
     const closeModals = () => {
-        handleClose()
+        history.goBack()
+        dispatch({
+            type: CLOSE_ORDER_MODAL
+        })
     }
 
     const handleEscKeydown = (e) => {

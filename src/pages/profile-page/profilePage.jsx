@@ -7,6 +7,7 @@ import {getProfileInfo, refreshToken, setProfileInfo} from "../../services/actio
 import {getCookie} from "../../utils/cookie";
 import {useForm} from "../../services/hooks/useForm";
 import {ProfileNav} from "../../components/profile-nav/profileNav";
+import {Loader} from "../../components/loader/Loader";
 
 export function ProfilePage() {
     const {formData, handleInputChange, setFormData} = useForm({name: "", email: "", password: ""});
@@ -20,16 +21,16 @@ export function ProfilePage() {
         async function checkUser() {
             await dispatch(refreshToken(localStorage.getItem("refreshToken")))
                 .then(() => dispatch(getProfileInfo(getCookie("accessToken"))))
-                    .then((res) => {
-                        setFormData({
-                                name: res.user.name,
-                                email: res.user.email,
-                                password: ''
-                            }
-                        )
-                    })
-                    .catch(() => {
-                        history.replace("/login")
+                .then((res) => {
+                    setFormData({
+                            name: res.user.name,
+                            email: res.user.email,
+                            password: ''
+                        }
+                    )
+                })
+                .catch(() => {
+                    history.replace("/login")
                     })
             }
 
@@ -79,52 +80,56 @@ export function ProfilePage() {
 
     return (
         <div className={formStyle.formContainer}>
-            <ProfileNav/>
-            {name &&
-                <form className={formStyle.form} onSubmit={submitProfileChange}>
-                    <div className={`mt-6 ${formStyle.input}`}>
-                        <Input
-                            type={"text"}
-                            placeholder={"Имя"}
-                            value={name}
-                            name={"name"}
-                            onChange={handleInputChange}
-                            icon={"EditIcon"}
-                            onIconClick={toggleButtonsShown}
-                            disabled={!isEditButtonsShown.inputActive}
-                        />
-                        <Input
-                            type={"email"}
-                            placeholder={"Логин"}
-                            value={email}
-                            name={"email"}
-                            onChange={handleInputChange}
-                            icon={"EditIcon"}
-                            onIconClick={toggleButtonsShown}
-                            disabled={!isEditButtonsShown.inputActive}
-                        />
-                        <Input
-                            type={"text"}
-                            placeholder={"Пароль"}
-                            value={password}
-                            name={"password"}
-                            onChange={handleInputChange}
-                            icon={"EditIcon"}
-                            onIconClick={toggleButtonsShown}
-                            disabled={!isEditButtonsShown.inputActive}
-                        />
-                    </div>
-                    {isEditButtonsShown.isButtonsShown &&
-                        <div>
-                            <Button onClick={submitProfileChange}>
-                                Сохранить
-                            </Button>
-                            <Button onClick={cancelProfileChange}>
-                                Отмена
-                            </Button>
+            {name ?
+                <>
+                    <ProfileNav/>
+                    <form className={formStyle.form} onSubmit={submitProfileChange}>
+                        <div className={`mt-6 ${formStyle.input}`}>
+                            <Input
+                                type={"text"}
+                                placeholder={"Имя"}
+                                value={name}
+                                name={"name"}
+                                onChange={handleInputChange}
+                                icon={"EditIcon"}
+                                onIconClick={toggleButtonsShown}
+                                disabled={!isEditButtonsShown.inputActive}
+                            />
+                            <Input
+                                type={"email"}
+                                placeholder={"Логин"}
+                                value={email}
+                                name={"email"}
+                                onChange={handleInputChange}
+                                icon={"EditIcon"}
+                                onIconClick={toggleButtonsShown}
+                                disabled={!isEditButtonsShown.inputActive}
+                            />
+                            <Input
+                                type={"text"}
+                                placeholder={"Пароль"}
+                                value={password}
+                                name={"password"}
+                                onChange={handleInputChange}
+                                icon={"EditIcon"}
+                                onIconClick={toggleButtonsShown}
+                                disabled={!isEditButtonsShown.inputActive}
+                            />
                         </div>
-                    }
-                </form>
+                        {isEditButtonsShown.isButtonsShown &&
+                            <div>
+                                <Button onClick={submitProfileChange}>
+                                    Сохранить
+                                </Button>
+                                <Button onClick={cancelProfileChange}>
+                                    Отмена
+                                </Button>
+                            </div>
+                        }
+                    </form>
+                </>
+                :
+                <Loader/>
             }
         </div>
     )

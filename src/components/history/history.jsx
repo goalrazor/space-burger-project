@@ -12,8 +12,8 @@ export const History = () => {
     return (
         <section className={container.container}>
             <div className={scrollerStyle.scroller}>
-                {orders.length > 0 ?
-                    <OrderCards orders={orders} parentPath={"/profile/orders"}/>
+                {orders ?
+                    <OrderCards orders={orders.reverse()} parentPath={"/profile/orders"}/>
                     :
                     <p className={`text text_type_main-default ${style.text}`}>У вас нет ни одного заказа. Чтобы сделать
                         заказ, перейдите в <Link className={style.link} to={'/'}>конструктор</Link> и сделайте заказ</p>

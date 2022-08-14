@@ -16,8 +16,7 @@ const composeEnhancers =
 
 const enhancer = composeEnhancers(applyMiddleware(
         thunk,
-        socketMiddleware(),
-        socketMiddleware(),
+        socketMiddleware()
     )
 );
 

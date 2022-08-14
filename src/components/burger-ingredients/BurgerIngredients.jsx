@@ -7,6 +7,7 @@ import Ingredients, {BUN, MAIN, SAUCE} from "../ingredients/Ingredients";
 import {useDispatch, useSelector} from "react-redux";
 import {useInView} from "react-intersection-observer";
 import {setCurrentTab} from "../../services/actions/burger-ingredients";
+import {Loader} from "../loader/Loader";
 
 const Tabs = () => {
     const currentTab = useSelector(store => store.ingredientReducer.currentTab)
@@ -64,23 +65,26 @@ const BurgerIngredients = () => {
                 Соберите бургер
             </h1>
             <Tabs/>
-            {data && <div className={scrollerStyle.scroller}>
-                <div ref={bunsRef}>
-                    <Ingredients data={data}>
-                        {BUN}
-                    </Ingredients>
+            {data ?
+                <div className={scrollerStyle.scroller}>
+                    <div ref={bunsRef}>
+                        <Ingredients data={data}>
+                            {BUN}
+                        </Ingredients>
+                    </div>
+                    <div ref={sauceRef}>
+                        <Ingredients data={data}>
+                            {SAUCE}
+                        </Ingredients>
+                    </div>
+                    <div ref={mainRef}>
+                        <Ingredients data={data}>
+                            {MAIN}
+                        </Ingredients>
+                    </div>
                 </div>
-                <div ref={sauceRef}>
-                    <Ingredients data={data}>
-                        {SAUCE}
-                    </Ingredients>
-                </div>
-                <div ref={mainRef}>
-                    <Ingredients data={data}>
-                        {MAIN}
-                    </Ingredients>
-                </div>
-            </div>}
+                :
+                <Loader/>}
         </section>
     )
 }
