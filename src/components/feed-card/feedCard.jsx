@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import style from "./feedCard.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
@@ -11,14 +11,6 @@ export const FeedCard = ({order}) => {
     const [imageToRender, setImageToRender] = useState([])
     const [groupedImages, setGroupedImages] = useState([])
     const [price, setPrice] = useState(0)
-
-    const getOrderIngredients = () => {
-        return order.ingredients.map(item => {
-            return ingredients.find(ingredient => {
-                return ingredient._id === item
-            })
-        })
-    }
 
     const getDoubles = (allImages) => {
         return allImages.reduce(function (acc, el) {
@@ -56,11 +48,15 @@ export const FeedCard = ({order}) => {
         }
     }
 
-    let orderIngredients = [];
+    const orderIngredients = useRef()
     useEffect(() => {
-        orderIngredients = getOrderIngredients()
-        getState(orderIngredients);
-    }, [order])
+        orderIngredients.current = order.ingredients.map(item => {
+            return ingredients.find(ingredient => {
+                return ingredient._id === item
+            })
+        })
+        getState(orderIngredients.current);
+    }, [order, ingredients])
 
 
     const formatDate = (date) => {
@@ -97,7 +93,9 @@ export const FeedCard = ({order}) => {
                                 <div className={`${style.gradientRing}`}>
                                     <div className={`${style.background}`}>
                                         <img className={`${style.groupedImage} ${style.image} `}
-                                             src={groupedImages[0].url}/>
+                                             src={groupedImages[0].url}
+                                             alt={""}
+                                        />
                                         <p className={`text_type_digits-default ${style.groupedImageText}`}>{`+${groupedImages.length}`}</p>
                                     </div>
                                 </div>
@@ -107,7 +105,9 @@ export const FeedCard = ({order}) => {
                                 <li className={style.imageRow} key={image.uuid}>
                                     <div className={style.gradientRing}>
                                         <div className={style.background}>
-                                            <img className={style.image} src={image.url}/>
+                                            <img className={style.image}
+                                                 src={image.url}
+                                                 alt={""}/>
                                         </div>
                                     </div>
                                 </li>

@@ -44,7 +44,7 @@ export function SendOrderModalPage() {
         }
 
         ,
-        []
+        [data, dispatch, history]
     )
 
     const orderNumber = useSelector(store => store.orderDetailsReducer.orderDetails.order?.number)

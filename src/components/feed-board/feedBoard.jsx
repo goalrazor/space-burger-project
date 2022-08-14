@@ -22,6 +22,7 @@ export const FeedBoard = () => {
                                         </li>
                                     )
                                 }
+                                return ('')
                             })}
                         </ul>
                     </div>
@@ -36,6 +37,7 @@ export const FeedBoard = () => {
                                         </li>
                                     )
                                 }
+                                return ('')
                             })}
                         </ul>
                     </div>

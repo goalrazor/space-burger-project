@@ -25,7 +25,7 @@ const BurgerConstructor = () => {
                 type: SET_CONSTRUCTOR_BUTTON_ENABLED
             })
         }
-    }, [data, bun, location])
+    }, [data, bun, location, dispatch])
 
     const [, dropTarget] = useDrop({
         accept: "ingredient",
