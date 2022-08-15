@@ -17,8 +17,8 @@ import IngredientDetails from "../ingredient-details/IngredientDetails";
 import {FeedPage} from "../../pages/feed-page/feedPage";
 import {FeedIdPage} from "../../pages/feed-page/feedIdPage";
 import {OrderHistoryPage} from "../../pages/order-history-page/orderHistoryPage";
-import {OrderHistoryIdPage} from "../../pages/order-history-page/orderHistoryIdPage";
 import {SendOrderModalPage} from "../../pages/send-order-modal-page/sendOrderModalPage";
+import {FeedIdModalPage} from "../../pages/feed-id-modal-page/feedIdModalPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -59,7 +59,7 @@ function App() {
                     <FeedIdPage/>
                 </ProtectedRoute>
                 <ProtectedRoute path={"/profile/orders/:id"}>
-                    <OrderHistoryIdPage/>
+                    <FeedIdPage/>
                 </ProtectedRoute>
                 <ProtectedRoute path={"/profile/orders"} exact>
                     <OrderHistoryPage/>
@@ -84,11 +84,11 @@ function App() {
                 </ProtectedRoute>}
             {background &&
                 <ProtectedRoute path={"/profile/orders/:id"}>
-                    <FeedIdPage/>
+                    <FeedIdModalPage/>
                 </ProtectedRoute>}
             {background &&
                 <ProtectedRoute path={"/feed/:id"}>
-                    <FeedIdPage/>
+                    <FeedIdModalPage/>
                 </ProtectedRoute>}
 
         </>
