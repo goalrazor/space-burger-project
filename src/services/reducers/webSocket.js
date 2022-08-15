@@ -14,7 +14,8 @@ const initialState = {
     orders: [],
     total: 0,
     totalToday: 0,
-    error: undefined
+    error: undefined,
+    closeMessage: undefined,
 };
 
 // Создадим редьюсер для WebSocket
@@ -51,7 +52,8 @@ export const wsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: undefined,
-                wsConnected: false
+                wsConnected: false,
+                closeMessage: action.payload
             };
 
         // Опишем обработку экшена с типом WS_GET_MESSAGE

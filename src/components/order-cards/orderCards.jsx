@@ -5,7 +5,7 @@ import {FeedCard} from "../feed-card/feedCard";
 
 export const OrderCards = ({orders, parentPath}) => {
     return (
-        <ul className={style.list}>
+        <ul className={style.listElement}>
             {orders.map(item => {
                 return (
                     <Link to={`${parentPath}/${item._id}`} key={item._id} className={style.link}>

@@ -55,9 +55,9 @@ function App() {
                 <Route path={"/feed"} exact>
                     <FeedPage/>
                 </Route>
-                <Route path={"/feed/:id"}>
+                <ProtectedRoute path={"/feed/:id"}>
                     <FeedIdPage/>
-                </Route>
+                </ProtectedRoute>
                 <ProtectedRoute path={"/profile/orders/:id"}>
                     <OrderHistoryIdPage/>
                 </ProtectedRoute>
@@ -82,6 +82,15 @@ function App() {
                 <ProtectedRoute path={"/order"} exact>
                     <SendOrderModalPage/>
                 </ProtectedRoute>}
+            {background &&
+                <ProtectedRoute path={"/profile/orders/:id"}>
+                    <FeedIdPage/>
+                </ProtectedRoute>}
+            {background &&
+                <ProtectedRoute path={"/feed/:id"}>
+                    <FeedIdPage/>
+                </ProtectedRoute>}
+
         </>
     );
 }

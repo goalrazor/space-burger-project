@@ -12,7 +12,7 @@ export const FeedBoard = () => {
                 <div className={style.containerRow}>
                     <div className={style.numsContainer}>
                         <p className="text text_type_main-medium pb-3">Готовы:</p>
-                        <ul className={style.list}>
+                        <ul className={style.listElement}>
                             {orders.slice(0, 10).map(item => {
                                 if (item.status === 'done') {
                                     return (
@@ -28,7 +28,7 @@ export const FeedBoard = () => {
                     </div>
                     <div className={style.numsContainer}>
                         <p className="text text_type_main-medium pb-6">В работе:</p>
-                        <ul className={style.list}>
+                        <ul className={style.listElement}>
                             {orders.slice(0, 10).map(item => {
                                 if (item.status !== 'done') {
                                     return (

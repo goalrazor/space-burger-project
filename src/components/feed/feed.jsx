@@ -12,7 +12,7 @@ export const Feed = () => {
             <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
                 Лента заказов
             </h1>
-            <div className={scrollerStyle.scroller}>
+            <div className={`${scrollerStyle.scroller}`}>
                 <OrderCards orders={orders} parentPath={"/feed"}/>
             </div>
         </section>

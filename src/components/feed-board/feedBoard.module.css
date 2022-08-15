@@ -23,7 +23,7 @@
     margin-bottom: 8px;
 }
 
-.list {
+.listElement {
     display: flex;
     flex-direction: column;
     list-style: none;
