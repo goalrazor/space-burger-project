@@ -3,8 +3,8 @@ import style from "./feedCard.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
 import {v4 as uuidv4} from 'uuid';
-import dayjs from 'dayjs'
 import {formatDate} from "../../utils/utils";
+import PropTypes from "prop-types";
 
 export const IngredientImage = ({images, grouped}) => {
     return (
@@ -94,4 +94,8 @@ export const FeedCard = ({order}) => {
             </div>
         </div>
     )
+}
+
+FeedCard.propTypes = {
+    order: PropTypes.object.isRequired
 }

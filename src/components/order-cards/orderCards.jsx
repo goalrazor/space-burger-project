@@ -2,6 +2,7 @@ import React from "react";
 import style from "../feed/feed.module.css";
 import {NavLink, useLocation} from "react-router-dom";
 import {FeedCard} from "../feed-card/feedCard";
+import PropTypes from "prop-types";
 
 export const OrderCards = ({orders, parentPath}) => {
     const location = useLocation()
@@ -22,4 +23,9 @@ export const OrderCards = ({orders, parentPath}) => {
             })}
         </ul>
     )
+}
+
+OrderCards.protoTypes = {
+    orders: PropTypes.object.isRequired,
+    parentPath: PropTypes.string.isRequired
 }
