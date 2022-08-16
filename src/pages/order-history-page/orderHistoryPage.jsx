@@ -12,7 +12,7 @@ export const OrderHistoryPage = () => {
         return () => {
             dispatch({type: WS_CONNECTION_CLOSED});
         }
-    }, [dispatch])
+    }, [])
     return (
         <section className={style.content}>
             <ProfileNav/>

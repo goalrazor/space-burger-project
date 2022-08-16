@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams, useRouteMatch} from "react-router-dom";
 import {WS_AUTH_CONNECTION_START, WS_CONNECTION_CLOSED, WS_CONNECTION_START} from "../../services/actions/webSocket";
 import {OrderIngredientsInfo} from "../../components/order-ingredients-info/orderIngredientsInfo";
-import {v4 as uuidv4} from 'uuid';
 import scrollerStyle from "../constructor-page/constructorPage.module.css";
 import {formatDate} from "../../utils/utils";
 
@@ -35,7 +34,7 @@ export const FeedIdPage = () => {
                 type: WS_CONNECTION_CLOSED
             })
         }
-    })
+    }, [])
     const ingredients = useSelector(store => store.ingredientReducer.ingredients)
 
     useEffect(() => {
@@ -99,7 +98,7 @@ export const FeedIdPage = () => {
                         <>
                             {getCountedItems(orderIngredients).map(item => {
                                 return (
-                                    <OrderIngredientsInfo key={uuidv4()} ingredient={item}/>
+                                    <OrderIngredientsInfo key={item._id} ingredient={item}/>
                                 )
                             })
                             }
