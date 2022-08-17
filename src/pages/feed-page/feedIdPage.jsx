@@ -33,13 +33,13 @@ export const FeedIdPage = () => {
                     payload: WS_URL_ALL
                 })
         }
-        setOrder(orders?.find(item => item._id === id))
+        setOrder(orders?.find(item => item.number === Number(id)))
         return () => {
             dispatch({
                 type: WS_CONNECTION_CLOSED
             })
         }
-    }, [])
+    }, [orders])
     const ingredients = useSelector(store => store.ingredientReducer.ingredients)
 
     useEffect(() => {

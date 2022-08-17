@@ -11,7 +11,7 @@ export const OrderCards = ({orders, parentPath}) => {
             {orders.map(item => {
                 return (
                     <NavLink to={{
-                        pathname: `${parentPath}/${item._id}`,
+                        pathname: `${parentPath}/${item.number}`,
                         state: {background: location}
                     }}
                              key={item._id} className={style.link}>
