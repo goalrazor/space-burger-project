@@ -3,10 +3,12 @@ import style from './feedIdPage.module.css'
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import {useDispatch, useSelector} from "react-redux";
 import {useParams, useRouteMatch} from "react-router-dom";
-import {WS_AUTH_CONNECTION_START, WS_CONNECTION_CLOSED, WS_CONNECTION_START} from "../../services/actions/webSocket";
+import {WS_CONNECTION_CLOSED, WS_CONNECTION_START} from "../../services/actions/webSocket";
 import {OrderIngredientsInfo} from "../../components/order-ingredients-info/orderIngredientsInfo";
 import scrollerStyle from "../constructor-page/constructorPage.module.css";
 import {formatDate} from "../../utils/utils";
+import {getCookie} from "../../utils/cookie";
+import {WS_URL_ALL, WS_URL_AUTH} from "../../utils/constants";
 
 export const FeedIdPage = () => {
     const {id} = useParams()
@@ -17,15 +19,18 @@ export const FeedIdPage = () => {
     const [price, setPrice] = useState(0)
     let match = useRouteMatch();
     const profilePath = '/profile/orders/:id';
+    const token = getCookie("accessToken")
 
     useEffect(() => {
         if (!order) {
             match.path === profilePath ?
                 dispatch({
-                    type: WS_AUTH_CONNECTION_START
+                    type: WS_CONNECTION_START,
+                    payload: `${WS_URL_AUTH}?token=${token}`
                 }) :
                 dispatch({
-                    type: WS_CONNECTION_START
+                    type: WS_CONNECTION_START,
+                    payload: WS_URL_ALL
                 })
         }
         setOrder(orders?.find(item => item._id === id))
