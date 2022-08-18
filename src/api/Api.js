@@ -96,6 +96,16 @@ class API {
             .then(this._checkResponse)
     }
 
+    getOrderByNumber(number) {
+        return fetch(`${this._url}/orders/${number}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(this._checkResponse)
+    };
+
     _checkResponse(res) {
         if (res.status === 200) {
             return res.json()

@@ -1,45 +1,27 @@
 import React, {useEffect, useState} from "react";
 import style from './feedIdPage.module.css'
 import {CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components';
-import {useDispatch, useSelector} from "react-redux";
-import {useParams, useRouteMatch} from "react-router-dom";
-import {WS_CONNECTION_CLOSED, WS_CONNECTION_START} from "../../services/actions/webSocket";
+import {useSelector} from "react-redux";
+import {useParams} from "react-router-dom";
 import {OrderIngredientsInfo} from "../../components/order-ingredients-info/orderIngredientsInfo";
 import scrollerStyle from "../constructor-page/constructorPage.module.css";
 import {formatDate} from "../../utils/utils";
-import {getCookie} from "../../utils/cookie";
-import {WS_URL_ALL, WS_URL_AUTH} from "../../utils/constants";
+import api from "../../api/Api";
 
 export const FeedIdPage = () => {
     const {id} = useParams()
-    const dispatch = useDispatch()
-    const orders = useSelector(store => store.wsReducer.orders)
     const [order, setOrder] = useState(null)
     const [orderIngredients, setOrderIngredients] = useState([])
     const [price, setPrice] = useState(0)
-    let match = useRouteMatch();
-    const profilePath = '/profile/orders/:id';
-    const token = getCookie("accessToken")
 
     useEffect(() => {
-        if (!order) {
-            match.path === profilePath ?
-                dispatch({
-                    type: WS_CONNECTION_START,
-                    payload: `${WS_URL_AUTH}?token=${token}`
-                }) :
-                dispatch({
-                    type: WS_CONNECTION_START,
-                    payload: WS_URL_ALL
-                })
+        async function getOrder() {
+            await api.getOrderByNumber(id)
+                .then(res => setOrder(res?.orders?.[0]))
         }
-        setOrder(orders?.find(item => item.number === Number(id)))
-        return () => {
-            dispatch({
-                type: WS_CONNECTION_CLOSED
-            })
-        }
-    }, [orders])
+
+        getOrder();
+    }, [])
     const ingredients = useSelector(store => store.ingredientReducer.ingredients)
 
     useEffect(() => {
