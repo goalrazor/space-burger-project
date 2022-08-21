@@ -11,13 +11,16 @@ import api from "../../api/Api";
 export const FeedIdPage = () => {
     const {id} = useParams()
     const [order, setOrder] = useState(null)
-    const [orderIngredients, setOrderIngredients] = useState([])
+    const [orderIngredients, setOrderIngredients] = useState(undefined)
+    const [countedIngredients, setCountedIngredients] = useState(undefined)
     const [price, setPrice] = useState(0)
 
     useEffect(() => {
         async function getOrder() {
             await api.getOrderByNumber(id)
-                .then(res => setOrder(res?.orders?.[0]))
+                .then(res => {
+                    setOrder(res.orders[0])
+                })
         }
 
         getOrder();
@@ -35,7 +38,16 @@ export const FeedIdPage = () => {
         setPrice(() => {
             return orderIngredients?.reduce((prevVal, item) => prevVal + item?.price, 0)
         })
-    }, [order])
+    }, [order, ingredients])
+
+    useEffect(() => {
+        console.log(orderIngredients)
+        if (orderIngredients && orderIngredients[0] !== undefined) {
+            setCountedIngredients(
+                getCountedItems(orderIngredients)
+            )
+        }
+    }, [orderIngredients])
 
     const getCountedItems = (items) => {
         let count = 1;
@@ -81,9 +93,9 @@ export const FeedIdPage = () => {
                 </p>
                 <h2 className={`${style.order} text text_type_main-medium pt-15`}>Состав:</h2>
                 <div className={`${scrollerStyle.scroller} ${scrollerStyle.orderInfoScroller}`}>
-                    {orderIngredients &&
+                    {countedIngredients &&
                         <>
-                            {getCountedItems(orderIngredients).map(item => {
+                            {countedIngredients.map(item => {
                                 return (
                                     <OrderIngredientsInfo key={item._id} ingredient={item}/>
                                 )
