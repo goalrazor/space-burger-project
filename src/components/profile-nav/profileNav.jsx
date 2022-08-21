@@ -3,6 +3,7 @@ import style from "../../pages/profile-page/profilePage.module.css";
 import {Link, useLocation} from "react-router-dom";
 import {logout} from "../../services/actions/auth";
 import {useDispatch} from "react-redux";
+import {deleteCookie} from "../../utils/cookie";
 
 export const ProfileNav = () => {
     const dispatch = useDispatch();
@@ -13,13 +14,13 @@ export const ProfileNav = () => {
             .catch((err) => {
                 console.error("Не удалось выполнить выход", err)
             })
-        document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        deleteCookie("accessToken")
         localStorage.removeItem('refreshToken');
     }
 
     return (
         <nav className={style.navigation}>
-            <ul className={style.list}>
+            <ul>
                 <li className={style.listElement}>
                     <Link className={`${location.pathname === '/profile' ? 'text text_type_main-medium'
                         : 'text text_type_main-medium text_color_inactive'} ${style.link}`}
