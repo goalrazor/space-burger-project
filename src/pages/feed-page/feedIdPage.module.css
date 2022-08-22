@@ -1,0 +1,24 @@
+.container {
+    margin: 40px auto auto;
+    width: 640px;
+}
+
+.name {
+    text-align: left;
+    width: 100%;
+}
+
+.status {
+    color: #00CCCC;
+    text-align: left;
+}
+
+.order {
+    text-align: left;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 24px;
+}

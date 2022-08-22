@@ -60,6 +60,7 @@ export function ProtectedRoute({children, notForAuthorisedRoute, ...rest}) {
 
 ProtectedRoute.propTypes = {
     path: PropTypes.string.isRequired,
+    notForAuthorisedRoute: PropTypes.bool
 }
 
 

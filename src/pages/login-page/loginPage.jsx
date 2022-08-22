@@ -29,11 +29,13 @@ export function LoginPage() {
                 .then(() => {
                     history.replace({pathname: location?.state?.from.pathname || '/'})
                 })
-        }, [dispatch, formData, history, location]
+        },
+        // eslint-disable-next-line
+        [dispatch, formData, history, location]
     )
 
     return (
-        <div className={style.formContainer}>
+        <div className={`${style.formContainerOnlyForm} ${style.formContainer}`}>
             <Form header={"Вход"} buttonText={"Войти"} handleSubmit={handleSubmit}>
                 <EmailInput
                     value={email}

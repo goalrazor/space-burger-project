@@ -19,6 +19,7 @@ export function RegistrationPage() {
             dispatch(
                 register(email, password, name)
             )
+            // eslint-disable-next-line
         }, [dispatch, formData]
     )
 
@@ -29,7 +30,7 @@ export function RegistrationPage() {
     }
 
     return (
-        <div className={style.formContainer}>
+        <div className={`${style.formContainerOnlyForm} ${style.formContainer}`}>
             <Form header={"Регистрация"} buttonText={"Зарегистрироваться"} handleSubmit={handleSubmit}>
                 <Input
                     type={"text"}

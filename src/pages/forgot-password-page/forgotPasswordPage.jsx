@@ -21,11 +21,12 @@ export function ForgotPasswordPage() {
                 .then(() => alert(`Письмо с кодом восстановления пароля выслано на электронную почту ${email}`))
                 .catch(error => console.error(error))
         },
+        // eslint-disable-next-line
         [formData, history, dispatch]
     );
 
     return (
-        <div className={style.formContainer}>
+        <div className={`${style.formContainerOnlyForm} ${style.formContainer}`}>
             <Form header={"Восстановление пароля"} buttonText={"Восстановить"} handleSubmit={handleClick}>
                 <Input
                     type={"email"}

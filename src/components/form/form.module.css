@@ -1,5 +1,6 @@
 .form {
     width: 480px;
+    margin-left: 60px;
 }
 
 .input {
@@ -17,12 +18,15 @@
 }
 
 .formContainer {
-    width: 480px;
     margin: 180px auto auto;
     display: flex;
     justify-content: center;
-    flex-direction: column;
     position: relative;
+}
+
+.formContainerOnlyForm {
+    flex-direction: column;
+    align-items: center;
 }
 
 .input div {

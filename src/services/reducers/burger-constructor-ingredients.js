@@ -1,5 +1,6 @@
 import {
     CLOSE_ORDER_MODAL,
+    SET_CONSTRUCTOR_BUTTON_ENABLED,
     SET_ORDER_DETAILS,
     SET_ORDER_REQUEST,
     SET_ORDER_REQUEST_FAILED,
@@ -7,7 +8,7 @@ import {
 
 const initialState = {
     orderDetails: {},
-    orderModalShown: false,
+    isOrderButtonEnabled: false,
     orderRequest: false,
     orderRequestFailed: false
 };
@@ -24,7 +25,6 @@ export const orderDetailsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 orderDetails: action.details,
-                orderModalShown: true,
                 orderRequestFailed: false,
                 orderRequest: false
             }
@@ -41,8 +41,15 @@ export const orderDetailsReducer = (state = initialState, action) => {
         case CLOSE_ORDER_MODAL: {
             return {
                 ...state,
-                orderModalShown: false,
+                isOrderButtonEnabled: false,
                 orderDetails: {}
+            }
+        }
+
+        case SET_CONSTRUCTOR_BUTTON_ENABLED: {
+            return {
+                ...state,
+                isOrderButtonEnabled: true,
             }
         }
         default: {

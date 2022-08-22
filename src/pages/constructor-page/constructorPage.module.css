@@ -26,3 +26,7 @@
     composes: scroller;
     max-height: 514px;
 }
+
+.orderInfoScroller {
+    max-height: 366px;
+}

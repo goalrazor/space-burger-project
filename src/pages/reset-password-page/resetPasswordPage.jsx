@@ -38,11 +38,12 @@ export function ResetPasswordPage() {
                 .then(() => alert(`Пароль успешно изменен. Пожалуйста, войдите заново`))
                 .catch(error => console.error(error))
         },
+        // eslint-disable-next-line
         [formData, history, dispatch]
     );
 
     return (
-        <div className={style.formContainer}>
+        <div className={`${style.formContainerOnlyForm} ${style.formContainer}`}>
             <Form header={"Восстановление пароля"} buttonText={"Сохранить"} handleSubmit={handleSubmit}>
                 <Input
                     type={"text"}

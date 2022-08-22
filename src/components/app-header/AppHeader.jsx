@@ -38,7 +38,7 @@ const AppHeader = () => {
         exact: true
     })
 
-    const isListActive = useRouteMatch('/list');
+    const isListActive = useRouteMatch('/feed');
 
     const isProfileActive = useRouteMatch('/profile');
 
@@ -63,7 +63,7 @@ const AppHeader = () => {
                         className={`${header.headerMenuItem} text text_type_main-default text_color_inactive`}
                         icon={ListMenuIcon}
                         iconStatus={isListActive ? 'primary' : 'secondary'}
-                        path={"/list"}
+                        path={"/feed"}
                     >
                         Лента заказов
                     </HeaderMenuItem>

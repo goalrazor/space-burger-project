@@ -38,3 +38,13 @@
     align-items: center;
     height: 80px;
 }
+
+.buttonText {
+    text-decoration: none;
+    color: #8585AD;
+}
+
+.activeButtonText {
+    text-decoration: none;
+    color: #F2F2F3;
+}

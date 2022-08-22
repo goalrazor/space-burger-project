@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import ConstructorListElement from "../constructor-list-element/constructorListElement";
 import container from '../burger-ingredients/BurgerIngredients.module.css'
 import style from './BurgerConstructor.module.css'
@@ -8,57 +8,24 @@ import Total from "../total/Total";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {v4 as uuidv4} from 'uuid';
-import {
-    ADD_INGREDIENT,
-    INCREASE_INGREDIENT_COUNT,
-    MOVE_INGREDIENT,
-    RESET_INGREDIENT_COUNT
-} from "../../services/actions/burger-ingredients";
-import {getCookie} from "../../utils/cookie";
-import {refreshToken} from "../../services/actions/auth";
-import {useHistory} from "react-router-dom";
-import {setOrder} from "../../services/actions/burger-constructor-ingredients";
+import {ADD_INGREDIENT, INCREASE_INGREDIENT_COUNT, MOVE_INGREDIENT} from "../../services/actions/burger-ingredients";
+import {NavLink, useLocation} from "react-router-dom";
+import {SET_CONSTRUCTOR_BUTTON_ENABLED} from "../../services/actions/burger-constructor-ingredients";
 
 const BurgerConstructor = () => {
     const data = useSelector(store => store.ingredientReducer.constructorIngredients);
     const bun = data.filter(item => item.type === 'bun')
+    const isButtonEnabled = useSelector(store => store.orderDetailsReducer.isOrderButtonEnabled)
     const dispatch = useDispatch();
-    const history = useHistory();
+    const location = useLocation()
 
-    const makeOrder = () => {
+    useEffect(() => {
         if (bun.length > 0 && data.filter(item => item.type !== 'bun').length > 0) {
-            dispatch(setOrder({
-                ingredients: data.map((item) => {
-                    return item._id
-                })
-            }))
             dispatch({
-                type: RESET_INGREDIENT_COUNT
+                type: SET_CONSTRUCTOR_BUTTON_ENABLED
             })
-        } else {
-            console.log("Неверный состав заказа")
-            alert("Неверный состав заказа. Пожалуйста, выберите булку и хотя бы один ингредиент")
         }
-    }
-
-    const submitOrderOnClickHandler =
-        async () => {
-            if (!getCookie("accessToken")) {
-                console.log("!accessToken")
-                await dispatch(refreshToken(localStorage.getItem("refreshToken")))
-                    .then(() => {
-                        console.log("!accessToken makeOrder")
-                        makeOrder()
-                    })
-                    .catch(() => {
-                        history.replace("/login")
-                    })
-        } else {
-                console.log("accessToken")
-                makeOrder()
-        }
-
-    }
+    }, [data, bun, location, dispatch])
 
     const [, dropTarget] = useDrop({
         accept: "ingredient",
@@ -119,11 +86,19 @@ const BurgerConstructor = () => {
 
             <div className={style.totalContainer}>
                 <Total/>
-                <div onClick={submitOrderOnClickHandler}>
-                    <Button type="primary" size="large">
+                {isButtonEnabled ?
+                    <NavLink className={isButtonEnabled ? style.activeButtonText : style.buttonText} to={{
+                        pathname: `order`,
+                        state: {background: location}
+                    }}>
+                        <Button type="primary" size="large" disabled={!isButtonEnabled}>
+                            Оформить заказ
+                        </Button>
+                    </NavLink>
+                    :
+                    <Button type="primary" size="large" disabled={!isButtonEnabled}>
                         Оформить заказ
-                    </Button>
-                </div>
+                    </Button>}
             </div>
         </section>
     )

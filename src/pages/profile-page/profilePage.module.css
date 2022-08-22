@@ -1,4 +1,4 @@
-.list {
+.listElement {
     padding: 0;
     list-style: none;
 }
@@ -20,6 +20,6 @@
 
 .navigation {
     width: 320px;
-    position: absolute;
-    left: -380px;
+    /*position: absolute;*/
+    /*left: -380px;*/
 }

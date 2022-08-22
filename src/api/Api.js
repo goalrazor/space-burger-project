@@ -16,10 +16,10 @@ class API {
             .then(this._checkResponse)
     };
 
-    saveOrder(body) {
+    saveOrder(body, token) {
         return fetch(`${this._url}/orders`, {
             method: "POST",
-            headers: this._headers,
+            headers: {...this._headers, authorization: `Bearer ${token}`},
             body: JSON.stringify(body)
         })
             .then(this._checkResponse)
@@ -95,6 +95,16 @@ class API {
         })
             .then(this._checkResponse)
     }
+
+    getOrderByNumber(number) {
+        return fetch(`${this._url}/orders/${number}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(this._checkResponse)
+    };
 
     _checkResponse(res) {
         if (res.status === 200) {
