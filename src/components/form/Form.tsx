@@ -1,9 +1,14 @@
-import React from "react";
+import React, {FC} from "react";
 import style from "./form.module.css";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 
-export function Form({header, buttonText, handleSubmit, children}) {
+interface IFormProps {
+    header: string,
+    buttonText: string,
+    handleSubmit: () => void
+}
+
+export const Form: FC<IFormProps> = ({header, buttonText, handleSubmit, children}) => {
     return (
         <form className={style.form} onSubmit={handleSubmit}>
             <h1 className={`text text_type_main-default ${style.text}`}>{header}</h1>
@@ -17,10 +22,4 @@ export function Form({header, buttonText, handleSubmit, children}) {
             </div>
         </form>
     )
-}
-
-Form.propTypes = {
-    header: PropTypes.string.isRequired,
-    buttonText: PropTypes.string.isRequired,
-    handleSubmit: PropTypes.func,
 }
