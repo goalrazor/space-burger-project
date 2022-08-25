@@ -68,17 +68,17 @@ const BurgerIngredients = () => {
             {data ?
                 <div className={scrollerStyle.scroller}>
                     <div ref={bunsRef}>
-                        <Ingredients data={data}>
+                        <Ingredients data={data} tab={BUN}>
                             {BUN}
                         </Ingredients>
                     </div>
                     <div ref={sauceRef}>
-                        <Ingredients data={data}>
+                        <Ingredients data={data} tab={SAUCE}>
                             {SAUCE}
                         </Ingredients>
                     </div>
                     <div ref={mainRef}>
-                        <Ingredients data={data}>
+                        <Ingredients data={data} tab={MAIN}>
                             {MAIN}
                         </Ingredients>
                     </div>

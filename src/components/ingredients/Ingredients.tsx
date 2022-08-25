@@ -1,14 +1,13 @@
 import style from "../burger-ingredients/BurgerIngredients.module.css";
 import Card from "../card/Card";
-import {ingredientsPropTypes} from "../../utils/propTypesTemplates";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {FC} from "react";
+import {TCard} from "../../services/types";
 
 export const BUN = 'Булки'
 export const SAUCE = 'Соусы'
 export const MAIN = 'Начинки'
 
-const switchDataString = (key) => {
+const switchDataString = (key: string) => {
     let dataString;
     switch (key) {
         case BUN:
@@ -27,14 +26,14 @@ const switchDataString = (key) => {
     return dataString;
 }
 
-const filterBurgerData = (dataString, data) => {
+const filterBurgerData = (dataString: string, data: ReadonlyArray<TCard>) => {
     return data.filter(item => {
         return item.type === dataString
     });
 
 }
 
-export const getPartOfBurgerData = (children, data) => {
+export const getPartOfBurgerData = (children: string, data: ReadonlyArray<TCard>) => {
     const dataString = switchDataString(children);
     let partOfBurger;
     if (dataString !== 'inner') {
@@ -47,14 +46,19 @@ export const getPartOfBurgerData = (children, data) => {
     }
 }
 
-const Ingredients = ({children, data}) => {
+interface IIngredientData {
+    data: ReadonlyArray<TCard>,
+    tab: string
+}
+
+const Ingredients: FC<IIngredientData> = ({children, data, tab}) => {
     return (
         <>
-            <h2 id={children} className={'text text_type_main-medium'}>
+            <h2 id={tab} className={'text text_type_main-medium'}>
                 {children}
             </h2>
             <div className={style.cardsContainer}>
-                {getPartOfBurgerData(children, data).map(item => {
+                {getPartOfBurgerData(tab, data).map(item => {
                     return (
                         <Card
                             key={item._id}
@@ -65,11 +69,6 @@ const Ingredients = ({children, data}) => {
             </div>
         </>
     )
-}
-
-Ingredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
-    children: PropTypes.string,
 }
 
 export default Ingredients;
