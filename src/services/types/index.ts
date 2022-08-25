@@ -17,3 +17,15 @@ export type TCard = {
 export type TBackgroundLocation = {
     readonly background: Location
 }
+
+export type TOrder = {
+    readonly order: {
+        readonly number: number,
+        readonly createdAt: string,
+        readonly name: string,
+        readonly ingredients: ReadonlyArray<string>,
+        readonly updatedAt?: string,
+        readonly status?: string,
+        readonly _id?: string
+    }
+}

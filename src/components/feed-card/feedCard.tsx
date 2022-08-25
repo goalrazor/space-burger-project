@@ -1,36 +1,49 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {FC, useEffect, useRef, useState} from "react";
 import style from "./feedCard.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useSelector} from "react-redux";
 import {v4 as uuidv4} from 'uuid';
 import {formatDate} from "../../utils/utils";
-import PropTypes from "prop-types";
+import {TCard, TOrder} from "../../services/types";
 
-export const IngredientImage = ({images, grouped}) => {
+interface IIngredientImagesProps {
+    images: ReadonlyArray<{ url: string, uuid: string }>
+    grouped?: boolean
+}
+
+export const IngredientImage: FC<IIngredientImagesProps> = ({images, grouped}) => {
     return (
         <div className={`${style.gradientRing}`}>
             <div className={`${style.background}`}>
                 <img className={grouped ? `${style.groupedImage} ${style.image}` : `${style.image}`}
-                     src={grouped ? images[0].url : images.url}
+                     src={images[0]?.url}
                      alt={""}
                 />
-                {grouped && <p className={`text_type_digits-default ${style.groupedImageText}`}>{`+${images.length}`}</p>}
+                {grouped &&
+                    <p className={`text_type_digits-default ${style.groupedImageText}`}>{`+${images.length}`}</p>}
             </div>
         </div>
     )
 }
 
-export const FeedCard = ({order}) => {
+interface IImages {
+    url: string,
+    uuid: string
+}
+
+
+export const FeedCard: FC<TOrder> = ({order}) => {
     const {number, createdAt, name,} = order;
-    const ingredients = useSelector(store => store.ingredientReducer.ingredients)
-    const [imageToRender, setImageToRender] = useState([])
-    const [groupedImages, setGroupedImages] = useState([])
+    const allIngredients: ReadonlyArray<TCard> = useSelector<{ ingredientReducer: any }>(store => store.ingredientReducer.ingredients) as ReadonlyArray<TCard>
+    //fixme
+    const [imageToRender, setImageToRender] = useState<ReadonlyArray<IImages>>([])
+    const [groupedImages, setGroupedImages] = useState<ReadonlyArray<IImages>>([])
     const [price, setPrice] = useState(0)
 
-    const getState = (orderIngredients) => {
-        if (orderIngredients.length > 0) {
+    const getState = (orderIngredients: ReadonlyArray<TCard>) => {
+        if (orderIngredients && orderIngredients.length > 0) {
             const allImages = orderIngredients.map(item => {
-                return item.image
+                return item?.image
             })
             setImageToRender(() => {
                 return Array.from(new Set(allImages))
@@ -54,15 +67,15 @@ export const FeedCard = ({order}) => {
         }
     }
 
-    const orderIngredients = useRef()
+    const orderIngredients = useRef<ReadonlyArray<TCard>>()
     useEffect(() => {
-        orderIngredients.current = order.ingredients.map(item => {
-            return ingredients.find(ingredient => {
+        orderIngredients.current = order.ingredients?.map(item => {
+            return allIngredients.find(ingredient => {
                 return ingredient._id === item
             })
-        })
+        }) as ReadonlyArray<TCard>;
         getState(orderIngredients.current);
-    }, [order, ingredients])
+    }, [order, allIngredients])
 
     return (
         <div className={style.feedCard}>
@@ -76,12 +89,14 @@ export const FeedCard = ({order}) => {
                     <ul className={style.images}>
                         {groupedImages.length > 0 &&
                             <li className={style.imageRow} key={groupedImages[0].uuid}>
-                                <IngredientImage images={groupedImages} grouped={true} />
+                                <IngredientImage images={groupedImages} grouped={true}/>
                             </li>}
                         {imageToRender.map((image) => {
+                            const arrForImages: Array<IImages> = [];
+                            arrForImages.push(image)
                             return (
                                 <li className={style.imageRow} key={image.uuid}>
-                                    <IngredientImage images={image} />
+                                    <IngredientImage images={arrForImages}/>
                                 </li>
                             )
                         })}
@@ -94,8 +109,4 @@ export const FeedCard = ({order}) => {
             </div>
         </div>
     )
-}
-
-FeedCard.propTypes = {
-    order: PropTypes.object.isRequired
 }

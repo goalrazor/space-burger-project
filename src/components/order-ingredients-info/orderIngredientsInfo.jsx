@@ -10,7 +10,7 @@ export const OrderIngredientsInfo = ({ingredient}) => {
         <ul className={style.list}>
             <li className={style.listElement}>
                 <div className={style.ingredient}>
-                    <IngredientImage images={{url: ingredient.image}}/>
+                    <IngredientImage images={[{url: ingredient.image}]}/>
                     <p className={`text text_type_main-default pl-4`}>{ingredient.name}</p>
                 </div>
                 <div className={style.price}>
