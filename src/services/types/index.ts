@@ -11,4 +11,5 @@ export type TCard = {
     readonly image_mobile: string;
     readonly image_large: string;
     readonly ingredientCount: number;
+    readonly uuid?: string
 };
