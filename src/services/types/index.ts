@@ -13,3 +13,7 @@ export type TCard = {
     readonly ingredientCount: number;
     readonly uuid?: string
 };
+
+export type TBackgroundLocation = {
+    readonly background: Location
+}

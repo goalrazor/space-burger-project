@@ -3,16 +3,17 @@ import ingredientDetailsStyle from './IngredientDetails.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {useLocation, useParams} from "react-router-dom";
 import {SET_INGREDIENT_MODAL_CLOSED, SET_INGREDIENT_MODAL_SHOW} from "../../services/actions/burger-ingredients";
+import {TBackgroundLocation, TCard} from "../../services/types";
 
 const IngredientDetails = () => {
     const statsTextStyle = 'text text_type_main-default text_color_inactive';
     const statsDigitsStyle = 'text text_type_digits-default text_color_inactive';
 
-    const {id} = useParams()
+    const {id} = useParams<{ id: string }>()
     const dispatch = useDispatch()
 
-    const location = useLocation();
-    const background = location.state?.background;
+    const location = useLocation<Location & TBackgroundLocation>();
+    const background = location.state?.background
 
     useEffect(() => {
         background && dispatch({
@@ -25,24 +26,41 @@ const IngredientDetails = () => {
         }
     }, [background, dispatch])
 
-    let ingredient;
-    const ingredients
-        = useSelector(store => store.ingredientReducer.ingredients)
+    let ingredient: TCard = {
+        _id: "",
+        calories: 0,
+        carbohydrates: 0,
+        fat: 0,
+        image: "",
+        image_large: "",
+        image_mobile: "",
+        ingredientCount: 0,
+        name: "",
+        price: 0,
+        proteins: 0,
+        type: ""
+    };
+
+    const ingredients: ReadonlyArray<TCard>
+        = useSelector<{ ingredientReducer: any }>(store => store.ingredientReducer.ingredients) as ReadonlyArray<TCard>
+    //fixme
     if (ingredients.length > 0) {
-        ingredient = ingredients.find(item => item._id === id)
+        ingredient = ingredients.find((item: { _id: string; }) => item._id === id) as TCard
     }
+
+    const {image_large, name, calories, proteins, fat, carbohydrates} = ingredient
 
     return (
         <>
-            {ingredients.length > 0 &&
+            {ingredient &&
                 <div className={ingredientDetailsStyle.ingredientDetailsContainer}>
                     <img
                         className={ingredientDetailsStyle.image}
-                        src={ingredient.image_large}
-                        alt={ingredient.name}/>
+                        src={image_large}
+                        alt={name}/>
                     <p
                         className={'text text_type_main-medium mt-4 mb-8'}>
-                        {ingredient.name}
+                        {name}
                     </p>
                     <ul className={ingredientDetailsStyle.stats}>
                         <li className={ingredientDetailsStyle.stat}>
@@ -50,7 +68,7 @@ const IngredientDetails = () => {
                                 Калории,ккал
                             </p>
                             <p className={statsDigitsStyle}>
-                                {ingredient.calories}
+                                {calories}
                             </p>
                         </li>
                         <li className={ingredientDetailsStyle.stat}>
@@ -58,7 +76,7 @@ const IngredientDetails = () => {
                                 Белки, г
                             </p>
                             <p className={statsDigitsStyle}>
-                                {ingredient.proteins}
+                                {proteins}
                             </p>
                         </li>
                         <li className={ingredientDetailsStyle.stat}>
@@ -66,7 +84,7 @@ const IngredientDetails = () => {
                                 Жиры, г
                             </p>
                             <p className={statsDigitsStyle}>
-                                {ingredient.fat}
+                                {fat}
                             </p>
                         </li>
                         <li className={ingredientDetailsStyle.stat}>
@@ -74,7 +92,7 @@ const IngredientDetails = () => {
                                 Углеводы, г
                             </p>
                             <p className={statsDigitsStyle}>
-                                {ingredient.carbohydrates}
+                                {carbohydrates}
                             </p>
                         </li>
                     </ul>

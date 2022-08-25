@@ -9,7 +9,9 @@ import {TCard} from "../../services/types";
 
 const Card: FC<TCard> = (props) => {
     const dispatch = useDispatch();
-    const itemCount: number = useSelector<{ ingredientReducer: any; }>(store => store.ingredientReducer.ingredients.filter((item: { _id: string; }) => item._id === props._id)[0].ingredientCount) as number
+    const itemCount: number = useSelector<{ ingredientReducer: any; }>(store =>
+        store.ingredientReducer.ingredients
+            .filter((item: { _id: string; }) => item._id === props._id)[0].ingredientCount) as number
     //fixme типизировать редьюсер
     const location = useLocation();
 
