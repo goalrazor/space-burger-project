@@ -1,15 +1,16 @@
-import React from 'react'
+import React, {FC} from 'react'
 import style from './Card.module.css'
 import {Counter, CurrencyIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import {cartPropTypes} from "../../utils/propTypesTemplates";
 import {useDispatch, useSelector} from "react-redux";
 import {SET_CURRENT_INGREDIENT} from "../../services/actions/burger-ingredients";
 import {useDrag} from "react-dnd";
 import {NavLink, useLocation} from "react-router-dom";
+import {TCard} from "../../services/types";
 
-const Card = (props) => {
+const Card: FC<TCard> = (props) => {
     const dispatch = useDispatch();
-    const itemCount = useSelector(store => store.ingredientReducer.ingredients.filter(item => item._id === props._id)[0].ingredientCount)
+    const itemCount: number = useSelector<{ ingredientReducer: any; }>(store => store.ingredientReducer.ingredients.filter((item: { _id: string; }) => item._id === props._id)[0].ingredientCount) as number
+    //fixme типизировать редьюсер
     const location = useLocation();
 
     const setCardState = () => {
@@ -45,10 +46,6 @@ const Card = (props) => {
             </div>
         </NavLink>
     )
-}
-
-Card.propTypes = {
-    props: cartPropTypes,
 }
 
 export default Card
