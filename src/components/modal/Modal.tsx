@@ -1,16 +1,20 @@
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/ModalOverlay";
 import modalStyles from './Modal.module.css'
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
 
-const modalsContainer = document.querySelector('#modals');
+const modalsContainer: Element = document.querySelector('#modals') as Element;
 
-const Modal = ({title, children, handleClose}) => {
+interface IModalProps {
+    title: string,
+    handleClose: () => void
+}
+
+const Modal: FC<IModalProps> = ({title, children, handleClose}) => {
     const history = useHistory()
     const dispatch = useDispatch()
     const closeModals = () => {
@@ -20,7 +24,7 @@ const Modal = ({title, children, handleClose}) => {
         })
     }
 
-    const handleEscKeydown = (e) => {
+    const handleEscKeydown = (e: KeyboardEvent) => {
         e.key === "Escape" && handleClose();
     };
 
@@ -49,11 +53,5 @@ const Modal = ({title, children, handleClose}) => {
         modalsContainer
     );
 };
-
-Modal.propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.element.isRequired,
-    handleClose: PropTypes.func.isRequired,
-}
 
 export default Modal;
