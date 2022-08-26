@@ -5,9 +5,11 @@ import {OrderCards} from "../order-cards/orderCards";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 import style from "../form/form.module.css";
+import {TOrder} from "../../services/types";
 
 export const History = () => {
-    const {orders} = useSelector(store => store.wsReducer);
+    const orders: Array<TOrder> = useSelector<{ wsReducer: any }>(store => store.wsReducer.orders) as Array<TOrder>;
+    //fixme
 
     return (
         <section className={container.container}>

@@ -16,10 +16,6 @@ export const OrderHistoryPage = () => {
             type: WS_CONNECTION_START,
             payload: `${WS_URL_AUTH}?token=${token}`
         })
-        // dispatch({
-        //     type: WS_CONNECTION_START,
-        //     payload: WS_URL_ALL
-        // })
         return () => {
             dispatch({type: WS_CONNECTION_CLOSED});
         }
