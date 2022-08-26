@@ -31,8 +31,11 @@ interface IImages {
     uuid: string
 }
 
+interface IFeedCardProps {
+    order: TOrder
+}
 
-export const FeedCard: FC<TOrder> = ({order}) => {
+export const FeedCard: FC<IFeedCardProps> = ({order}) => {
     const {number, createdAt, name,} = order;
     const allIngredients: ReadonlyArray<TCard> = useSelector<{ ingredientReducer: any }>(store => store.ingredientReducer.ingredients) as ReadonlyArray<TCard>
     //fixme

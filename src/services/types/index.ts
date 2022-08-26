@@ -19,13 +19,11 @@ export type TBackgroundLocation = {
 }
 
 export type TOrder = {
-    readonly order: {
-        readonly number: number,
-        readonly createdAt: string,
-        readonly name: string,
-        readonly ingredients: ReadonlyArray<string>,
-        readonly updatedAt?: string,
-        readonly status?: string,
-        readonly _id?: string
-    }
+    readonly number: number,
+    readonly createdAt: string,
+    readonly name: string,
+    readonly ingredients: ReadonlyArray<string>,
+    readonly updatedAt?: string,
+    readonly status?: string,
+    readonly _id?: string
 }

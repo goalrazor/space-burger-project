@@ -15,12 +15,12 @@ export const OrderCards: FC<IOrders & { parentPath: string }> = ({orders, parent
             {orders.map(item => {
                 return (
                     <NavLink to={{
-                        pathname: `${parentPath}/${item.order.number}`,
+                        pathname: `${parentPath}/${item.number}`,
                         state: {background: location}
                     }}
-                             key={item.order._id} className={style.link}>
+                             key={item._id} className={style.link}>
                         <li>
-                            <FeedCard order={item.order}/>
+                            <FeedCard order={item}/>
                         </li>
                     </NavLink>
                 )
