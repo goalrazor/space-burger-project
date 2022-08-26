@@ -2,9 +2,22 @@ import React from "react";
 import container from "../burger-ingredients/BurgerIngredients.module.css";
 import style from "./feedBoard.module.css";
 import {useSelector} from "react-redux";
+import {TOrder} from "../../services/types";
+
+type TFeedBoardState = {
+    readonly orders: ReadonlyArray<TOrder>,
+    readonly total: number,
+    readonly totalToday: number,
+    wsConnected: boolean
+}
 
 export const FeedBoard = () => {
-    const {orders, total, totalToday} = useSelector(store => store.wsReducer);
+    const {
+        orders,
+        total,
+        totalToday
+    } = useSelector<{ wsReducer: TFeedBoardState }>(store => store.wsReducer) as TFeedBoardState;
+    //fixme
 
     return (
         <section className={container.container}>
