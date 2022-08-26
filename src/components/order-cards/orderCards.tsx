@@ -1,31 +1,30 @@
-import React from "react";
+import React, {FC} from "react";
 import style from "../feed/feed.module.css";
 import {NavLink, useLocation} from "react-router-dom";
 import {FeedCard} from "../feed-card/feedCard";
-import PropTypes from "prop-types";
+import {TOrder} from "../../services/types";
 
-export const OrderCards = ({orders, parentPath}) => {
+interface IOrders {
+    orders: ReadonlyArray<TOrder>
+}
+
+export const OrderCards: FC<IOrders & { parentPath: string }> = ({orders, parentPath}) => {
     const location = useLocation()
     return (
         <ul className={style.listElement}>
             {orders.map(item => {
                 return (
                     <NavLink to={{
-                        pathname: `${parentPath}/${item.number}`,
+                        pathname: `${parentPath}/${item.order.number}`,
                         state: {background: location}
                     }}
-                             key={item._id} className={style.link}>
+                             key={item.order._id} className={style.link}>
                         <li>
-                            <FeedCard order={item}/>
+                            <FeedCard order={item.order}/>
                         </li>
                     </NavLink>
                 )
             })}
         </ul>
     )
-}
-
-OrderCards.protoTypes = {
-    orders: PropTypes.object.isRequired,
-    parentPath: PropTypes.string.isRequired
 }
