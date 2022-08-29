@@ -1,10 +1,10 @@
 import dayjs from "dayjs";
 
-export const formatDate = (date) => {
+export const formatDate = (date: string) => {
     let result = dayjs(date).format('HH:mm Z')
     const now = dayjs()
 
-    const getDiffString = (diffDate) => {
+    const getDiffString = (diffDate: number) => {
         switch (diffDate) {
             case 0 :
                 return 'Сегодня'
