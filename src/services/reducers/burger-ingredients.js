@@ -1,6 +1,5 @@
 import {
     ADD_INGREDIENT,
-    CLOSE_INGREDIENT_MODAL,
     DECREASE_INGREDIENT_COUNT,
     DELETE_ALL_INGREDIENTS,
     DELETE_INGREDIENT,
@@ -149,13 +148,6 @@ export const ingredientReducer = (state = initialState, action) => {
                         ingredientCount: --item.ingredientCount
                     } : item
                 )
-            }
-        }
-
-        case CLOSE_INGREDIENT_MODAL: {
-            return {
-                ...state,
-                ingredientModalShow: false,
             }
         }
 
