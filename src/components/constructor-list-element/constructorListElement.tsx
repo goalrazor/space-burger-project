@@ -49,7 +49,6 @@ const ConstructorListElement: FC<TCard & {
     const [, dropRef] = useDrop({
         accept: 'constructor-ingredient',
         hover(item: any, monitor) {
-            //fixme any above
             if (!ref.current) {
                 return;
             }
@@ -62,7 +61,6 @@ const ConstructorListElement: FC<TCard & {
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
             const clientOffset = monitor.getClientOffset();
             const hoverClientY: number = clientOffset?.y as number - hoverBoundingRect.top;
-            //fixme возможно тут тоже что-то не так
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }

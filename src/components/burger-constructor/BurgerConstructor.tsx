@@ -14,7 +14,7 @@ import {SET_CONSTRUCTOR_BUTTON_ENABLED} from "../../services/actions/burger-cons
 import {TCard} from "../../services/types";
 
 const BurgerConstructor = () => {
-    const data: ReadonlyArray<TCard> = useSelector(store => store.ingredientReducer.constructorIngredients);
+    const data = useSelector(store => store.ingredientReducer.constructorIngredients);
     const bun = data.filter(item => item.type === 'bun')
     const isButtonEnabled: boolean = useSelector(store => store.orderDetailsReducer.isOrderButtonEnabled);
     const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const BurgerConstructor = () => {
 
     const [, dropTarget] = useDrop({
         accept: "ingredient",
-        drop({props}: any) {
+        drop({props}: { props: TCard }) {
             dispatch({
                 type: ADD_INGREDIENT,
                 payload: {...props, uuid: uuidv4()}
@@ -59,7 +59,6 @@ const BurgerConstructor = () => {
             <ul className={style.cardsContainer}>
                 {data.length !== 0 ?
                     <div className={style.cardsScrollerContainer}>
-                        {console.log}
                         {bun.length !== 0 ? <ConstructorListElement
                             {...bun[0]}
                             index={0}
