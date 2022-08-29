@@ -1,6 +1,6 @@
 import '../../pages/constructor-page/constructorPage.module.css';
 import {getIngredients} from "../../services/actions/burger-ingredients";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import {Redirect, Route, Switch, useLocation} from "react-router-dom";
 import {ConstructorPage} from "../../pages/constructor-page/constructorPage";
 import {LoginPage} from "../../pages/login-page/loginPage";
@@ -22,7 +22,7 @@ import {FeedIdModalPage} from "../../pages/feed-id-modal-page/feedIdModalPage";
 
 function App() {
     const dispatch = useDispatch();
-    const location = useLocation();
+    const location = useLocation<any>();
     const background = location.state?.background;
 
     useEffect(() => {

@@ -2,13 +2,13 @@ import React from "react";
 import container from "./history.module.css";
 import scrollerStyle from "../../pages/constructor-page/constructorPage.module.css";
 import {OrderCards} from "../order-cards/orderCards";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks/hooks";
 import {Link} from "react-router-dom";
 import style from "../form/form.module.css";
 import {TOrder} from "../../services/types";
 
 export const History = () => {
-    const orders: Array<TOrder> = useSelector<{ wsReducer: any }>(store => store.wsReducer.orders) as Array<TOrder>;
+    const orders: Array<TOrder> = useSelector(store => store.wsReducer.orders) as Array<TOrder>;
     //fixme
 
     return (

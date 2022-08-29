@@ -5,8 +5,9 @@ import {useDispatch} from "../services/hooks/hooks"
 import {refreshToken} from "../services/actions/auth/authThunk";
 
 interface IProtectedRouteProps {
-    notForAuthorisedRoute: boolean,
-    path: string
+    notForAuthorisedRoute?: boolean,
+    path: string,
+    exact?: true
 }
 
 export const ProtectedRoute: FC<IProtectedRouteProps> = ({children, notForAuthorisedRoute, ...rest}) => {
@@ -19,15 +20,18 @@ export const ProtectedRoute: FC<IProtectedRouteProps> = ({children, notForAuthor
         async function checkToken() {
             if (!accessToken) {
                 if (refToken) {
-                    await dispatch(refreshToken(refToken))
-                        .then((res: { accessToken: string; }) => {
+                    await dispatch(
+                        refreshToken(refToken)
+                    )
+                        .then
+                        ((res: { accessToken: string; }) => {
                             setCookie("accessToken", res.accessToken.split('Bearer ')[1],)
                         })
                         .catch((error: any) => {
                             console.error(error)
                             history.replace("/login")
                         })
-                    }
+                }
                 }
             }
 

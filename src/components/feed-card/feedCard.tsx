@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useRef, useState} from "react";
 import style from "./feedCard.module.css"
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks/hooks";
 import {v4 as uuidv4} from 'uuid';
 import {formatDate} from "../../utils/utils";
 import {TCard, TOrder} from "../../services/types";
@@ -37,8 +37,7 @@ interface IFeedCardProps {
 
 export const FeedCard: FC<IFeedCardProps> = ({order}) => {
     const {number, createdAt, name,} = order;
-    const allIngredients: ReadonlyArray<TCard> = useSelector<{ ingredientReducer: any }>(store => store.ingredientReducer.ingredients) as ReadonlyArray<TCard>
-    //fixme
+    const allIngredients = useSelector(store => store.ingredientReducer.ingredients) as Array<TCard>
     const [imageToRender, setImageToRender] = useState<ReadonlyArray<IImages>>([])
     const [groupedImages, setGroupedImages] = useState<ReadonlyArray<IImages>>([])
     const [price, setPrice] = useState(0)
@@ -73,7 +72,7 @@ export const FeedCard: FC<IFeedCardProps> = ({order}) => {
     const orderIngredients = useRef<ReadonlyArray<TCard>>()
     useEffect(() => {
         orderIngredients.current = order.ingredients?.map(item => {
-            return allIngredients.find(ingredient => {
+            return allIngredients.find((ingredient: { _id: string; }) => {
                 return ingredient._id === item
             })
         }) as ReadonlyArray<TCard>;
