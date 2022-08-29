@@ -33,7 +33,7 @@ type TBurgerConstructorState = {
     totalPrice: number
 };
 
-const ingredientInitialState = {
+export const ingredientInitialState = {
     _id: '',
     name: '',
     type: '',
@@ -50,7 +50,7 @@ const ingredientInitialState = {
 }
 
 
-const initialState = {
+const initialState: TBurgerConstructorState = {
     ingredients: [ingredientInitialState],
     constructorIngredients: [] as ReadonlyArray<TCard>,
     ingredientsRequest: false,

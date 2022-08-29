@@ -31,7 +31,6 @@ const BurgerConstructor = () => {
     const [, dropTarget] = useDrop({
         accept: "ingredient",
         drop({props}: any) {
-            //fixme подумать над any тут
             dispatch({
                 type: ADD_INGREDIENT,
                 payload: {...props, uuid: uuidv4()}

@@ -6,17 +6,16 @@ import {
     SET_ORDER_REQUEST_FAILED,
     TBurgerConstructorIngredientsActions,
 } from "../actions/burger-constructor-ingredients";
-import {TCard} from "../types";
 
 type TOrderConstructorState = {
-    orderDetails: TCard | {},
+    orderDetails: { order: { number: number } },
     isOrderButtonEnabled: boolean,
     orderRequest: boolean,
     orderRequestFailed: boolean
 }
 
-const initialState = {
-    orderDetails: {},
+const initialState: TOrderConstructorState = {
+    orderDetails: {order: {number: 0}},
     isOrderButtonEnabled: false,
     orderRequest: false,
     orderRequestFailed: false
@@ -43,7 +42,7 @@ export const orderDetailsReducer = (state = initialState, action: TBurgerConstru
                 ...state,
                 orderRequest: false,
                 orderRequestFailed: true,
-                orderDetails: {}
+                orderDetails: {order: {number: 0}}
             }
         }
 
@@ -51,7 +50,7 @@ export const orderDetailsReducer = (state = initialState, action: TBurgerConstru
             return {
                 ...state,
                 isOrderButtonEnabled: false,
-                orderDetails: {}
+                orderDetails: {order: {number: 0}}
             }
         }
 

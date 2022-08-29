@@ -15,9 +15,8 @@ import {
 } from "./services/actions/webSocket";
 
 const composeEnhancers =
-    typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-        ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-        : compose;
+    ((window as any)["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] as typeof compose) ||
+    compose;
 
 const actions = {
     WS_CONNECTION_SUCCESS,

@@ -57,7 +57,7 @@ type TAuthState = {
     setNewPasswordFailed: boolean,
 }
 
-const initialState = {
+const initialState: TAuthState = {
     registerRequestInProgress: false,
     registerRequestFailed: false,
     accessToken: "",
