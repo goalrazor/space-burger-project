@@ -1,6 +1,7 @@
 import api from "../../api/Api";
 import {DELETE_ALL_INGREDIENTS, RESET_TOTAL_PRICE} from "./burger-ingredients";
 import {AppDispatch, AppThunk} from "../types/redux";
+import {TCard} from "../types";
 
 export const SET_ORDER_REQUEST: 'SET_ORDER_REQUEST' = 'SET_ORDER_REQUEST';
 export const SET_ORDER_REQUEST_FAILED: 'SET_ORDER_REQUEST_FAILED' = 'SET_ORDER_REQUEST_FAILED';
@@ -17,7 +18,8 @@ export interface ISetOrderRequestFailed {
 }
 
 export interface ISetOrderDetails {
-    readonly type: typeof SET_ORDER_DETAILS
+    readonly type: typeof SET_ORDER_DETAILS,
+    readonly details: TCard
 }
 
 export interface ICloseOrderModal {

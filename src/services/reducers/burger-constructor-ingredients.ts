@@ -4,7 +4,16 @@ import {
     SET_ORDER_DETAILS,
     SET_ORDER_REQUEST,
     SET_ORDER_REQUEST_FAILED,
+    TBurgerConstructorIngredientsActions,
 } from "../actions/burger-constructor-ingredients";
+import {TCard} from "../types";
+
+type TOrderConstructorState = {
+    orderDetails: TCard | {},
+    isOrderButtonEnabled: boolean,
+    orderRequest: boolean,
+    orderRequestFailed: boolean
+}
 
 const initialState = {
     orderDetails: {},
@@ -13,7 +22,7 @@ const initialState = {
     orderRequestFailed: false
 };
 
-export const orderDetailsReducer = (state = initialState, action) => {
+export const orderDetailsReducer = (state = initialState, action: TBurgerConstructorIngredientsActions): TOrderConstructorState => {
     switch (action.type) {
         case SET_ORDER_REQUEST: {
             return {
