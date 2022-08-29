@@ -22,8 +22,40 @@ import {
     SET_NEW_PASSWORD_SUCCESS,
     SET_PROFILE_INFO_FAILED,
     SET_PROFILE_INFO_IN_PROGRESS,
-    SET_PROFILE_INFO_SUCCESS
+    SET_PROFILE_INFO_SUCCESS,
+    TAuthActions
 } from "../actions/auth/authActions";
+import {TUser} from "../types";
+
+type TAuthState = {
+    registerRequestInProgress: boolean,
+    registerRequestFailed: boolean,
+    accessToken: string,
+    refreshToken: string,
+    user: TUser,
+
+    loginRequestInProgress: boolean,
+    loginRequestFailed: boolean,
+    logoutRequestInProgress: boolean,
+    logoutRequestFailed: boolean,
+    isLoggedIn: boolean,
+
+    tokenRefreshRequestInProgress: boolean,
+    tokenRefreshRequestFailed: boolean,
+
+    getProfileInfoInProgress: boolean,
+    getProfileInfoFailed: boolean,
+
+    setProfileInfoInProgress: boolean,
+    setProfileInfoFailed: boolean,
+
+    resetPasswordInProgress: boolean,
+    resetPasswordFailed: boolean,
+    resetPasswordWasSent: boolean,
+
+    setNewPasswordInProgress: boolean,
+    setNewPasswordFailed: boolean,
+}
 
 const initialState = {
     registerRequestInProgress: false,
@@ -55,8 +87,9 @@ const initialState = {
     setNewPasswordFailed: false,
 }
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: TAuthActions): TAuthState => {
     switch (action.type) {
+
         case REGISTER_REQUEST_IN_PROGRESS: {
             return {
                 ...state,

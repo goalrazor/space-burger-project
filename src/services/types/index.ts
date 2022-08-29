@@ -27,3 +27,8 @@ export type TOrder = {
     readonly status?: string,
     readonly _id?: string
 }
+
+export type TUser = {
+    readonly name?: string,
+    readonly email?: string,
+}

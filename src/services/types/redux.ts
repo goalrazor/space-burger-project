@@ -4,9 +4,10 @@ import {Action, ActionCreator} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {TBurgerConstructorIngredientsActions} from "../actions/burger-constructor-ingredients";
 import {TBurgerIngredientActions} from "../actions/burger-ingredients";
+import {TWSActions} from "../actions/webSocket";
 
 export type RootState = ReturnType<typeof store.getState>;
-type TApplicationActions = TAuthActions | TBurgerConstructorIngredientsActions | TBurgerIngredientActions;
+type TApplicationActions = TAuthActions | TBurgerConstructorIngredientsActions | TBurgerIngredientActions | TWSActions;
 
 export type AppThunk<TReturn = Promise<any> | void> = ActionCreator<ThunkAction<TReturn, Action, RootState, TApplicationActions>>;
 

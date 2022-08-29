@@ -1,3 +1,5 @@
+import {TUser} from "../../types";
+
 export const REGISTER_REQUEST_IN_PROGRESS: 'REGISTER_REQUEST_IN_PROGRESS' = "REGISTER_REQUEST_IN_PROGRESS"
 export const REGISTER_REQUEST_FAILED: 'REGISTER_REQUEST_FAILED' = "REGISTER_REQUEST_FAILED"
 export const REGISTER_REQUEST_SUCCESS: 'REGISTER_REQUEST_SUCCESS' = "REGISTER_REQUEST_SUCCESS"
@@ -40,6 +42,9 @@ export interface IRegisterRequestFailedAction {
 
 export interface IRegisterRequestSuccessAction {
     readonly type: typeof REGISTER_REQUEST_SUCCESS,
+    readonly user: TUser
+    readonly accessToken: string
+    readonly refreshToken: string
 }
 
 export interface ILoginRequestInProgressAction {
@@ -47,11 +52,14 @@ export interface ILoginRequestInProgressAction {
 }
 
 export interface ILoginRequestFailedAction {
-    readonly type: typeof LOGIN_REQUEST_IN_PROGRESS,
+    readonly type: typeof LOGIN_REQUEST_FAILED,
 }
 
 export interface ILoginRequestSuccessAction {
     readonly type: typeof LOGIN_REQUEST_SUCCESS,
+    readonly user: TUser
+    readonly accessToken: string
+    readonly refreshToken: string
 }
 
 export interface ILogoutRequestInProgressAction {
@@ -76,6 +84,8 @@ export interface IRefreshTokenRequestFailedAction {
 
 export interface IRefreshTokenRequestSuccessAction {
     readonly type: typeof REFRESH_TOKEN_REQUEST_SUCCESS,
+    readonly accessToken: string
+    readonly refreshToken: string
 }
 
 export interface IGetProfileInfoRequestInProgressAction {
@@ -88,6 +98,7 @@ export interface IGetProfileInfoRequestFailedAction {
 
 export interface IGetProfileInfoRequestSuccessAction {
     readonly type: typeof GET_PROFILE_INFO_SUCCESS,
+    readonly user: TUser
 }
 
 export interface ISetProfileInfoRequestInProgressAction {
@@ -100,6 +111,7 @@ export interface ISetProfileInfoRequestFailedAction {
 
 export interface ISetProfileInfoRequestSuccessAction {
     readonly type: typeof SET_PROFILE_INFO_SUCCESS,
+    readonly user: TUser
 }
 
 export interface IResetPasswordRequestInProgressAction {
