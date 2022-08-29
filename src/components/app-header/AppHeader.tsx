@@ -3,32 +3,24 @@ import {BurgerIcon, ListIcon, Logo, ProfileIcon} from '@ya.praktikum/react-devel
 import HeaderMenuItem from "../header-menu-item/HeaderMenuItem";
 import header from "./AppHeader.module.css"
 import {Link, useRouteMatch} from "react-router-dom";
+import {TIconProps} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils";
 
 
-const BurgerMenuIcon = ({type}) => {
-    if (!type) {
-        type = 'secondary'
-    }
+const BurgerMenuIcon = ({type}: TIconProps) => {
     return (
-        <BurgerIcon type={`${type}`}/>
+        <BurgerIcon type={type}/>
     )
 }
 
-const ListMenuIcon = ({type}) => {
-    if (!type) {
-        type = 'secondary'
-    }
+const ListMenuIcon = ({type}: TIconProps) => {
     return (
-        <ListIcon type={`${type}`}/>
+        <ListIcon type={type}/>
     )
 }
 
-const ProfileMenuIcon = ({type}) => {
-    if (!type) {
-        type = 'secondary'
-    }
+const ProfileMenuIcon = ({type}: TIconProps) => {
     return (
-        <ProfileIcon type={`${type}`}/>
+        <ProfileIcon type={type}/>
     )
 }
 
@@ -68,7 +60,7 @@ const AppHeader = () => {
                         Лента заказов
                     </HeaderMenuItem>
                 </nav>
-                <Link to={"/"} className={`${header.logo} ${'m-6'}`}>
+                <Link to={"/"} className={`${header.logo} m-6`}>
                     <Logo/>
                 </Link>
                 <HeaderMenuItem

@@ -2,9 +2,9 @@ import React from "react";
 import {IngredientImage} from "../feed-card/feedCard";
 import style from './orderIngredientsInfo.module.css'
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
+import {TCard} from "../../services/types";
 
-export const OrderIngredientsInfo = ({ingredient}) => {
+export const OrderIngredientsInfo = ({ingredient}: { ingredient: TCard & { count?: number } }) => {
 
     return (
         <ul className={style.list}>
@@ -20,8 +20,4 @@ export const OrderIngredientsInfo = ({ingredient}) => {
             </li>
         </ul>
     )
-}
-
-OrderIngredientsInfo.propTypes = {
-    ingredient: PropTypes.object.isRequired
 }

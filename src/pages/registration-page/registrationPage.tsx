@@ -4,7 +4,7 @@ import {Form} from "../../components/form/Form";
 import {EmailInput, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect} from "react-router-dom";
 import {register} from "../../services/actions/auth/authThunk";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {useForm} from "../../services/hooks/useForm";
 
 export function RegistrationPage() {

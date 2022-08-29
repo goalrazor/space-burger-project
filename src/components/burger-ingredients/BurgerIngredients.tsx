@@ -4,7 +4,7 @@ import {Tab} from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './BurgerIngredients.module.css'
 import scrollerStyle from '../../pages/constructor-page/constructorPage.module.css'
 import Ingredients, {BUN, MAIN, SAUCE} from "../ingredients/Ingredients";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {useInView} from "react-intersection-observer";
 import {setCurrentTab} from "../../services/actions/burger-ingredients";
 import {Loader} from "../loader/Loader";
@@ -13,8 +13,8 @@ const Tabs = () => {
     const currentTab = useSelector(store => store.ingredientReducer.currentTab)
     const dispatch = useDispatch();
 
-    const goToViolation = (id) => {
-        const violation = document.querySelector(`#` + id);
+    const goToViolation = (id: string) => {
+        const violation = document.querySelector(`#` + id) as Element;
         violation.scrollIntoView({
             behavior: "smooth"
         });
@@ -22,7 +22,7 @@ const Tabs = () => {
     };
 
     return (
-        <div className={`${style.tab} ${'mb-10'}`}>
+        <div className={`${style.tab} mb-10`}>
             <Tab value={BUN} active={currentTab === BUN} onClick={() => {
                 goToViolation(BUN)
             }}>
@@ -61,7 +61,7 @@ const BurgerIngredients = () => {
 
     return (
         <section className={style.container}>
-            <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
+            <h1 className={`mt-10 mb-5 text text_type_main-large`}>
                 Соберите бургер
             </h1>
             <Tabs/>

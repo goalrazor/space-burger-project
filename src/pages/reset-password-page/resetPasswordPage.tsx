@@ -4,12 +4,13 @@ import {Form} from "../../components/form/Form";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {setNewPassword} from "../../services/actions/auth/authThunk";
 import {useForm} from "../../services/hooks/useForm";
+import {TICons} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
 export function ResetPasswordPage() {
-    const [icon, setIcon] = useState({icon: "ShowIcon"})
+    const [icon, setIcon] = useState<{ icon: keyof TICons }>({icon: 'ShowIcon'})
     const history = useHistory()
     const passwordWasSent = useSelector(store => store.authReducer.resetPasswordWasSent)
     const dispatch = useDispatch()
@@ -29,14 +30,14 @@ export function ResetPasswordPage() {
         async (e) => {
             e.preventDefault()
             await dispatch(setNewPassword(password, getCookie("accessToken")))
-                .then((response) => {
+                .then((response: { success: any; }) => {
                     if (response.success) {
                         return response
                     }
                 })
                 .then(() => history.replace("/login"))
                 .then(() => alert(`Пароль успешно изменен. Пожалуйста, войдите заново`))
-                .catch(error => console.error(error))
+                .catch((error: any) => console.error(error))
         },
         // eslint-disable-next-line
         [formData, history, dispatch]
@@ -53,7 +54,7 @@ export function ResetPasswordPage() {
                     onChange={handleInputChange}
                     onIconClick={() => {
                         setIcon({
-                            icon: icon.icon === "ShowIcon" ? "HideIcon" : "ShowIcon"
+                            icon: icon.icon === 'ShowIcon' ? 'HideIcon' : 'ShowIcon'
                         })
                     }}
                     icon={icon.icon}

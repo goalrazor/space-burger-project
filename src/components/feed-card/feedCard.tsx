@@ -7,7 +7,7 @@ import {formatDate} from "../../utils/utils";
 import {TCard, TOrder} from "../../services/types";
 
 interface IIngredientImagesProps {
-    images: ReadonlyArray<{ url: string, uuid: string }>
+    images: ReadonlyArray<{ url: string, uuid?: string }>
     grouped?: boolean
 }
 
@@ -105,7 +105,7 @@ export const FeedCard: FC<IFeedCardProps> = ({order}) => {
                         })}
                     </ul>
                 }
-                <p className={`${style.price} ${'text text_type_digits-default mt-1 mb-1'}`}>
+                <p className={`${style.price} text text_type_digits-default mt-1 mb-1`}>
                     {price}
                     <CurrencyIcon type="primary"/>
                 </p>

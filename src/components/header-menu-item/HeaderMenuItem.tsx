@@ -1,13 +1,23 @@
-import React from "react";
+import React, {FC} from "react";
 import header from './../app-header/AppHeader.module.css'
-import PropTypes from "prop-types";
 import {Link, useRouteMatch} from "react-router-dom";
+import {TIconProps} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils";
 
-const HeaderMenuItem = ({icon: Icon, iconStatus, className, path, match, children}) => {
+type TIconTypes = 'secondary' | 'primary' | 'error' | 'success';
+
+interface IHeaderMenuProps {
+    icon: ({type}: TIconProps) => JSX.Element,
+    iconStatus: TIconTypes,
+    className: string,
+    path: string,
+    match?: { path: string[]; exact: true; }
+}
+
+const HeaderMenuItem: FC<IHeaderMenuProps> = ({icon: Icon, iconStatus, className, path, match, children}) => {
     const isLinkActive = useRouteMatch(match || path);
     return (
         <Link className={header.link} to={`${path}`}>
-            <div className={`${className} ${'m-4'}`}>
+            <div className={`${className} m-4`}>
                 <Icon type={iconStatus}/>
                 <p className={`${header.headerMenuItemText} text text_type_main-default  ${isLinkActive ? 'text_color_primary'
                     : 'text_color_inactive'}`}>
@@ -16,14 +26,6 @@ const HeaderMenuItem = ({icon: Icon, iconStatus, className, path, match, childre
             </div>
         </Link>
     )
-}
-
-HeaderMenuItem.propTypes = {
-    icon: PropTypes.elementType.isRequired,
-    className: PropTypes.string.isRequired,
-    iconStatus: PropTypes.string,
-    path: PropTypes.string.isRequired,
-    match: PropTypes.object,
 }
 
 export default HeaderMenuItem;

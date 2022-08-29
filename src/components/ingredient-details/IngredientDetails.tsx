@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import ingredientDetailsStyle from './IngredientDetails.module.css'
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {useLocation, useParams} from "react-router-dom";
 import {SET_INGREDIENT_MODAL_CLOSED, SET_INGREDIENT_MODAL_SHOW} from "../../services/actions/burger-ingredients";
 import {TBackgroundLocation, TCard} from "../../services/types";
@@ -42,8 +42,7 @@ const IngredientDetails = () => {
     };
 
     const ingredients: ReadonlyArray<TCard>
-        = useSelector<{ ingredientReducer: any }>(store => store.ingredientReducer.ingredients) as ReadonlyArray<TCard>
-    //fixme
+        = useSelector(store => store.ingredientReducer.ingredients)
     if (ingredients.length > 0) {
         ingredient = ingredients.find((item: { _id: string; }) => item._id === id) as TCard
     }

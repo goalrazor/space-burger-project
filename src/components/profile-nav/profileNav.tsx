@@ -2,7 +2,7 @@ import React from "react";
 import style from "../../pages/profile-page/profilePage.module.css";
 import {Link, useLocation} from "react-router-dom";
 import {logout} from "../../services/actions/auth/authThunk";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import {deleteCookie} from "../../utils/cookie";
 
 export const ProfileNav = () => {
@@ -11,7 +11,7 @@ export const ProfileNav = () => {
 
     const handleLogout = () => {
         dispatch(logout(localStorage.getItem("refreshToken")))
-            .catch((err) => {
+            .catch((err: any) => {
                 console.error("Не удалось выполнить выход", err)
             })
         deleteCookie("accessToken")

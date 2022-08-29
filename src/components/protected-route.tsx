@@ -1,28 +1,32 @@
-import React, {useEffect} from "react";
+import React, {FC, useEffect} from "react";
 import {Redirect, Route, useHistory} from "react-router-dom";
 import {getCookie, setCookie} from "../utils/cookie";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../services/hooks/hooks"
 import {refreshToken} from "../services/actions/auth/authThunk";
-import PropTypes from "prop-types";
 
-export function ProtectedRoute({children, notForAuthorisedRoute, ...rest}) {
+interface IProtectedRouteProps {
+    notForAuthorisedRoute: boolean,
+    path: string
+}
+
+export const ProtectedRoute: FC<IProtectedRouteProps> = ({children, notForAuthorisedRoute, ...rest}) => {
     const dispatch = useDispatch()
     const accessToken = getCookie("accessToken")
     const refToken = localStorage.getItem("refreshToken")
     const history = useHistory()
 
     useEffect(() => {
-            async function checkToken() {
-                if (!accessToken) {
-                    if (refToken) {
-                        await dispatch(refreshToken(refToken))
-                            .then((res) => {
-                                setCookie("accessToken", res.accessToken.split('Bearer ')[1],)
-                            })
-                            .catch(error => {
-                                console.error(error)
-                                history.replace("/login")
-                            })
+        async function checkToken() {
+            if (!accessToken) {
+                if (refToken) {
+                    await dispatch(refreshToken(refToken))
+                        .then((res: { accessToken: string; }) => {
+                            setCookie("accessToken", res.accessToken.split('Bearer ')[1],)
+                        })
+                        .catch((error: any) => {
+                            console.error(error)
+                            history.replace("/login")
+                        })
                     }
                 }
             }
@@ -56,11 +60,3 @@ export function ProtectedRoute({children, notForAuthorisedRoute, ...rest}) {
 
         </>);
 }
-
-
-ProtectedRoute.propTypes = {
-    path: PropTypes.string.isRequired,
-    notForAuthorisedRoute: PropTypes.bool
-}
-
-

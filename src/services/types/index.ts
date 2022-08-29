@@ -16,6 +16,7 @@ export type TCard = {
 
 export type TBackgroundLocation = {
     readonly background: Location
+    readonly from: { pathname: string }
 }
 
 export type TOrder = {
@@ -31,4 +32,5 @@ export type TOrder = {
 export type TUser = {
     readonly name?: string,
     readonly email?: string,
+    readonly password?: string
 }

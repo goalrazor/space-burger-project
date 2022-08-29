@@ -11,7 +11,7 @@ export const Feed = () => {
 
     return (
         <section className={container.container}>
-            <h1 className={`${'mt-10 mb-5 text text_type_main-large'}`}>
+            <h1 className={`mt-10 mb-5 text text_type_main-large`}>
                 Лента заказов
             </h1>
             <div className={`${scrollerStyle.scroller}`}>

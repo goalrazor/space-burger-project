@@ -4,15 +4,16 @@ import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form"
 import {EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {login} from "../../services/actions/auth/authThunk";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import {setCookie} from "../../utils/cookie";
 import {useForm} from "../../services/hooks/useForm";
+import {TBackgroundLocation} from "../../services/types";
 
 
 export function LoginPage() {
     const dispatch = useDispatch()
     const history = useHistory()
-    const location = useLocation()
+    const location = useLocation<Location & TBackgroundLocation>()
 
     const {formData, handleInputChange} = useForm({email: "", password: ""});
 
@@ -22,7 +23,7 @@ export function LoginPage() {
         async (e) => {
             e.preventDefault()
             await dispatch(login(email, password))
-                .then((res) => {
+                .then((res: { accessToken: string; refreshToken: string; }) => {
                     setCookie("accessToken", res.accessToken.split('Bearer ')[1])
                     localStorage.setItem("refreshToken", res.refreshToken)
                 })

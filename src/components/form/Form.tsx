@@ -5,7 +5,7 @@ import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 interface IFormProps {
     header: string,
     buttonText: string,
-    handleSubmit: () => void
+    handleSubmit: (e?: any) => void
 }
 
 export const Form: FC<IFormProps> = ({header, buttonText, handleSubmit, children}) => {

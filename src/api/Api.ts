@@ -1,3 +1,5 @@
+import {TUser} from "../services/types";
+
 const config = {
     baseUrl: 'https://norma.nomoreparties.space/api',
     headers: {
@@ -5,8 +7,20 @@ const config = {
     }
 }
 
+type TConfig = {
+    baseUrl: string,
+    headers: {
+        [key: string]: string
+    }
+}
+
 class API {
-    constructor({baseUrl, headers}) {
+    private _url: string;
+    private _headers: {
+        [key: string]: string
+    };
+
+    constructor({baseUrl, headers}: TConfig) {
         this._url = baseUrl;
         this._headers = headers;
     }
@@ -16,7 +30,7 @@ class API {
             .then(this._checkResponse)
     };
 
-    saveOrder(body, token) {
+    saveOrder(body: { ingredients: Array<string> }, token: string) {
         return fetch(`${this._url}/orders`, {
             method: "POST",
             headers: {...this._headers, authorization: `Bearer ${token}`},
@@ -25,7 +39,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    resetPassword(email) {
+    resetPassword(email: string) {
         return fetch(`${this._url}/password-reset`, {
             method: "POST",
             headers: this._headers,
@@ -34,7 +48,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    setNewPassword(password, token) {
+    setNewPassword(password: string, token: string) {
         return fetch(`${this._url}/password-reset/reset`, {
             method: "POST",
             headers: this._headers,
@@ -43,7 +57,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    register(email, password, name) {
+    register(email: string, password: string, name: string) {
         return fetch(`${this._url}/auth/register`, {
             method: "POST",
             headers: this._headers,
@@ -52,7 +66,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    login(email, password) {
+    login(email: string, password: string) {
         return fetch(`${this._url}/auth/login`, {
             method: "POST",
             headers: this._headers,
@@ -61,7 +75,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    logout(refreshToken) {
+    logout(refreshToken: string) {
         return fetch(`${this._url}/auth/logout`, {
             method: "POST",
             headers: this._headers,
@@ -70,7 +84,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    refreshToken(refreshToken) {
+    refreshToken(refreshToken: string) {
         return fetch(`${this._url}/auth/token`, {
             method: "POST",
             headers: this._headers,
@@ -79,7 +93,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    getProfileInfo(token) {
+    getProfileInfo(token: string) {
         return fetch(`${this._url}/auth/user`, {
             method: "GET",
             headers: {...this._headers, authorization: `Bearer ${token}`},
@@ -87,7 +101,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    setProfileInfo(token, profileInfo) {
+    setProfileInfo(token: string, profileInfo: TUser) {
         return fetch(`${this._url}/auth/user`, {
             method: "PATCH",
             headers: {...this._headers, 'authorization': `Bearer ${token}`},
@@ -96,7 +110,7 @@ class API {
             .then(this._checkResponse)
     }
 
-    getOrderByNumber(number) {
+    getOrderByNumber(number: string) {
         return fetch(`${this._url}/orders/${number}`, {
             method: "GET",
             headers: {
@@ -106,11 +120,11 @@ class API {
             .then(this._checkResponse)
     };
 
-    _checkResponse(res) {
+    _checkResponse(res: any) {
         if (res.status === 200) {
             return res.json()
         }
-        return res.json().then(res => {
+        return res.json().then((res: { message: any; }) => {
             throw res.message
         })
     }

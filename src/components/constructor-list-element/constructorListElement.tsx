@@ -1,7 +1,7 @@
 import style from "../burger-constructor/BurgerConstructor.module.css";
 import {ConstructorElement, DragIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import {FC, useEffect, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {DECREASE_INGREDIENT_COUNT, DELETE_INGREDIENT, TOTAL_PRICE} from "../../services/actions/burger-ingredients";
 import {useDrag, useDrop} from "react-dnd";
 import {TCard} from "../../services/types";
@@ -12,8 +12,7 @@ const ConstructorListElement: FC<TCard & {
     moveCardHandler?: (dragIndex: number, hoverIndex: number) => void
 }>
     = ({position, name, price, image, uuid, _id, index, moveCardHandler}) => {
-    const burgerConstructorIngredientsLength: number = useSelector<{ ingredientReducer: any }>(store => store.ingredientReducer.constructorIngredients.filter((item: { type: string; }) => item.type !== 'bun').length) as number;
-    //fixme
+    const burgerConstructorIngredientsLength: number = useSelector(store => store.ingredientReducer.constructorIngredients.filter((item: { type: string; }) => item.type !== 'bun').length)
     const dispatch = useDispatch();
 
     useEffect(() => {

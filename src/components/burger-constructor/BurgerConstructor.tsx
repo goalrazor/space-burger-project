@@ -5,7 +5,7 @@ import style from './BurgerConstructor.module.css'
 import scroller from '../../pages/constructor-page/constructorPage.module.css'
 import {Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import Total from "../total/Total";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {useDrop} from "react-dnd";
 import {v4 as uuidv4} from 'uuid';
 import {ADD_INGREDIENT, INCREASE_INGREDIENT_COUNT, MOVE_INGREDIENT} from "../../services/actions/burger-ingredients";
@@ -14,11 +14,9 @@ import {SET_CONSTRUCTOR_BUTTON_ENABLED} from "../../services/actions/burger-cons
 import {TCard} from "../../services/types";
 
 const BurgerConstructor = () => {
-    const data: ReadonlyArray<TCard> = useSelector<{ ingredientReducer: any }>(store => store.ingredientReducer.constructorIngredients) as ReadonlyArray<TCard>;
-    //fixme
+    const data: ReadonlyArray<TCard> = useSelector(store => store.ingredientReducer.constructorIngredients);
     const bun = data.filter(item => item.type === 'bun')
-    const isButtonEnabled: boolean = useSelector<{ orderDetailsReducer: any }>(store => store.orderDetailsReducer.isOrderButtonEnabled) as boolean
-    //fixme
+    const isButtonEnabled: boolean = useSelector(store => store.orderDetailsReducer.isOrderButtonEnabled);
     const dispatch = useDispatch();
     const location = useLocation()
 

@@ -1,10 +1,10 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
 import {resetPassword} from "../../services/actions/auth/authThunk";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import {useForm} from "../../services/hooks/useForm";
 
 export function ForgotPasswordPage() {
@@ -13,17 +13,13 @@ export function ForgotPasswordPage() {
     const {formData, handleInputChange} = useForm({email: ""});
     const {email} = formData;
 
-    const handleClick = useCallback(
-        async (e) => {
-            e.preventDefault()
-            await dispatch(resetPassword(email))
-                .then(() => history.replace("/reset-password"))
-                .then(() => alert(`Письмо с кодом восстановления пароля выслано на электронную почту ${email}`))
-                .catch(error => console.error(error))
-        },
-        // eslint-disable-next-line
-        [formData, history, dispatch]
-    );
+    const handleClick = (e: MouseEvent) => {
+        e.preventDefault()
+        dispatch(resetPassword(email))
+            .then(() => history.replace("/reset-password"))
+            .then(() => alert(`Письмо с кодом восстановления пароля выслано на электронную почту ${email}`))
+            .catch((error: any) => console.error(error))
+    }
 
     return (
         <div className={`${style.formContainerOnlyForm} ${style.formContainer}`}>

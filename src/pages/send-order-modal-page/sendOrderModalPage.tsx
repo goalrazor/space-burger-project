@@ -2,7 +2,7 @@ import Modal from "../../components/modal/Modal";
 import React, {useEffect} from "react";
 import OrderDetails from "../../components/order-details/OrderDetails";
 import {useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
 import {Loader} from "../../components/loader/Loader";
 import {CLOSE_ORDER_MODAL, setOrder} from "../../services/actions/burger-constructor-ingredients";
 import {getCookie} from "../../utils/cookie";
@@ -18,7 +18,7 @@ export function SendOrderModalPage() {
     useEffect(() => {
             async function makeOrder() {
                 return await dispatch(setOrder({
-                        ingredients: data.map((item) => {
+                        ingredients: data.map((item: { _id: string; }) => {
                             return item._id
                         })
                     },
