@@ -62,6 +62,7 @@ const BurgerConstructor = () => {
             <ul className={style.cardsContainer}>
                 {data.length !== 0 ?
                     <div className={style.cardsScrollerContainer}>
+                        {console.log}
                         {bun.length !== 0 ? <ConstructorListElement
                             {...bun[0]}
                             index={0}

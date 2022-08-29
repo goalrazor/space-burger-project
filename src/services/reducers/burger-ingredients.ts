@@ -14,13 +14,45 @@ import {
     SET_CURRENT_TAB,
     SET_INGREDIENT_MODAL_CLOSED,
     SET_INGREDIENT_MODAL_SHOW,
+    TBurgerIngredientActions,
     TOTAL_PRICE
 } from "../actions/burger-ingredients";
 import {BUN} from "../../components/ingredients/Ingredients";
+import {TCard} from "../types";
+
+type TBurgerConstructorState = {
+    ingredients: ReadonlyArray<TCard>,
+    constructorIngredients: ReadonlyArray<TCard>,
+    ingredientsRequest: boolean,
+    ingredientsFailed: boolean,
+
+    ingredientModalShow: boolean,
+    currentIngredient: TCard | {},
+
+    currentTab: string,
+    totalPrice: number
+};
+
+const ingredientInitialState = {
+    _id: '',
+    name: '',
+    type: '',
+    proteins: 0,
+    fat: 0,
+    carbohydrates: 0,
+    calories: 0,
+    price: 0,
+    image: '',
+    image_mobile: '',
+    image_large: '',
+    ingredientCount: 0,
+    uuid: ''
+}
+
 
 const initialState = {
-    ingredients: [],
-    constructorIngredients: [],
+    ingredients: [ingredientInitialState],
+    constructorIngredients: [] as ReadonlyArray<TCard>,
     ingredientsRequest: false,
     ingredientsFailed: false,
 
@@ -31,7 +63,7 @@ const initialState = {
     totalPrice: 0
 };
 
-export const ingredientReducer = (state = initialState, action) => {
+export const ingredientReducer = (state = initialState, action: TBurgerIngredientActions): TBurgerConstructorState => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return {

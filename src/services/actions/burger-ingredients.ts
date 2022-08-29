@@ -32,7 +32,8 @@ export interface IGetIngredientsRequestInProgressAction {
 }
 
 export interface IGetIngredientsRequestSuccessAction {
-    readonly type: typeof GET_INGREDIENTS_SUCCESS
+    readonly type: typeof GET_INGREDIENTS_SUCCESS,
+    readonly ingredients: ReadonlyArray<TCard>
 }
 
 export interface IGetIngredientsRequestFailedAction {
@@ -40,23 +41,29 @@ export interface IGetIngredientsRequestFailedAction {
 }
 
 export interface IAddIngredientAction {
-    readonly type: typeof ADD_INGREDIENT
+    readonly type: typeof ADD_INGREDIENT,
+    readonly payload: TCard
 }
 
 export interface IDeleteIngredientAction {
-    readonly type: typeof DELETE_INGREDIENT
+    readonly type: typeof DELETE_INGREDIENT,
+    readonly uuid: string
 }
 
 export interface IMoveIngredientAction {
-    readonly type: typeof MOVE_INGREDIENT
+    readonly type: typeof MOVE_INGREDIENT,
+    readonly dragIndex: number,
+    readonly hoverIndex: number
 }
 
 export interface IIncreaseIngredientCountAction {
-    readonly type: typeof INCREASE_INGREDIENT_COUNT
+    readonly type: typeof INCREASE_INGREDIENT_COUNT,
+    readonly ingredient: TCard
 }
 
 export interface IDecreaseIngredientCountAction {
-    readonly type: typeof DECREASE_INGREDIENT_COUNT
+    readonly type: typeof DECREASE_INGREDIENT_COUNT,
+    readonly _id: string
 }
 
 export interface IResetIngredientCountAction {
@@ -64,7 +71,8 @@ export interface IResetIngredientCountAction {
 }
 
 export interface ISetCurrentIngredientAction {
-    readonly type: typeof SET_CURRENT_INGREDIENT
+    readonly type: typeof SET_CURRENT_INGREDIENT,
+    readonly item: TCard
 }
 
 export interface ISetIngredientModalShowAction {
@@ -81,6 +89,7 @@ export interface IDeleteAllIngredientsAction {
 
 export interface ISetCurrentTabAction {
     readonly type: typeof SET_CURRENT_TAB
+    readonly currentTab: string
 }
 
 export type TBurgerIngredientActions =
