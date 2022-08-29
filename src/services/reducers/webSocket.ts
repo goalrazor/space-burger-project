@@ -1,11 +1,23 @@
-// rootReducer.js
+import {
+    TWSActions,
+    WS_CONNECTION_CLOSED,
+    WS_CONNECTION_ERROR,
+    WS_CONNECTION_SUCCESS,
+    WS_GET_MESSAGE
+} from "../actions/webSocket";
+import {TOrder} from "../types";
 
-
-import {WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_SUCCESS, WS_GET_MESSAGE} from "../actions/webSocket";
-
+type TWSState = {
+    wsConnected: boolean,
+    orders: ReadonlyArray<TOrder>,
+    total: number,
+    totalToday: number,
+    error: undefined,
+    closeMessage: undefined,
+}
 const initialState = {
     wsConnected: false,
-    orders: [],
+    orders: [] as ReadonlyArray<TOrder>,
     total: 0,
     totalToday: 0,
     error: undefined,
@@ -13,7 +25,7 @@ const initialState = {
 };
 
 // Создадим редьюсер для WebSocket
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action: TWSActions): TWSState => {
     switch (action.type) {
         // Опишем обработку экшена с типом WS_CONNECTION_SUCCESS
         // Установим флаг wsConnected в состояние true

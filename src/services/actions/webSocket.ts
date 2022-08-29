@@ -1,3 +1,5 @@
+import {TOrder} from "../types";
+
 export const WS_CONNECTION_SUCCESS: 'WS_CONNECTION_SUCCESS' = "WS_CONNECTION_SUCCESS"
 export const WS_CONNECTION_ERROR: 'WS_CONNECTION_ERROR' = "WS_CONNECTION_ERROR"
 export const WS_CONNECTION_CLOSED: 'WS_CONNECTION_CLOSED' = "WS_CONNECTION_CLOSED"
@@ -9,15 +11,22 @@ export interface IWSConnectionSuccessAction {
 }
 
 export interface IWSConnectionErrorAction {
-    readonly type: typeof WS_CONNECTION_ERROR
+    readonly type: typeof WS_CONNECTION_ERROR,
+    readonly payload: any
 }
 
 export interface IWSConnectionClosedAction {
-    readonly type: typeof WS_CONNECTION_CLOSED
+    readonly type: typeof WS_CONNECTION_CLOSED,
+    readonly payload: any
 }
 
 export interface IWSConnectionGetMessageAction {
-    readonly type: typeof WS_GET_MESSAGE
+    readonly type: typeof WS_GET_MESSAGE,
+    readonly payload: {
+        orders: ReadonlyArray<TOrder>,
+        total: number,
+        totalToday: number
+    }
 }
 
 export interface IWSConnectionStartAction {
