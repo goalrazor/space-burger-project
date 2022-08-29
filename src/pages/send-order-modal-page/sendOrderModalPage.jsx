@@ -7,7 +7,7 @@ import {Loader} from "../../components/loader/Loader";
 import {CLOSE_ORDER_MODAL, setOrder} from "../../services/actions/burger-constructor-ingredients";
 import {getCookie} from "../../utils/cookie";
 import {RESET_INGREDIENT_COUNT} from "../../services/actions/burger-ingredients";
-import {refreshToken} from "../../services/actions/auth";
+import {refreshToken} from "../../services/actions/auth/authThunk";
 import ModalOverlay from "../../components/modal-overlay/ModalOverlay";
 
 export function SendOrderModalPage() {

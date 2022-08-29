@@ -2,8 +2,8 @@ import React, {useCallback, useEffect, useState} from 'react'
 import formStyle from "../../components/form/form.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getProfileInfo, refreshToken, setProfileInfo} from "../../services/actions/auth";
+import {useDispatch, useSelector} from "../../services/hooks/hooks";
+import {getProfileInfo, refreshToken, setProfileInfo} from "../../services/actions/auth/authThunk";
 import {getCookie} from "../../utils/cookie";
 import {useForm} from "../../services/hooks/useForm";
 import {ProfileNav} from "../../components/profile-nav/profileNav";
@@ -21,7 +21,7 @@ export function ProfilePage() {
         async function checkUser() {
             await dispatch(refreshToken(localStorage.getItem("refreshToken")))
                 .then(() => dispatch(getProfileInfo(getCookie("accessToken"))))
-                .then((res) => {
+                .then((res: { user: { name: string; email: string; }; }) => {
                     setFormData({
                             name: res.user.name,
                             email: res.user.email,
@@ -59,7 +59,7 @@ export function ProfilePage() {
                         dispatch(setProfileInfo(getCookie("accessToken"), {email: email}))
                     }
                 })
-                .catch((err) => {
+                .catch((err: any) => {
                     console.error(err)
                     history.replace("/login")
                 })

@@ -23,7 +23,7 @@ import {
     SET_PROFILE_INFO_FAILED,
     SET_PROFILE_INFO_IN_PROGRESS,
     SET_PROFILE_INFO_SUCCESS
-} from "../actions/auth";
+} from "../actions/auth/authActions";
 
 const initialState = {
     registerRequestInProgress: false,

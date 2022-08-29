@@ -1,7 +1,7 @@
 import React from "react";
 import style from "../../pages/profile-page/profilePage.module.css";
 import {Link, useLocation} from "react-router-dom";
-import {logout} from "../../services/actions/auth";
+import {logout} from "../../services/actions/auth/authThunk";
 import {useDispatch} from "react-redux";
 import {deleteCookie} from "../../utils/cookie";
 

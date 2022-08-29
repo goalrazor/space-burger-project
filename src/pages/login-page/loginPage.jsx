@@ -3,7 +3,7 @@ import {Link, useHistory, useLocation} from "react-router-dom";
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form"
 import {EmailInput, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {login} from "../../services/actions/auth";
+import {login} from "../../services/actions/auth/authThunk";
 import {useDispatch} from "react-redux";
 import {setCookie} from "../../utils/cookie";
 import {useForm} from "../../services/hooks/useForm";

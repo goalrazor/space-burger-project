@@ -5,8 +5,8 @@ import {authReducer} from "./auth";
 import {wsReducer} from "./webSocket";
 
 export const rootReducer = combineReducers({
-    ingredientReducer,
-    orderDetailsReducer,
-    authReducer,
-    wsReducer
+    ingredientReducer: ingredientReducer,
+    orderDetailsReducer: orderDetailsReducer,
+    authReducer: authReducer,
+    wsReducer: wsReducer
 })

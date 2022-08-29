@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {Redirect, Route, useHistory} from "react-router-dom";
 import {getCookie, setCookie} from "../utils/cookie";
 import {useDispatch} from "react-redux";
-import {refreshToken} from "../services/actions/auth";
+import {refreshToken} from "../services/actions/auth/authThunk";
 import PropTypes from "prop-types";
 
 export function ProtectedRoute({children, notForAuthorisedRoute, ...rest}) {

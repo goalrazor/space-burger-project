@@ -3,7 +3,7 @@ import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
-import {resetPassword} from "../../services/actions/auth";
+import {resetPassword} from "../../services/actions/auth/authThunk";
 import {useDispatch} from "react-redux";
 import {useForm} from "../../services/hooks/useForm";
 

@@ -5,7 +5,7 @@ import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useHistory} from "react-router-dom";
 import {getCookie} from "../../utils/cookie";
 import {useDispatch, useSelector} from "react-redux";
-import {setNewPassword} from "../../services/actions/auth";
+import {setNewPassword} from "../../services/actions/auth/authThunk";
 import {useForm} from "../../services/hooks/useForm";
 
 export function ResetPasswordPage() {
