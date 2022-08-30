@@ -33,7 +33,7 @@ export interface IWSConnectionClosedAction {
 export interface IWSConnectionGetMessageAction {
     readonly type: typeof WS_GET_MESSAGE,
     readonly payload: {
-        orders: ReadonlyArray<TOrder>,
+        orders: Array<TOrder>,
         total: number,
         totalToday: number
     }

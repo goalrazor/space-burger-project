@@ -37,7 +37,7 @@ interface IFeedCardProps {
 
 export const FeedCard: FC<IFeedCardProps> = ({order}) => {
     const {number, createdAt, name,} = order;
-    const allIngredients = useSelector(store => store.ingredientReducer.ingredients) as Array<TCard>
+    const allIngredients = useSelector(store => store.ingredientReducer.ingredients)
     const [imageToRender, setImageToRender] = useState<ReadonlyArray<IImages>>([])
     const [groupedImages, setGroupedImages] = useState<ReadonlyArray<IImages>>([])
     const [price, setPrice] = useState(0)

@@ -9,7 +9,7 @@ import {TCard} from "../../services/types";
 
 const Card: FC<TCard> = (props) => {
     const dispatch = useDispatch();
-    const itemCount: number = useSelector(store =>
+    const itemCount = useSelector(store =>
         store.ingredientReducer.ingredients
             .filter((item) => item._id === props._id)[0].ingredientCount)
     const location = useLocation();

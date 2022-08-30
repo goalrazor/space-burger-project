@@ -60,7 +60,7 @@ const initialState: TBurgerConstructorState = {
     currentIngredient: {},
 
     currentTab: BUN,
-    totalPrice: 0
+    totalPrice: 0,
 };
 
 export const ingredientReducer = (state = initialState, action: TBurgerIngredientActions): TBurgerConstructorState => {

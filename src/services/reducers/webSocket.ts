@@ -9,15 +9,15 @@ import {TOrder} from "../types";
 
 type TWSState = {
     wsConnected: boolean,
-    orders: ReadonlyArray<TOrder>,
+    orders: Array<TOrder>,
     total: number,
     totalToday: number,
     error: undefined,
     closeMessage: undefined,
 }
-const initialState = {
+const initialState: TWSState = {
     wsConnected: false,
-    orders: [] as ReadonlyArray<TOrder>,
+    orders: [],
     total: 0,
     totalToday: 0,
     error: undefined,

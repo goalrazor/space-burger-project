@@ -5,10 +5,9 @@ import {OrderCards} from "../order-cards/orderCards";
 import {useSelector} from "../../services/hooks/hooks";
 import {Link} from "react-router-dom";
 import style from "../form/form.module.css";
-import {TOrder} from "../../services/types";
 
 export const History = () => {
-    const orders: Array<TOrder> = useSelector(store => store.wsReducer.orders) as Array<TOrder>;
+    const orders = useSelector(store => store.wsReducer.orders)
 
     return (
         <section className={container.container}>

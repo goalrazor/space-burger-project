@@ -16,7 +16,7 @@ import {TCard} from "../../services/types";
 const BurgerConstructor = () => {
     const data = useSelector(store => store.ingredientReducer.constructorIngredients);
     const bun = data.filter(item => item.type === 'bun')
-    const isButtonEnabled: boolean = useSelector(store => store.orderDetailsReducer.isOrderButtonEnabled);
+    const isButtonEnabled = useSelector(store => store.orderDetailsReducer.isOrderButtonEnabled);
     const dispatch = useDispatch();
     const location = useLocation()
 
