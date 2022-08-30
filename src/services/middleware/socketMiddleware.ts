@@ -1,4 +1,6 @@
-export const socketMiddleware = (actions) => {
+import {TActions,} from "../actions/webSocket";
+
+export const socketMiddleware = (actions: TActions) => {
     const {
         WS_CONNECTION_START,
         WS_CONNECTION_SUCCESS,
@@ -7,10 +9,10 @@ export const socketMiddleware = (actions) => {
         WS_CONNECTION_CLOSED,
         WS_SEND_MESSAGE
     } = actions
-    return store => {
-        let socket = null;
+    return (store: { dispatch: any; }) => {
+        let socket: WebSocket | null = null;
 
-        return next => action => {
+        return (next: (arg0: any) => void) => (action: { type: string; payload: any; }) => {
             const {dispatch} = store;
             const {type, payload} = action;
 
