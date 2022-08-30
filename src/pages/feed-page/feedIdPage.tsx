@@ -34,7 +34,7 @@ const feedIdInitState: TFeedIdState = {
 
 export const FeedIdPage = () => {
     const {id} = useParams<{ id: string }>()
-    const [feedState, setFeedState] = useReducer((feedState: any, newFeedState: any) => ({...feedState, ...newFeedState}),
+    const [feedState, setFeedState] = useReducer((feedState: TFeedIdState, newFeedState: TFeedIdState) => ({...feedState, ...newFeedState}),
         feedIdInitState
     );
     useEffect(() => {
@@ -42,6 +42,7 @@ export const FeedIdPage = () => {
             await api.getOrderByNumber(id)
                 .then(res => {
                     return setFeedState({
+                        ...feedState,
                         order: res.orders[0] as TOrder
                     });
                 })
@@ -61,6 +62,7 @@ export const FeedIdPage = () => {
             ) as TCard[]
         }
         setFeedState({
+            ...feedState,
             orderIngredients: getIngredients(),
             price: getIngredients().reduce((prevVal: any, item: { price: number; }) => prevVal + item?.price, 0)
         })
@@ -69,6 +71,7 @@ export const FeedIdPage = () => {
     useEffect(() => {
         if (feedState.orderIngredients && feedState.orderIngredients[0] !== undefined) {
             setFeedState({
+                ...feedState,
                 countedIngredients: getCountedItems(feedState.orderIngredients)
             })
         }
