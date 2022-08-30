@@ -1,4 +1,4 @@
-import {AppDispatch, AppThunk} from "../../types/redux";
+import {AppThunk} from "../../types/redux";
 import {
     GET_PROFILE_INFO_FAILED,
     GET_PROFILE_INFO_IN_PROGRESS,
@@ -28,8 +28,9 @@ import {
 
 import api from "../../../api/Api";
 import {setCookie} from "../../../utils/cookie";
+import {TUser} from "../../types";
 
-export const register: AppThunk = (email, password, name) => (dispatch: AppDispatch) => {
+export const register: AppThunk = (email: string, password: string, name: string) => (dispatch) => {
     dispatch({
         type: REGISTER_REQUEST_IN_PROGRESS
     });
@@ -51,7 +52,7 @@ export const register: AppThunk = (email, password, name) => (dispatch: AppDispa
         })
 }
 
-export const login: AppThunk = (email, password) => (dispatch: AppDispatch) => {
+export const login: AppThunk = (email: string, password: string) => (dispatch) => {
     dispatch({
         type: LOGIN_REQUEST_IN_PROGRESS
     });
@@ -73,7 +74,7 @@ export const login: AppThunk = (email, password) => (dispatch: AppDispatch) => {
         })
 }
 
-export const logout: AppThunk = (refreshToken) => (dispatch: AppDispatch) => {
+export const logout: AppThunk = (refreshToken: string) => (dispatch) => {
     dispatch({
         type: LOGOUT_REQUEST_IN_PROGRESS
     });
@@ -91,7 +92,7 @@ export const logout: AppThunk = (refreshToken) => (dispatch: AppDispatch) => {
             return err
         })
 }
-export const refreshToken: AppThunk = (refreshToken) => (dispatch: AppDispatch) => {
+export const refreshToken: AppThunk = (refreshToken: string) => (dispatch) => {
     dispatch({
         type: REFRESH_TOKEN_REQUEST_IN_PROGRESS
     });
@@ -114,7 +115,7 @@ export const refreshToken: AppThunk = (refreshToken) => (dispatch: AppDispatch) 
         })
 }
 
-export const getProfileInfo: AppThunk = (token) => (dispatch: AppDispatch) => {
+export const getProfileInfo: AppThunk = (token: string) => (dispatch) => {
     dispatch({
         type: GET_PROFILE_INFO_IN_PROGRESS
     });
@@ -134,7 +135,7 @@ export const getProfileInfo: AppThunk = (token) => (dispatch: AppDispatch) => {
         })
 }
 
-export const setProfileInfo: AppThunk = (token, email, password, name) => (dispatch: AppDispatch) => {
+export const setProfileInfo: AppThunk = (token: string, email: string, password: string, name: string) => (dispatch) => {
     dispatch({
         type: SET_PROFILE_INFO_IN_PROGRESS
     });
@@ -153,7 +154,7 @@ export const setProfileInfo: AppThunk = (token, email, password, name) => (dispa
             return err
         })
 }
-export const resetPassword: AppThunk = (email) => (dispatch: AppDispatch) => {
+export const resetPassword: AppThunk = (email: string) => (dispatch) => {
     dispatch({
         type: RESET_PASSWORD_IN_PROGRESS
     });
@@ -172,7 +173,7 @@ export const resetPassword: AppThunk = (email) => (dispatch: AppDispatch) => {
         })
 }
 
-export const setNewPassword: AppThunk = (email, token) => (dispatch: AppDispatch) => {
+export const setNewPassword: AppThunk = (email: string, token: string) => (dispatch) => {
     dispatch({
         type: SET_NEW_PASSWORD_IN_PROGRESS
     });
@@ -191,7 +192,13 @@ export const setNewPassword: AppThunk = (email, token) => (dispatch: AppDispatch
         })
 }
 
-function checkSuccess(res: any) {
+function checkSuccess(res: {
+    refreshToken: string;
+    accessToken: string;
+    user: TUser;
+    success: boolean;
+    message: () => string;
+}) {
     if (res && res.success) {
         return res
     }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FormEvent} from 'react'
 import style from "../../components/form/form.module.css";
 import {Form} from "../../components/form/Form";
 import {Input} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,7 +13,7 @@ export function ForgotPasswordPage() {
     const {formData, handleInputChange} = useForm({email: ""});
     const {email} = formData;
 
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = (e: FormEvent<Element>) => {
         e.preventDefault()
         dispatch(resetPassword(email))
             .then(() => history.replace("/reset-password"))

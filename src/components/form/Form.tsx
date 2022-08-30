@@ -1,11 +1,11 @@
-import React, {FC} from "react";
+import React, {FC, FormEvent} from "react";
 import style from "./form.module.css";
 import {Button} from "@ya.praktikum/react-developer-burger-ui-components";
 
 interface IFormProps {
     header: string,
     buttonText: string,
-    handleSubmit: (e?: any) => void
+    handleSubmit?: (e: FormEvent) => void
 }
 
 export const Form: FC<IFormProps> = ({header, buttonText, handleSubmit, children}) => {

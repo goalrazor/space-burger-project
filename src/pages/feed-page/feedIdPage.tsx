@@ -50,11 +50,11 @@ export const FeedIdPage = () => {
 
         getOrder();
     }, [])
-    const ingredients: ReadonlyArray<TCard> = useSelector(store => store.ingredientReducer.ingredients) as ReadonlyArray<TCard>
+    const ingredients = useSelector(store => store.ingredientReducer.ingredients)
 
     useEffect(() => {
         const getIngredients = () => {
-            return feedState.order?.ingredients.map((item: string) => {
+            return feedState.order?.ingredients.map((item) => {
                     return ingredients.find(ingredient => {
                         return ingredient._id === item
                     })
@@ -64,7 +64,7 @@ export const FeedIdPage = () => {
         setFeedState({
             ...feedState,
             orderIngredients: getIngredients(),
-            price: getIngredients().reduce((prevVal: any, item: { price: number; }) => prevVal + item?.price, 0)
+            price: getIngredients().reduce((prevVal, item) => prevVal + item?.price, 0)
         })
     }, [feedState.order, ingredients])
 
@@ -123,7 +123,7 @@ export const FeedIdPage = () => {
                 <div className={`${scrollerStyle.scroller} ${scrollerStyle.orderInfoScroller}`}>
                     {feedState.countedIngredients &&
                         <>
-                            {feedState.countedIngredients.map((item: TCard & { count?: number | undefined; }) => {
+                            {feedState.countedIngredients.map((item) => {
                                 return (
                                     <OrderIngredientsInfo key={item._id} ingredient={item}/>
                                 )

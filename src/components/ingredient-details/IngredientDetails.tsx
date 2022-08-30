@@ -41,13 +41,10 @@ const IngredientDetails = () => {
         type: ""
     };
 
-    const ingredients: ReadonlyArray<TCard>
-        = useSelector(store => store.ingredientReducer.ingredients)
+    const ingredients = useSelector(store => store.ingredientReducer.ingredients)
     if (ingredients.length > 0) {
-        ingredient = ingredients.find((item: { _id: string; }) => item._id === id) as TCard
+        ingredient = ingredients.find((item) => item._id === id) as TCard
     }
-
-    const {image_large, name, calories, proteins, fat, carbohydrates} = ingredient
 
     return (
         <>
@@ -55,11 +52,11 @@ const IngredientDetails = () => {
                 <div className={ingredientDetailsStyle.ingredientDetailsContainer}>
                     <img
                         className={ingredientDetailsStyle.image}
-                        src={image_large}
-                        alt={name}/>
+                        src={ingredient.image_large}
+                        alt={ingredient.name}/>
                     <p
                         className={'text text_type_main-medium mt-4 mb-8'}>
-                        {name}
+                        {ingredient.name}
                     </p>
                     <ul className={ingredientDetailsStyle.stats}>
                         <li className={ingredientDetailsStyle.stat}>
@@ -67,7 +64,7 @@ const IngredientDetails = () => {
                                 Калории,ккал
                             </p>
                             <p className={statsDigitsStyle}>
-                                {calories}
+                                {ingredient.calories}
                             </p>
                         </li>
                         <li className={ingredientDetailsStyle.stat}>
@@ -75,7 +72,7 @@ const IngredientDetails = () => {
                                 Белки, г
                             </p>
                             <p className={statsDigitsStyle}>
-                                {proteins}
+                                {ingredient.proteins}
                             </p>
                         </li>
                         <li className={ingredientDetailsStyle.stat}>
@@ -83,7 +80,7 @@ const IngredientDetails = () => {
                                 Жиры, г
                             </p>
                             <p className={statsDigitsStyle}>
-                                {fat}
+                                {ingredient.fat}
                             </p>
                         </li>
                         <li className={ingredientDetailsStyle.stat}>
@@ -91,7 +88,7 @@ const IngredientDetails = () => {
                                 Углеводы, г
                             </p>
                             <p className={statsDigitsStyle}>
-                                {carbohydrates}
+                                {ingredient.carbohydrates}
                             </p>
                         </li>
                     </ul>

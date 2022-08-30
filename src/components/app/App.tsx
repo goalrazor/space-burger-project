@@ -23,7 +23,7 @@ import {FeedIdModalPage} from "../../pages/feed-id-modal-page/feedIdModalPage";
 function App() {
     const dispatch = useDispatch();
     const location = useLocation<any>();
-    const background = location.state?.background;
+    const background = location.state?.background
 
     useEffect(() => {
         dispatch(

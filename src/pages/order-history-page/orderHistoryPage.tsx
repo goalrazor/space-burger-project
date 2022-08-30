@@ -3,7 +3,7 @@ import style from "./historyPage.module.css";
 import {History} from "../../components/history/history";
 import {ProfileNav} from "../../components/profile-nav/profileNav";
 import {WS_CONNECTION_CLOSED, WS_CONNECTION_START} from "../../services/actions/webSocket";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import {getCookie} from "../../utils/cookie";
 import {WS_URL_AUTH} from "../../utils/constants";
 

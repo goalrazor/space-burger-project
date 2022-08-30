@@ -4,7 +4,7 @@ import ModalOverlay from "../modal-overlay/ModalOverlay";
 import modalStyles from './Modal.module.css'
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components'
 import {useHistory} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks/hooks";
 import {CLOSE_ORDER_MODAL} from "../../services/actions/burger-constructor-ingredients";
 
 const modalsContainer: Element = document.querySelector('#modals') as Element;

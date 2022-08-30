@@ -18,7 +18,7 @@ export function SendOrderModalPage() {
     useEffect(() => {
             async function makeOrder() {
                 return await dispatch(setOrder({
-                        ingredients: data.map((item: { _id: string; }) => {
+                        ingredients: data.map((item) => {
                             return item._id
                         })
                     },

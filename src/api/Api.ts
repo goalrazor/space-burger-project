@@ -120,11 +120,11 @@ class API {
             .then(this._checkResponse)
     };
 
-    _checkResponse(res: any) {
+    _checkResponse(res: Response) {
         if (res.status === 200) {
             return res.json()
         }
-        return res.json().then((res: { message: any; }) => {
+        return res.json().then((res) => {
             throw res.message
         })
     }

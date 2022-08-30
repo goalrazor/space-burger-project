@@ -11,7 +11,7 @@ const Card: FC<TCard> = (props) => {
     const dispatch = useDispatch();
     const itemCount: number = useSelector(store =>
         store.ingredientReducer.ingredients
-            .filter((item: { _id: string; }) => item._id === props._id)[0].ingredientCount)
+            .filter((item) => item._id === props._id)[0].ingredientCount)
     const location = useLocation();
 
     const setCardState = () => {

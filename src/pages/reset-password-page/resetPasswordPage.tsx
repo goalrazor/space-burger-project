@@ -30,7 +30,7 @@ export function ResetPasswordPage() {
         async (e) => {
             e.preventDefault()
             await dispatch(setNewPassword(password, getCookie("accessToken")))
-                .then((response: { success: any; }) => {
+                .then((response: { success: boolean; }) => {
                     if (response.success) {
                         return response
                     }

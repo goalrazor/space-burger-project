@@ -1,6 +1,8 @@
 import {TActions,} from "../actions/webSocket";
+import {Middleware, MiddlewareAPI} from "redux";
+import {AppDispatch, RootState} from "../types/redux";
 
-export const socketMiddleware = (actions: TActions) => {
+export const socketMiddleware = (actions: TActions): Middleware => {
     const {
         WS_CONNECTION_START,
         WS_CONNECTION_SUCCESS,
@@ -9,10 +11,10 @@ export const socketMiddleware = (actions: TActions) => {
         WS_CONNECTION_CLOSED,
         WS_SEND_MESSAGE
     } = actions
-    return (store: { dispatch: any; }) => {
+    return (store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 
-        return (next: (arg0: any) => void) => (action: { type: string; payload: any; }) => {
+        return next => action => {
             const {dispatch} = store;
             const {type, payload} = action;
 

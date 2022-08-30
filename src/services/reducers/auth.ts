@@ -62,7 +62,11 @@ const initialState: TAuthState = {
     registerRequestFailed: false,
     accessToken: "",
     refreshToken: "",
-    user: {},
+    user: {
+        name: "",
+        password: "",
+        email: ""
+    },
 
     loginRequestInProgress: false,
     loginRequestFailed: false,
@@ -112,7 +116,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
                 ...state,
                 registerRequestFailed: true,
                 registerRequestInProgress: false,
-                user: {},
+                user: initialState.user,
                 accessToken: "",
                 refreshToken: ""
             };
@@ -140,7 +144,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
                 ...state,
                 loginRequestFailed: true,
                 loginRequestInProgress: false,
-                user: {},
+                user: initialState.user,
                 accessToken: "",
                 refreshToken: ""
             }
@@ -156,7 +160,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
             return {
                 ...state,
                 logoutRequestFailed: false,
-                user: {},
+                user: initialState.user,
                 accessToken: "",
                 refreshToken: "",
                 logoutRequestInProgress: false,
@@ -237,7 +241,7 @@ export const authReducer = (state = initialState, action: TAuthActions): TAuthSt
         case SET_PROFILE_INFO_FAILED: {
             return {
                 ...state,
-                user: {},
+                user: initialState.user,
                 setProfileInfoFailed: true,
                 setProfileInfoInProgress: false
             }

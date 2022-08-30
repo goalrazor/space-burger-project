@@ -12,7 +12,7 @@ const ConstructorListElement: FC<TCard & {
     moveCardHandler?: (dragIndex: number, hoverIndex: number) => void
 }>
     = ({position, name, price, image, uuid, _id, index, moveCardHandler}) => {
-    const burgerConstructorIngredientsLength: number = useSelector(store => store.ingredientReducer.constructorIngredients.filter((item: { type: string; }) => item.type !== 'bun').length)
+    const burgerConstructorIngredientsLength: number = useSelector(store => store.ingredientReducer.constructorIngredients.filter((item) => item.type !== 'bun').length)
     const dispatch = useDispatch();
 
     useEffect(() => {

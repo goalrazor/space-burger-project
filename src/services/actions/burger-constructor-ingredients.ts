@@ -1,6 +1,6 @@
 import api from "../../api/Api";
 import {DELETE_ALL_INGREDIENTS, RESET_TOTAL_PRICE} from "./burger-ingredients";
-import {AppDispatch, AppThunk} from "../types/redux";
+import {AppThunk} from "../types/redux";
 
 export const SET_ORDER_REQUEST: 'SET_ORDER_REQUEST' = 'SET_ORDER_REQUEST';
 export const SET_ORDER_REQUEST_FAILED: 'SET_ORDER_REQUEST_FAILED' = 'SET_ORDER_REQUEST_FAILED';
@@ -36,7 +36,7 @@ export type TBurgerConstructorIngredientsActions =
     | ICloseOrderModal
     | ISetConstructorButtonEnabled
 
-const resetConstructor: AppThunk = () => (dispatch: AppDispatch) => {
+const resetConstructor: AppThunk = () => (dispatch) => {
     dispatch({
         type: DELETE_ALL_INGREDIENTS
     })
@@ -45,7 +45,7 @@ const resetConstructor: AppThunk = () => (dispatch: AppDispatch) => {
     })
 }
 
-export const setOrder: AppThunk = (body, token) => (dispatch: AppDispatch) => {
+export const setOrder: AppThunk = (body, token) => (dispatch) => {
     dispatch({
         type: SET_ORDER_REQUEST
     });

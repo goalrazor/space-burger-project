@@ -1,5 +1,5 @@
 import api from "../../api/Api";
-import {AppDispatch, AppThunk} from "../types/redux";
+import {AppThunk} from "../types/redux";
 import {TCard} from "../types";
 
 export const TOTAL_PRICE: 'TOTAL_PRICE' = 'TOTAL_PRICE';
@@ -110,7 +110,7 @@ export type TBurgerIngredientActions =
     | IDeleteAllIngredientsAction
     | ISetCurrentTabAction
 
-export const getIngredients: AppThunk = () => (dispatch: AppDispatch) => {
+export const getIngredients: AppThunk = () => (dispatch) => {
     dispatch({
         type: GET_INGREDIENTS_REQUEST
     });
@@ -135,7 +135,7 @@ export const getIngredients: AppThunk = () => (dispatch: AppDispatch) => {
         });
 }
 
-export const setCurrentTab: AppThunk = (currentTab) => (dispatch: AppDispatch) => {
+export const setCurrentTab: AppThunk = (currentTab) => (dispatch) => {
     dispatch({
         type: SET_CURRENT_TAB,
         currentTab: currentTab
