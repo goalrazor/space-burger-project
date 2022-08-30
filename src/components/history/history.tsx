@@ -9,7 +9,6 @@ import {TOrder} from "../../services/types";
 
 export const History = () => {
     const orders: Array<TOrder> = useSelector(store => store.wsReducer.orders) as Array<TOrder>;
-    //fixme
 
     return (
         <section className={container.container}>
